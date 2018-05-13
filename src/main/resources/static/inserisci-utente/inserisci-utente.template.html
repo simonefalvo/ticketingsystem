@@ -11,33 +11,33 @@
 
     <tr>
         <td>Nome</td>
-        <td><input type='text' name='nome' class='form-control' required></td>
+        <td><input type='text' ng-model='utente.nome' class='form-control' required></td>
     </tr>
 
     <tr>
         <td>Cognome</td>
-        <td><input type='text' name='cognome' class='form-control' required></td>
+        <td><input type='text' ng-model='utente.cognome' class='form-control' required></td>
     </tr>
 
     <tr>
         <td>Username</td>
-        <td><input type='text' name='username' class='form-control' required></td>
+        <td><input type='text' ng-model='utente.username' class='form-control' required></td>
     </tr>
 
     <tr>
         <td>Email</td>
-        <td><input type='email' name='email' class='form-control' required></td>
+        <td><input type='email' ng-model='utente.email' class='form-control' required></td>
     </tr>
 
     <tr>
         <td>Password</td>
-        <td><input type='password' name='password' class='form-control' required></td>
+        <td><input type='password' ng-model='utente.password' class='form-control' required></td>
     </tr>
 
     <tr>
         <td>Tipo</td>
         <td>
-            <select class="form-control" name="tipo" id="tipo">
+            <select class="form-control" ng-model="utente.tipo" id="tipo">
 
                 <option value=0> Admin </option>
                 <option value=1> Capogruppo </option>
@@ -50,8 +50,8 @@
 
     <tr>
         <td colspan="2">
-            <button type="submit" class="btn btn-primary"> Inserisci </button>
-            <button type="reset" class="btn btn-primary"> Reset </button>
+            <button type="submit" href="#!/utente" ng-click="$ctrl.inserisci()" class="btn btn-primary"> Inserisci </button>
+            <button type="reset" href="#!/utente" class="btn btn-primary"> Annulla </button>
         </td>
     </tr>
 

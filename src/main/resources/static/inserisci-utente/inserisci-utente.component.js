@@ -5,9 +5,11 @@ angular.
 module('inserisciUtente').
 component('inserisciUtente', {
     templateUrl: 'inserisci-utente/inserisci-utente.template.html',
-    controller: ['$http', function inserisciUtenteController($http) {
+    controller: ['$http', function inserisciUtenteController($scope, $http) {
 
-        var self = this;
+        var inserisci = function () {
+            $http.post('/utente', $scope.utente);
+        }
 
     }]
 });
