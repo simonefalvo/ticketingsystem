@@ -10,7 +10,7 @@ angular.
         when('/', {
           template: '<lista-utente></lista-utente>'
         }).
-        when('/utenti', {
+        when('/utente', {
           template: '<lista-utente></lista-utente>'
         }).
         when('/ticket', {

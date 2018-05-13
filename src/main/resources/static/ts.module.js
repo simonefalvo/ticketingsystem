@@ -4,5 +4,6 @@
 angular.module('ticketingSystemApp', [
     'ngRoute',
     'navbar',
-    'listaUtente'
+    'listaUtente',
+    'listaTicket'
 ]);
