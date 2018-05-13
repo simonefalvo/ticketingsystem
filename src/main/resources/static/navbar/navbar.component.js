@@ -5,8 +5,6 @@ angular.
 module('navbar').
 component('navbar', {
     templateUrl: 'navbar/navbar.template.html',
-    controller: ['$http', function navbarController($http) {
-
-        var self = this;
+    controller: [function navbarController() {
 
     }]});

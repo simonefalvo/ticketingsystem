@@ -16,23 +16,24 @@ component('listaUtente', {
             }, function (reason) {
                 console.log("Error: " + reason.statusText);
             });
-        }
+        };
 
         self.getAll();
 
         self.visualizza = function (utenteId) {
             $location.path('/dettagli-utente/' + utenteId.toString());
             //$http.get('utente/' + utenteId.toString());
-        }
+        };
 
         self.elimina = function (utenteId) {
             $http.delete('utente/' + utenteId.toString()).
                 then(function (response) {
                     self.getAll();
+                    console.log("Success: " + response.statusText);
             }, function (reason) {
                     console.log("Error: " + reason.statusText);
             })
-        }
+        };
 
     }]
 });
