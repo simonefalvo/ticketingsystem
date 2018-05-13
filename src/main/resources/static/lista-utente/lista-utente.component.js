@@ -9,12 +9,16 @@ component('listaUtente', {
 
         var self = this;
 
-        $http.get('utente/').then(function(response) {
-            self.utenti = response.data;
-            console.log("Success: " + response.statusText);
-        }, function (reason) {
-            console.log("Error: " + reason.statusText);
-        });
+        self.getAll = function () {
+            $http.get('utente/').then(function(response) {
+                self.utenti = response.data;
+                console.log("Success: " + response.statusText);
+            }, function (reason) {
+                console.log("Error: " + reason.statusText);
+            });
+        }
+
+        self.getAll();
 
         self.visualizza = function (utenteId) {
             $location.path('/dettagli-utente/' + utenteId.toString());
@@ -22,9 +26,12 @@ component('listaUtente', {
         }
 
         self.elimina = function (utenteId) {
-            $http.delete('utente/' + utenteId.toString());
-            //TODO: rimuovere il record da self.utenti
-            //self.utenti.remove(id, utenteId.toString());
+            $http.delete('utente/' + utenteId.toString()).
+                then(function (response) {
+                    self.getAll();
+            }, function (reason) {
+                    console.log("Error: " + reason.statusText);
+            })
         }
 
     }]
