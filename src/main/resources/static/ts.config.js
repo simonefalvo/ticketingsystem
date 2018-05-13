@@ -8,7 +8,7 @@ angular.
 
       $routeProvider.
         when('/', {
-          template: '<lista-utente></lista-utente>'
+          template: ''
         }).
         when('/utente', {
           template: '<lista-utente></lista-utente>'
@@ -16,8 +16,17 @@ angular.
         when('/ticket', {
           template: '<lista-ticket></lista-ticket>'
         }).
-        when('/dettaglio/:personaId?', {
-          template: '<dettagli-persona></dettagli-persona>'
+        when('/nuovo-ticket', {
+          template: '<inserisci-ticket></inserisci-ticket>'
+        }).
+        when('/nuovo-utente', {
+          template: '<inserisci-utente></inserisci-utente>'
+        }).
+        when('/utente/:utenteId?', {
+          template: '<dettagli-utente></dettagli-utente>'
+        }).
+        when('/ticket/:ticketId?', {
+          template: '<dettagli-ticket></dettagli-ticket>'
         }).
         otherwise('/');
     }
