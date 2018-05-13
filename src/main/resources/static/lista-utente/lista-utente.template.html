@@ -19,23 +19,14 @@
         </thead>
 
         <tbody>
-        <tr>
-            <td>0</td>
-            <td>Mario</td>
-            <td>Rossi</td>
-            <td> <button> Visualizza </button> </td>
-            <td> <button> Elimina </button> </td>
-        </tr>
         <tr ng-repeat="x in $ctrl.utenti">
             <td>{{ x.id}}</td>
             <td>{{ x.nome}}</td>
             <td>{{ x.cognome}}</td>
-            <td> <button  ng-click="$ctrl.dettagli()"> Visualizza </button> </td>
-            <td> <button ng-click="$ctrl.elimina()"> Elimina </button> </td>
+            <td> <button  ng-click="$ctrl.visualizza(x.id)"> Visualizza </button> </td>
+            <td> <button ng-click="$ctrl.elimina(x.id)"> Elimina </button> </td>
         </tr>
         </tbody>
     </table>
 
 </div>
-
-<!--onclick="location.href='#!/dettagli-utente/{{x.id}}'"-->

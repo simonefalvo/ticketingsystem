@@ -22,10 +22,10 @@ angular.
         when('/nuovo-utente', {
           template: '<inserisci-utente></inserisci-utente>'
         }).
-        when('/utente/:utenteId?', {
+        when('/dettagli-utente/:utenteId?', {
           template: '<dettagli-utente></dettagli-utente>'
         }).
-        when('/ticket/:ticketId?', {
+        when('/dettagli-ticket/:ticketId?', {
           template: '<dettagli-ticket></dettagli-ticket>'
         }).
         otherwise('/');
