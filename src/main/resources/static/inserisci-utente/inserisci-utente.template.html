@@ -11,33 +11,33 @@
 
     <tr>
         <td>Nome</td>
-        <td><input type='text' ng-model='utente.nome' class='form-control' required></td>
+        <td><input type='text' ng-model='$ctrl.utente.nome' class='form-control' required></td>
     </tr>
 
     <tr>
         <td>Cognome</td>
-        <td><input type='text' ng-model='utente.cognome' class='form-control' required></td>
+        <td><input type='text' ng-model='$ctrl.utente.cognome' class='form-control' required></td>
     </tr>
 
     <tr>
         <td>Username</td>
-        <td><input type='text' ng-model='utente.username' class='form-control' required></td>
+        <td><input type='text' ng-model='$ctrl.utente.username' class='form-control' required></td>
     </tr>
 
     <tr>
         <td>Email</td>
-        <td><input type='email' ng-model='utente.email' class='form-control' required></td>
+        <td><input type='email' ng-model='$ctrl.utente.email' class='form-control' required></td>
     </tr>
 
     <tr>
         <td>Password</td>
-        <td><input type='password' ng-model='utente.password' class='form-control' required></td>
+        <td><input type='password' ng-model='$ctrl.utente.password' class='form-control' required></td>
     </tr>
 
     <tr>
         <td>Tipo</td>
         <td>
-            <select class="form-control" ng-model='utente.tipo' id="tipo">
+            <select class="form-control" ng-model='$ctrl.utente.tipo' id="tipo">
 
                 <option value=0> Admin </option>
                 <option value=1> Capogruppo </option>
@@ -50,8 +50,10 @@
 
     <tr>
         <td colspan="2">
-            <button type="submit" ng-click="$ctrl.inserisci()" class="btn btn-primary"> Inserisci </button>
-            <button type="reset" ng-click="$ctrl.annulla()" class="btn btn-primary"> Annulla </button>
+            <!--<button type="submit" ng-click="$ctrl.inserisci()" class="btn btn-primary"> Inserisci </button>-->
+            <!--<button type="reset" ng-click="$ctrl.annulla()" class="btn btn-primary"> Annulla </button>-->
+            <button ng-click="$ctrl.inserisci()" class="btn btn-primary"> Inserisci </button>
+            <button ng-click="$ctrl.annulla()" class="btn btn-primary"> Annulla </button>
         </td>
     </tr>
 

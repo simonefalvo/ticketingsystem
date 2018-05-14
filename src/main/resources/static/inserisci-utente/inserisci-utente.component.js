@@ -5,22 +5,23 @@ angular.
 module('inserisciUtente').
 component('inserisciUtente', {
     templateUrl: 'inserisci-utente/inserisci-utente.template.html',
-    controller: ['$scope', '$http', '$location', function inserisciUtenteController($scope, $http, $location) {
+    controller: ['$http', '$location', function inserisciUtenteController($http, $location) {
 
         var self = this;
 
         self.inserisci = function () {
-            $http.post('/utente', $scope.utente)
+            console.log(self.utente);
+            $http.post('utente/', self.utente)
                 .then(function (response) {
                     $location.path('/utente');
                     console.log('Success: ' + response.statusText);
                 }, function (reason) {
-                    console.log('Error: ' + reason.statusText);
+                    console.log('Error: ' + JSON.stringify(reason));
             });
         };
 
         self.annulla = function () {
-            console.log('prova');
+            console.log('inserimento annullato');
             $location.path('/utente');
         };
     }]
