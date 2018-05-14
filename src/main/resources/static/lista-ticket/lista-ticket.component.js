@@ -9,11 +9,31 @@ component('listaTicket', {
 
         var self = this;
 
-        $http.get('ticket/').then(function(response) {
-            self.tickets = response.data;
-        }, function (reason) {
-            console.log("Err: " + reason.statusText);
-        });
+        self.getAll = function () {
+            $http.get('ticket/').then(function(response) {
+                self.tickets = response.data;
+                console.log("Success: " + response.statusText);
+            }, function (reason) {
+                console.log("Error: " + reason.statusText);
+            });
+        };
+
+        self.getAll();
+
+        self.visualizza = function (ticketId) {
+            $location.path('/dettagli-ticket/' + ticketId.toString());
+            //$http.get('ticket/' + ticketId.toString());
+        };
+
+        self.elimina = function (ticketId) {
+            $http.delete('ticket/' + ticketId.toString()).
+                then(function (response) {
+                    self.getAll();
+                    console.log("Success: " + response.statusText);
+            }, function (reason) {
+                    console.log("Error: " + reason.statusText);
+            })
+        };
 
     }]
 });

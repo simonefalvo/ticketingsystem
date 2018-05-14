@@ -20,6 +20,7 @@ component('inserisciUtente', {
         };
 
         self.annulla = function () {
+            console.log('prova');
             $location.path('/utente');
         };
     }]
