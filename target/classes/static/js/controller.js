@@ -33,14 +33,11 @@ app.controller('utenteController', ['$scope', 'utenteService',
             var apiRoute = baseUrl + 'utente/';
             var _utente = utenteService.getAll(apiRoute);
             _utente.then(function (response) {
-                    alert(response.data);
                     $scope.utenti = response.data;
-
                 },
                 function (error) {
                     console.log("Error: " + error);
                 });
-
         }
         $scope.getUtenti();
 
