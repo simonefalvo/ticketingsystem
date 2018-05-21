@@ -4,7 +4,7 @@
 angular.
 module('inserisciTicket').
 component('inserisciTicket', {
-    templateUrl: 'inserisci-ticket/inserisci-ticket.template.html',
+    templateUrl: 'inserisci-ticket/inserisci-oggetto.template.html',
     controller: ['$http', function inserisciTicketController($http) {
 
         var self = this;

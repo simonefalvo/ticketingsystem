@@ -6,6 +6,8 @@ angular.module('ticketingSystemApp', [
     'navbar',
     'listaUtente',
     'listaTicket',
+    'listaOggetto',
     'inserisciUtente',
-    'inserisciTicket'
+    'inserisciTicket',
+    'inserisciOggetto'
 ]);

@@ -1,12 +1,11 @@
 package it.uniroma2.ticketingsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
@@ -14,7 +13,6 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @Setter
-
 public class Ticket {
 
     @Id
@@ -26,14 +24,16 @@ public class Ticket {
     private Integer prioritaCustomer;
     private Integer prioritaTeam;
     private Integer customerid;
-    private String prodotto;
+    @ManyToOne
+    @JsonBackReference // to avoid infinite recursion in serialization
+    private Oggetto oggetto;
     private Timestamp time_stamp;
     private String descrizione;
     private Integer teamid;
     private Integer assistenteid;
 
     public Ticket(@NotNull Integer id, @NotNull String stato, @NotNull String titolo, @NotNull String categoria, @NotNull Integer prioritaCustomer, @NotNull Integer prioritaTeam, @NotNull Integer teamid,
-                  @NotNull Integer assistente, @NotNull String prodotto, @NotNull Timestamp time_stamp, @NotNull Integer customerid, @NotNull String descrizione){
+                  @NotNull Integer assistente, @NotNull Oggetto oggetto, @NotNull Timestamp time_stamp, @NotNull Integer customerid, @NotNull String descrizione){
 
         this.id = id;
         this.stato = stato;
@@ -46,8 +46,7 @@ public class Ticket {
         this.time_stamp = time_stamp;
         this.customerid = customerid;
         this.descrizione= descrizione;
-        this.prodotto = prodotto;
-
+        this.oggetto = oggetto;
     }
 
     public void aggiorna(@NotNull Ticket nuovoTicket){
@@ -63,10 +62,7 @@ public class Ticket {
         this.time_stamp = nuovoTicket.time_stamp;
         this.customerid = nuovoTicket.customerid;
         this.descrizione= nuovoTicket.descrizione;
-        this.prodotto = nuovoTicket.prodotto;
-
-
+        this.oggetto = nuovoTicket.oggetto;
     }
-
 
 }

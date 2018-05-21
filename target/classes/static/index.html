@@ -25,123 +25,28 @@
     <script src="assets/js/angular-route.js"></script>
     <script src="ts.module.js"></script>
     <script src="ts.config.js"></script>
-    <!--<script src="navbar/navbar.module.js"></script>-->
-    <!--<script src="navbar/navbar.component.js"></script>-->
+    <script src="navbar/navbar.module.js"></script>
+    <script src="navbar/navbar.component.js"></script>
     <script src="lista-utente/lista-utente.module.js"></script>
     <script src="lista-utente/lista-utente.component.js"></script>
     <script src="lista-ticket/lista-ticket.module.js"></script>
     <script src="lista-ticket/lista-ticket.component.js"></script>
+    <script src="lista-oggetto/lista-oggetto.module.js"></script>
+    <script src="lista-oggetto/lista-oggetto.component.js"></script>
     <script src="inserisci-utente/inserisci-utente.module.js"></script>
     <script src="inserisci-utente/inserisci-utente.component.js"></script>
     <script src="inserisci-ticket/inserisci-ticket.module.js"></script>
     <script src="inserisci-ticket/inserisci-ticket.component.js"></script>
+    <script src="inserisci-oggetto/inserisci-oggetto.module.js"></script>
+    <script src="inserisci-oggetto/inserisci-oggetto.component.js"></script>
 
 
-
-</head>
-
-<body>
-
-
-
-<div id="wrapper">
-
-    <nav class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="">Ticketing</a>
-        </div>
-        <!-- /.navbar-header -->
-
-        <ul class="nav navbar-top-links navbar-right">
-            <!-- /.dropdown -->
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user  fa-2x fa-fw"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-                    <li><a href=""><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
-                </ul>
-                <!-- /.dropdown-user -->
-            </li>
-            <!-- /.dropdown -->
-        </ul>
-        <!-- /.navbar-top-links -->
-
-    </nav>
-    <!-- /.navbar-static-top -->
-
-    <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav" id="side-menu">
-                <li>
-                    <div class="user-info-wrapper">
-                        <div class="user-info">
-                            <div class="user-welcome">Benvenuto</div>
-                        </div>
-                    </div>
-                </li>
-                <!-- /input-group -->
-                <li>
-                    <a href="#!/" class="active"><i class="fa fa-dashboard fa-fw fa-3x"></i> Dashboard</a>
-                </li>
-
-                <!-- /.nav-second-level -->
-
-                <li>
-                    <a><i class="fa fa-file-text fa-vis fa-fw fa-3x"></i> Ticket <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="#!/nuovo-ticket" id="nuovo_ticket"> Aggiungi </a>
-                        </li>
-                        <li>
-                            <a href="#!/ticket" id="vis_ticket"> Visualizza Tutti </a>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <li>
-                    <a><i class="fa fa-users fa-vis fa-fw fa-3x"></i> Utenti <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="#!/nuovo-utente" id="nuovo_utente"> Aggiungi </a>
-                        </li>
-                        <li>
-                            <a href="#!/utente" id="vis_utenti"> Visualizza Tutti </a>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <!-- /#side-menu -->
-            </ul>
-        </div>
-        <!-- /.sidebar-collapse -->
-    </nav>
-    <!-- /.navbar-static-side -->
-
-</div>
-<!-- /#wrapper -->
-
-    <!--<navbar></navbar>-->
-    <ng-view></ng-view>
-
-
-
-<!-- Core Scripts - Include with every page -->
+    <!-- Core Scripts - Include with every page -->
     <script src="assets/js/jquery-1.10.2.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
     <!-- Page-Level Plugin Scripts - Dashboard -->
-
     <script src="assets/js/plugins/morris/raphael-2.1.0.min.js"></script>
     <script src="assets/js/plugins/morris/morris.js"></script>
 
@@ -150,6 +55,15 @@
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="assets/js/demo/dashboard-demo.js"></script>
+
+
+</head>
+
+
+<body>
+
+    <navbar></navbar>
+    <ng-view></ng-view>
 
 </body>
 
