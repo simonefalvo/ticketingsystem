@@ -4,11 +4,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import it.uniroma2.ticketingsystem.observer.ObserverUtente;
+
+import java.sql.Timestamp;
 
 @Entity
 @NoArgsConstructor
@@ -25,8 +28,13 @@ public class Utente {
     private String cognome;
     private String username;
     private String password;
-     private String email;
+    private String email;
     private int tipo;
+
+    @Transient
+    private ObserverUtente observer;
+    @Transient
+    public UtenteAudit ua;
 
 
     public Utente(@NotNull String nome, @NotNull String cognome, @NotNull String username, @NotNull String password, @NotNull String email, @NotNull int tipo) {
@@ -45,6 +53,35 @@ public class Utente {
         this.password = datiAggiornati.password;
         this.email = datiAggiornati.email;
         this.tipo = datiAggiornati.tipo;
+    }
 
+    public void notifyObserver(UtenteAudit ua){
+        this.observer.update(ua);
+    }
+
+    public UtenteAudit newUtenteAudit(){
+
+        UtenteAudit ua = new UtenteAudit(this.id, "crezione", this.nome,
+                "nome old", this.cognome, "cognome_old",
+                this.username, "bbb",this.password,"ffff",
+                this.email,"aa@a",this.tipo,1,new Timestamp(System.currentTimeMillis()));
+
+        return ua;
+
+    }
+
+    public UtenteAudit aggiornaUtenteAudit(Utente utente_new){
+
+        UtenteAudit ua = new UtenteAudit(this.id, "modifica", utente_new.nome,
+                this.nome, utente_new.cognome, this.cognome, utente_new.username,
+                this.username, utente_new.password,this.password, utente_new.email,
+                this.email,utente_new.tipo,this.tipo, new Timestamp(System.currentTimeMillis()));
+
+        return ua;
+
+    }
+
+    public void setObserver(ObserverUtente observer) {
+        this.observer = observer;
     }
 }
