@@ -7,26 +7,45 @@
         <!-- /.col-lg-12 -->
     </div>
 
-    <table class="table table-striped table-bordered table-hover">
+    <script type="text/ng-template" id="dettagliUtente.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Dettagli Utente</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <ul>
+                <li >
+                    <p>ID : {{ $modCtrl.items[0] }}</p>
+                    <p>Nome : {{ $modCtrl.items[1] }}</p>
+                    <p>Cognome : {{ $modCtrl.items[2] }}</p>
+                    <p>Email : {{ $modCtrl.items[3] }}</p>
+                    <p>Pass : {{ $modCtrl.items[4] }}</p>
+                    <p>Tipo : {{ $modCtrl.items[5] }}</p>
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$modCtrl.modifica()">Modifica</button>
+            <button class="btn btn-danger" type="button" ng-click="$modCtrl.elimina($modCtrl.items[0])">Elimina Utente</button>
+        </div>
+    </script>
+
+    <table class="table table-striped table-bordered table-hover" >
         <thead>
         <tr>
             <th>ID</th>
             <th>Nome</th>
             <th>Cognome</th>
-            <th>Dettagli Utente</th>
-            <th>Elimina Utente</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr ng-repeat="x in $ctrl.utenti">
+        <tr ng-repeat="x in $ctrl.utenti" ng-click="$ctrl.open(x.id,x.nome,x.cognome,x.email,x.password,x.tipo)">
             <td>{{ x.id}}</td>
             <td>{{ x.nome}}</td>
             <td>{{ x.cognome}}</td>
-            <td> <button  ng-click="$ctrl.visualizza(x.id)"> Visualizza </button> </td>
-            <td> <button ng-click="$ctrl.elimina(x.id)"> Elimina </button> </td>
         </tr>
         </tbody>
     </table>
 
 </div>
+
