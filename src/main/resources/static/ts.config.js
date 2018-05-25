@@ -1,33 +1,42 @@
 'use strict';
 
 angular.
-  module('ticketingSystemApp').
-  config(['$locationProvider' ,'$routeProvider',
-    function config($locationProvider, $routeProvider) {
-      $locationProvider.hashPrefix('!');
+    module('ticketingSystemApp').
+    config(['$locationProvider' ,'$routeProvider',
+        function config($locationProvider, $routeProvider) {
+        $locationProvider.hashPrefix('!');
 
-      $routeProvider.
-        when('/', {
-          template: ''
-        }).
-        when('/utente', {
-          template: '<lista-utente></lista-utente>'
-        }).
-        when('/ticket', {
-          template: '<lista-ticket></lista-ticket>'
-        }).
-        when('/nuovo-ticket', {
-          template: '<inserisci-ticket></inserisci-ticket>'
-        }).
-        when('/nuovo-utente', {
-          template: '<inserisci-utente></inserisci-utente>'
-        }).
-        when('/dettagli-utente/:utenteId?', {
-          template: '<dettagli-utente></dettagli-utente>'
-        }).
-        when('/dettagli-ticket/:ticketId?', {
-          template: '<dettagli-ticket></dettagli-ticket>'
-        }).
-        otherwise('/');
-    }
-  ]);
+        $routeProvider.
+            when('/', {
+                template: ''
+            }).
+            when('/utente', {
+                template: '<lista-utente></lista-utente>'
+            }).
+            when('/ticket', {
+                template: '<lista-ticket></lista-ticket>'
+            }).
+            when('/oggetto', {
+                template: '<lista-oggetto></lista-oggetto>'
+            }).
+            when('/nuovo-ticket', {
+                template: '<inserisci-ticket></inserisci-ticket>'
+            }).
+            when('/nuovo-utente', {
+                template: '<inserisci-utente></inserisci-utente>'
+            }).
+            when('/nuovo-oggetto', {
+                template: '<inserisci-oggetto></inserisci-oggetto>'
+            }).
+            when('/dettagli-utente/:utenteId?', {
+                template: '<dettagli-utente></dettagli-utente>'
+            }).
+            when('/dettagli-ticket/:ticketId?', {
+                template: '<dettagli-ticket></dettagli-ticket>'
+            }).
+            when('/dettagli-oggetto/:oggettoId?', {
+                template: '<dettagli-oggetto></dettagli-oggetto>'
+            }).
+            otherwise('/');
+        }
+    ]);
