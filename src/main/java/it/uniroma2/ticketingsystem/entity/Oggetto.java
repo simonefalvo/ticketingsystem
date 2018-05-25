@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+//@Audited
 public class Oggetto {
 
     @Id
@@ -37,5 +38,4 @@ public class Oggetto {
         this.versione = nuovoOggetto.versione;
         this.tickets = nuovoOggetto.tickets;
     }
-
 }

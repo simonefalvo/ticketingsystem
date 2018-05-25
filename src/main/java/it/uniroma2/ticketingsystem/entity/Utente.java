@@ -5,7 +5,7 @@ package it.uniroma2.ticketingsystem.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.envers.Audited;
+//import org.hibernate.envers.Audited;
 import javax.persistence.Id;
 
 //import org.springframework.data.annotation.Id;
@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 
-@Audited
+//@Audited
 public class Utente {
 
     @Id
@@ -49,6 +49,5 @@ public class Utente {
         this.password = datiAggiornati.password;
         this.email = datiAggiornati.email;
         this.tipo = datiAggiornati.tipo;
-
     }
 }
