@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import org.hibernate.envers.Audited;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@Audited
 public class Oggetto {
 
     @Id
