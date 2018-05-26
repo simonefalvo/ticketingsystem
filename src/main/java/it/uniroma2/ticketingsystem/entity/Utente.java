@@ -5,10 +5,9 @@ package it.uniroma2.ticketingsystem.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-//import org.hibernate.envers.Audited;
-import javax.persistence.Id;
+import org.hibernate.envers.Audited;
 
-//import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +18,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 
-//@Audited
+@Audited
 public class Utente {
 
     @Id
