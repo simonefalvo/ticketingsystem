@@ -1,41 +1,39 @@
 'use strict';
+var module = angular.module('listaUtente',[]);
+// Register `listaUtente` component, along with its associated controller and template
 
-angular.
-module('listaTicket').factory('myService',['$http','$location', function($http,$location) {
+module.factory('myService',['$http','$location', function($http,$location) {
 
-    return{
-        getAll: function () {
-            return $http.get('ticket/').then(function(response) {
-                console.log("Success: " + response.statusText);
-                return response.data;
-            }, function (reason) {
-                console.log("Error: " + reason.statusText);
-            });
-        },
-        cancella: function ($utenteId) {
-            return $http.delete('ticket/' + $utenteId.toString()).
-            then(function (response) {
-                console.log("Success: " + response.statusText);
-            }, function (reason) {
-                console.log("Error: " + reason.statusText);
-            })
-        }
-    };
+        return{
+            getAll: function () {
+                return $http.get('utente/').then(function(response) {
+                    //self.utenti = response.data;
+                    console.log("Success: " + response.statusText);
+                    return response.data;
+                }, function (reason) {
+                    console.log("Error: " + reason.statusText);
+                });
+            },
+            cancella: function ($utenteId) {
+                return $http.delete('utente/' + $utenteId.toString()).
+                then(function (response) {
+                    console.log("Success: " + response.statusText);
+                }, function (reason) {
+                    console.log("Error: " + reason.statusText);
+                })
+            }
+        };
 }]);
 
-// Register `listaUtente` component, along with its associated controller and template
-angular.
-module('listaTicket').
-component('listaTicket', {
-    templateUrl: 'lista-ticket/lista-ticket.template.html',
-    controller: ['$http','$location','$uibModal','$log','$document','myService', function listaTicketController($http,$location,$uibModal, $log, $document,myService) {
+module.component('listaUtente', {
+    templateUrl: 'lista-utente/lista-utente.template.html',
+    controller: ['$http', '$location','$uibModal','$log','$document','myService' ,function listaUtenteController($http, $location,$uibModal, $log, $document,myService) {
 
         var self = this;
 
-
         self.getAll = function () {
-            myService.getAll().then(function(ticket) {
-                self.tickets = ticket;
+            myService.getAll().then(function(utenti) {
+                self.utenti = utenti;
             });
         };
 
@@ -43,15 +41,15 @@ component('listaTicket', {
 
         self.animationsEnabled = true;
 
-        self.open = function (id,assistenteid,customerid,categoria,descrizione,priorita_customer,priorita_team,prodotto,stato,teamid,time_stamp,titolo,oggetto_id,size, parentSelector) {
-            var items = [id,assistenteid,customerid,categoria,descrizione,priorita_customer,priorita_team,prodotto,stato,teamid,time_stamp,titolo,oggetto_id];
+        self.open = function (id,nome,cognome,username,email,password,tipo,size, parentSelector) {
+            var items = [id,nome,cognome,username,email,password,tipo];
             var parentElem = parentSelector ?
                 angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
             var modalInstance = $uibModal.open({
                 animation: self.animationsEnabled,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: 'dettagliTicket.html',
+                templateUrl: 'dettagliUtente.html',
                 controller: 'ModalInstanceCtrl',
                 controllerAs: '$modCtrl',
                 size: size,
@@ -75,7 +73,10 @@ component('listaTicket', {
             self.animationsEnabled = !self.animationsEnabled;
         };
 
+
+
     }]
+
 });
 
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
@@ -98,7 +99,7 @@ angular.module('ui.bootstrap').controller('ModalInstanceCtrl',function ($uibModa
     };
 
     $ctrl.elimina = function ($id) {
-        var bool = confirm("Vuoi davvero cancellare il ticket?");
+        var bool = confirm("Vuoi davvero cancellare l'utente?");
         if (bool == true){
             myService.cancella($id).then(function () {
                 $ctrl.ok();
@@ -117,7 +118,7 @@ angular.module('ui.bootstrap').controller('ModalInstanceCtrl',function ($uibModa
             animation: $ctrl.animationsEnabled,
             ariaLabelledBy: 'modifica-title',
             ariaDescribedBy: 'modifica-body',
-            templateUrl: 'modificaTicket.html',
+            templateUrl: 'modificaUtente.html',
             controller: 'ModalInstanceCtrl',
             controllerAs: '$modificaCtrl',
             size: size,
@@ -137,14 +138,17 @@ angular.module('ui.bootstrap').controller('ModalInstanceCtrl',function ($uibModa
 
     };
 
-    $ctrl.conferma = function ($ticket_id) {
-        $http.put("ticket/"+$ticket_id.toString(),$ctrl.tickets)
+    $ctrl.conferma = function ($utente_id) {
+        alert($ctrl.utente);
+        $http.put("utente/"+$utente_id.toString(),$ctrl.utente)
             .then(function (response) {
-                    console.log('Success: ' + response.statusText);
-                }, function (reason) {
-                    console.log('Error: ' + JSON.stringify(reason));
-                }
+                console.log('Success: ' + response.statusText);
+            }, function (reason) {
+                console.log('Error: ' + JSON.stringify(reason));
+            }
             );
     };
 
 });
+
+
