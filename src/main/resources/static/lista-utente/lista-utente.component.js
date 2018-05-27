@@ -1,5 +1,5 @@
 'use strict';
-var module = angular.module('listaUtente',[]);
+var module = angular.module('listaUtente');
 // Register `listaUtente` component, along with its associated controller and template
 
 module.factory('myService',['$http','$location', function($http,$location) {
@@ -110,5 +110,3 @@ angular.module('ui.bootstrap').controller('ModalInstanceCtrl',function ($uibModa
     };
 
 });
-
-

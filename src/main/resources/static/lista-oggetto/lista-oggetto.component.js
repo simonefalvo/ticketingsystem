@@ -20,19 +20,8 @@ component('listaOggetto', {
 
         self.getAll();
 
-        self.visualizza = function (oggettoId) {
+        self.dettagli = function (oggettoId) {
             $location.path('/dettagli-oggetto/' + oggettoId.toString());
-            //$http.get('oggetto/' + oggettoId.toString());
-        };
-
-        self.elimina = function (oggettoId) {
-            $http.delete('oggetto/' + oggettoId.toString()).
-                then(function (response) {
-                    self.getAll();
-                    console.log("Success: " + response.statusText);
-            }, function (reason) {
-                    console.log("Error: " + reason.statusText);
-            })
         };
 
     }]

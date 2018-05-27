@@ -13,18 +13,14 @@
             <th>ID</th>
             <th>Nome</th>
             <th>Versione</th>
-            <th>Dettagli Oggetto</th>
-            <th>Elimina Oggetto</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr ng-repeat="x in $ctrl.oggetti">
+        <tr ng-repeat="x in $ctrl.oggetti" ng-click="$ctrl.dettagli(x.id)">
             <td>{{ x.id}}</td>
             <td>{{ x.nome}}</td>
             <td>{{ x.versione}}</td>
-            <td> <button  ng-click="$ctrl.visualizza(x.id)"> Visualizza </button> </td>
-            <td> <button ng-click="$ctrl.elimina(x.id)"> Elimina </button> </td>
         </tr>
         </tbody>
     </table>

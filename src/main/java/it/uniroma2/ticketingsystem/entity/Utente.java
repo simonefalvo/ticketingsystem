@@ -1,25 +1,18 @@
 package it.uniroma2.ticketingsystem.entity;
 
-
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-//import org.hibernate.envers.Audited;
-import javax.persistence.Id;
-
-//import org.springframework.data.annotation.Id;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import org.hibernate.envers.Audited;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
 
-//@Audited
+@Audited
 public class Utente {
 
     @Id

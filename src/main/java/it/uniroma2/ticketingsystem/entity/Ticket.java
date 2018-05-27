@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-//import org.hibernate.envers.Audited;
-//import org.springframework.data.annotation.Id;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,7 +14,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @Setter
-//@Audited
+@Audited
 public class Ticket {
 
     @Id
@@ -26,11 +25,8 @@ public class Ticket {
     private Integer prioritaCustomer;
     private Integer prioritaTeam;
     //private Integer customerid;
-    // private String prodotto;
     private String titolo;
     private String stato;
-
-
     @ManyToOne
     @JsonBackReference // to avoid infinite recursion in serialization
     private Oggetto oggetto;
@@ -53,11 +49,8 @@ public class Ticket {
         this.prioritaTeam = prioritaTeam;
         this.titolo = titolo;
         this.stato = stato;
-
-
         this.oggetto = oggetto;
         /*
-        //this.prodotto = prodotto;
         this.teamid = teamid;
         this.assistenteid = assistente;
         this.time_stamp = time_stamp;
