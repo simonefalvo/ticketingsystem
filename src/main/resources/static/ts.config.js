@@ -37,6 +37,12 @@ angular.
             when('/dettagli-oggetto/:oggettoId?', {
                 template: '<dettagli-oggetto></dettagli-oggetto>'
             }).
+            when('/grafico', {
+                templateUrl: "./visualizza-grafico/visualizza-grafico.html"
+                ,
+                controller: "GraphController"
+
+            }).
             otherwise('/');
         }
     ]);
