@@ -1,5 +1,5 @@
 'use strict';
-var module = angular.module('listaUtente');
+var module = angular.module('listaUtente',[]);
 // Register `listaUtente` component, along with its associated controller and template
 
 module.factory('myService',['$http','$location', function($http,$location) {
@@ -41,8 +41,8 @@ module.component('listaUtente', {
 
         self.animationsEnabled = true;
 
-        self.open = function (id,nome,cognome,email,password,tipo,size, parentSelector) {
-            var items = [id,nome,cognome,email,password,tipo];
+        self.open = function (id,nome,cognome,username,email,password,tipo,size, parentSelector) {
+            var items = [id,nome,cognome,username,email,password,tipo];
             var parentElem = parentSelector ?
                 angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
             var modalInstance = $uibModal.open({
@@ -82,12 +82,13 @@ module.component('listaUtente', {
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
-angular.module('ui.bootstrap').controller('ModalInstanceCtrl',function ($uibModalInstance, items,myService) {
+angular.module('ui.bootstrap').controller('ModalInstanceCtrl',function ($uibModalInstance,$uibModal,$http ,items,myService) {
     var $ctrl = this;
     $ctrl.items = items;
     $ctrl.selected = {
         item: $ctrl.items[0]
     };
+    $ctrl.animationsEnabled = true;
 
     $ctrl.ok = function () {
         $uibModalInstance.close();
@@ -106,7 +107,48 @@ angular.module('ui.bootstrap').controller('ModalInstanceCtrl',function ($uibModa
         }else {
             $ctrl.ok();
         }
+    };
+
+    $ctrl.modifica = function ($id,parentSelector,size) {
+        $ctrl.ok();
+
+        var parentElem = parentSelector ?
+            angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+        var modalInstance = $uibModal.open({
+            animation: $ctrl.animationsEnabled,
+            ariaLabelledBy: 'modifica-title',
+            ariaDescribedBy: 'modifica-body',
+            templateUrl: 'modificaUtente.html',
+            controller: 'ModalInstanceCtrl',
+            controllerAs: '$modificaCtrl',
+            size: size,
+            appendTo: parentElem,
+            resolve: {
+                items: function () {
+                    return items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //boh
+        }, function () {
+            //boh
+        });
 
     };
 
+    $ctrl.conferma = function ($utente_id) {
+        alert($ctrl.utente);
+        $http.put("utente/"+$utente_id.toString(),$ctrl.utente)
+            .then(function (response) {
+                console.log('Success: ' + response.statusText);
+            }, function (reason) {
+                console.log('Error: ' + JSON.stringify(reason));
+            }
+            );
+    };
+
 });
+
+

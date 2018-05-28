@@ -11,5 +11,6 @@ angular.module('ticketingSystemApp', [
     'inserisciUtente',
     'inserisciTicket',
     'inserisciOggetto',
-    'dettagliOggetto'
+    'dettagliOggetto',
+    'visualizzaGrafico'
 ]);
