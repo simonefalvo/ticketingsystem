@@ -23,10 +23,10 @@ public class ObserverUtente extends Observer {
 
 
 
-     /*   System.out.println("xoxo gossip girl " + utenteAuditDao.toString());
+        System.out.println("lalalalaalalalallala tre " + utenteAuditDao.toString());
 
         UtenteAudit uaSalvato = utenteAuditDao.save(ua);
-*/
+
 
     }
 }

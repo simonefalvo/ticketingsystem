@@ -27,7 +27,7 @@ public class UtenteController {
     public @NotNull Utente creaUtente(@NotNull Utente utente) {
         Utente utenteSalvato = utenteDao.save(utente);
 
-     //   new ObserverUtente(utente);
+        new ObserverUtente(utente);
 
         UtenteAudit ua = utente.newUtenteAudit();
 
@@ -35,7 +35,7 @@ public class UtenteController {
 
         utenteAuditDao.save(ua);
 
-    //    utente.notifyObserver(ua);
+        utente.notifyObserver(ua);
 
         return utenteSalvato;
     }
