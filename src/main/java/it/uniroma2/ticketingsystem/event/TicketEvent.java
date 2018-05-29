@@ -1,18 +1,20 @@
 package it.uniroma2.ticketingsystem.event;
 
+import it.uniroma2.ticketingsystem.controller.TicketAuditController;
 import it.uniroma2.ticketingsystem.entity.Ticket;
-import it.uniroma2.ticketingsystem.rest.TicketAuditRestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.ApplicationEvent;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
+/*
+    Classe degli eventi relativi a ticket
+
+ */
 
 @Configurable
 public class TicketEvent extends ApplicationEvent {
 
     @Autowired
-    TicketAuditRestService ticketAuditRestService;
+    TicketAuditController ticketAuditController;
 
     private Ticket ticket;
     private int token;
@@ -31,17 +33,4 @@ public class TicketEvent extends ApplicationEvent {
         return this.ticket;
     }
 
-    public void registerTicketInsert(){
-        if(ticketAuditRestService == null)
-            System.out.println("\n\n\n\n ticketAuditRestService è null");
-        ticketAuditRestService.registerTicketInsert(this.ticket);
-    }
-
-    public void registerTicketDelete(){
-        //TODO
-    }
-
-    public void registerTicketMod(){
-        //TODO
-    }
 }

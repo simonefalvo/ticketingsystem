@@ -54,5 +54,6 @@ public class TicketAudit implements Serializable {
         this.operation = operation;
     }
 
-
+    public TicketAudit() {
+    }
 }

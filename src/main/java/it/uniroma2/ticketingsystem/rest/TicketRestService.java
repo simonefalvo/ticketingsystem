@@ -35,10 +35,10 @@ public class TicketRestService {
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> eliminaTicket(@PathVariable Integer id) {
         boolean ticketEliminato = ticketController.eliminaTicket(id);
-
+        /*
         TicketEvent ticketEvent = new TicketEvent(this,ticketController.cercaTicketById(id),1);
         applicationEventPublisher.publishEvent(ticketEvent);
-
+        */
         return new ResponseEntity<>(ticketEliminato, ticketEliminato ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
@@ -60,10 +60,10 @@ public class TicketRestService {
         Ticket ticketAggiornato;
         try {
             ticketAggiornato = ticketController.aggiornaTicket(id, ticket);
-
+            /*
             TicketEvent ticketEvent = new TicketEvent(this,ticket,2);
             applicationEventPublisher.publishEvent(ticketEvent);
-
+            */
         } catch (EntitaNonTrovataException e) {
             return new ResponseEntity<>(ticket, HttpStatus.NOT_FOUND);
         }
