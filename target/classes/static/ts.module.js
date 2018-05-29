@@ -10,9 +10,10 @@ angular.module('ticketingSystemApp', [
     'listaOggetto',
     'inserisciUtente',
     'inserisciTicket',
-    'inserisciOggetto'
-
-    ,
+    'inserisciOggetto',
+    'dettagliUtente',
+    'dettagliOggetto',
+    'dettagliTicket',
     'visualizzaGrafico'
 
 ]);
