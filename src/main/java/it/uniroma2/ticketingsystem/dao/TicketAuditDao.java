@@ -1,9 +1,9 @@
 package it.uniroma2.ticketingsystem.dao;
 
-import it.uniroma2.ticketingsystem.entity.Ticket;
+import it.uniroma2.ticketingsystem.entity.TicketAudit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TicketDao extends JpaRepository<Ticket,Integer> {
+public interface TicketAuditDao extends JpaRepository<TicketAudit,Integer> {
 }

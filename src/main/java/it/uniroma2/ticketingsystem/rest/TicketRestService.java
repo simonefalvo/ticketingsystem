@@ -2,8 +2,10 @@ package it.uniroma2.ticketingsystem.rest;
 
 import it.uniroma2.ticketingsystem.controller.TicketController;
 import it.uniroma2.ticketingsystem.entity.Ticket;
+import it.uniroma2.ticketingsystem.event.TicketEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,8 @@ import java.util.List;
 @RequestMapping(path = "ticket")
 public class TicketRestService {
 
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
     private TicketController ticketController;
@@ -21,12 +25,20 @@ public class TicketRestService {
     @RequestMapping(path = "", method = RequestMethod.POST)
     public ResponseEntity<Ticket> creaTicket(@RequestBody Ticket ticket) {
         Ticket ticketCreato = ticketController.creaTicket(ticket);
+
+        TicketEvent ticketEvent = new TicketEvent(this,ticket,0);
+        applicationEventPublisher.publishEvent(ticketEvent);
+
         return new ResponseEntity<>(ticketCreato, HttpStatus.CREATED);
     }
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> eliminaTicket(@PathVariable Integer id) {
         boolean ticketEliminato = ticketController.eliminaTicket(id);
+
+        TicketEvent ticketEvent = new TicketEvent(this,ticketController.cercaTicketById(id),1);
+        applicationEventPublisher.publishEvent(ticketEvent);
+
         return new ResponseEntity<>(ticketEliminato, ticketEliminato ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
@@ -48,6 +60,10 @@ public class TicketRestService {
         Ticket ticketAggiornato;
         try {
             ticketAggiornato = ticketController.aggiornaTicket(id, ticket);
+
+            TicketEvent ticketEvent = new TicketEvent(this,ticket,2);
+            applicationEventPublisher.publishEvent(ticketEvent);
+
         } catch (EntitaNonTrovataException e) {
             return new ResponseEntity<>(ticket, HttpStatus.NOT_FOUND);
         }
