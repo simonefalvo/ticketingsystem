@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@Audited
+
 public class Oggetto {
 
     @Id
@@ -22,6 +22,7 @@ public class Oggetto {
     private Integer id;
     private String nome;
     private String versione;
+
     @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
     @JsonManagedReference   // to avoid infinite recursion in serialization
     private Set<Ticket> tickets;

@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 
-@Audited
 public class Utente {
 
     @Id
