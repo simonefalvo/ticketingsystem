@@ -18,11 +18,14 @@ public class Oggetto {
     @Id
     @GeneratedValue
     private Integer id;
+
     private String nome;
     private String versione;
+
     @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "oggetto")   // to avoid infinite recursion in serialization
     private Set<Ticket> tickets;
+
 
     public Oggetto(@NotNull Integer id, @NotNull String nome, @NotNull String versione, @NotNull Set<Ticket> tickets) {
         this.id = id;

@@ -15,7 +15,7 @@ public class TicketAudController {
     @Autowired
     private TicketAudDao ticketAudDao;
 
-    /*
+
     @Transactional
     public @NotNull TicketAud creaTicketAud(@NotNull TicketAud ticketAud){
 
@@ -23,7 +23,7 @@ public class TicketAudController {
         return ticketAudSalvato;
 
     }
-
+/*
     @Transactional
     public @NotNull TicketAud aggiornaTicketAud(@NotNull Integer id, @NotNull TicketAud datiAggiornati) throws EntitaNonTrovataException {
         TicketAud ticketAudDaAggiornare = ticketAudDao.getOne(id);

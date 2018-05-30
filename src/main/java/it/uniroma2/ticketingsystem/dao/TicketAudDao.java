@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 
 public interface TicketAudDao extends JpaRepository<TicketAud,Integer> {
-    @Query("select count (u) from TicketAud u where u.stato = aperto")
+    @Query("select count (u) from TicketAud u where u.stato = 'open'")
     public Integer numberOfOpenTickets();
 }
