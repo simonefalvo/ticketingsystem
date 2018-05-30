@@ -12,16 +12,15 @@ component('inserisciOggetto', {
         self.inserisci = function () {
             console.log(self.oggetto);
             $http.post('oggetto/', self.oggetto)
-                .then(function (response) {
+                .then(function () {
                     $location.path('/oggetto');
-                    console.log('Success: ' + response.statusText);
+                    alert("oggetto inserito con successo!")
                 }, function (reason) {
-                    console.log('Error: ' + JSON.stringify(reason));
+                    alert('Error: ' + JSON.stringify(reason));
             });
         };
 
         self.annulla = function () {
-            console.log('inserimento annullato');
             $location.path('/oggetto');
         };
     }]

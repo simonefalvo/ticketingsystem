@@ -56,18 +56,19 @@ import java.util.List;
             boolean eliminata = utenteController.eliminaUtente(id);
             return new ResponseEntity<>(eliminata, eliminata ? HttpStatus.OK : HttpStatus.NOT_FOUND);
         }
-        /*
+
         @RequestMapping(path = "", method = RequestMethod.GET)
         public ResponseEntity<List<Utente>> prelevaUtenti() {
             List<Utente> utenti = utenteController.prelevaUtenti();
             return new ResponseEntity<>(utenti, HttpStatus.OK);
         }
-        */
 
+
+        /*
         @RequestMapping(method = RequestMethod.GET)
         public ResponseEntity<Utente> cercaUtentePerEmail(@RequestParam(value = "email") String email) {
             Utente utenteTrovato = utenteController.cercaUtentePerEmail(email);
             return new ResponseEntity<>(utenteTrovato, utenteTrovato == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
         }
-
+        */
 }

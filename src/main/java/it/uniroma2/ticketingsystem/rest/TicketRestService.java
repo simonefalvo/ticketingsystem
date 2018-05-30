@@ -32,7 +32,6 @@ public class TicketRestService {
 
     @RequestMapping(path = "{id}", method = RequestMethod.GET)
     public ResponseEntity<Ticket> cercaTicket(@PathVariable Integer id) {
-        System.out.print("\n Sono in responseEntity");
         Ticket ticketTrovato = ticketController.cercaTicketById(id);
         return new ResponseEntity<>(ticketTrovato, ticketTrovato == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
     }

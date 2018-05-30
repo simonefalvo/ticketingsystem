@@ -14,14 +14,13 @@ component('inserisciUtente', {
             $http.post('utente/', self.utente)
                 .then(function (response) {
                     $location.path('/utente');
-                    console.log('Success: ' + response.statusText);
+                    alert("utente inserito con successo!");
                 }, function (reason) {
-                    console.log('Error: ' + JSON.stringify(reason));
+                    alert('Error: ' + JSON.stringify(reason));
             });
         };
 
         self.annulla = function () {
-            console.log('inserimento annullato');
             $location.path('/utente');
         };
     }]

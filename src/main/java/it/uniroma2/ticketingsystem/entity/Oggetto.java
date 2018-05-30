@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,7 +13,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@Audited
 public class Oggetto {
 
     @Id
@@ -23,7 +21,7 @@ public class Oggetto {
     private String nome;
     private String versione;
     @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
-    @JsonManagedReference   // to avoid infinite recursion in serialization
+    @JsonManagedReference(value = "oggetto")   // to avoid infinite recursion in serialization
     private Set<Ticket> tickets;
 
     public Oggetto(@NotNull Integer id, @NotNull String nome, @NotNull String versione, @NotNull Set<Ticket> tickets) {

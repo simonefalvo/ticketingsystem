@@ -38,7 +38,7 @@ public class OggettoRestService {
     }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public ResponseEntity<List<Oggetto>> prelevaOggettos() {
+    public ResponseEntity<List<Oggetto>> prelevaOggetti() {
         List<Oggetto> oggetto = oggettoController.prelevaOggetti();
         return new ResponseEntity<>(oggetto, HttpStatus.OK);
     }
