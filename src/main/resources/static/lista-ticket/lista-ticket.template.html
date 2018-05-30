@@ -1,10 +1,11 @@
+<!--
 <div id="page-wrapper">
 
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header">Tabella Ticket</h3>
         </div>
-        <!-- /.col-lg-12 -->
+
     </div>
 
     <script type="text/ng-template" id="dettagliTicket.html">
@@ -120,6 +121,35 @@
             <td>{{ x.titolo}}</td>
             <td>{{ x.categoria}}</td>
             <td>{{ x.time_stamp}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+-->
+
+<div id="page-wrapper">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="page-header">Tabella Ticket</h3>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titolo</th>
+            <th>Categoria</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="x in $ctrl.tickets" ng-click="$ctrl.dettagli(x.id)">
+            <td>{{ x.id}}</td>
+            <td>{{ x.titolo}}</td>
+            <td>{{ x.categoria}}</td>
         </tr>
         </tbody>
     </table>

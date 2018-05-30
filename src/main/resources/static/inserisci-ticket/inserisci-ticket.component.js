@@ -5,7 +5,7 @@ angular.
 module('inserisciTicket').
 component('inserisciTicket', {
     templateUrl: 'inserisci-ticket/inserisci-ticket.template.html',
-    controller: ['$http', function inserisciTicketController($http) {
+    controller: ['$http', '$location', function inserisciTicketController($http, $location) {
 
         var self = this;
 
@@ -23,16 +23,16 @@ component('inserisciTicket', {
         self.inserisci = function () {
             console.log(self.ticket);
             $http.post('ticket/', self.ticket)
-                .then(function (response) {
-                    //$location.path('/ticket');
-                    console.log('Success: ' + response.statusText);
+                .then(function () {
+                    $location.path('/ticket');
+                    alert("ticket inserito con successo!")
                 }, function (reason) {
-                    console.log('Error: ' + JSON.stringify(reason));
+                    alert('Error: ' + JSON.stringify(reason));
                 });
         };
 
         self.annulla = function () {
-            console.log('inserimento annullato');
+            $location.path('/ticket');
         };
     }]
 });
