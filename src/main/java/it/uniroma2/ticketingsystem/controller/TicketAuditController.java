@@ -54,8 +54,8 @@ public class TicketAuditController {
     }
     */
 
-        public Integer numberOfOpenTickets(){
-            return ticketAuditDao.numberOfOpenTickets();
-        }
+    public Integer numberOfStatusTickets(String status){
+        return ticketAuditDao.numberOfStatusTickets(status);
+    }
 
 }

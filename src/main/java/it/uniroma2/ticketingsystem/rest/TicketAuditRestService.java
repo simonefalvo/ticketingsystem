@@ -52,9 +52,9 @@ public class TicketAuditRestService {
     }
     */
 
-    @RequestMapping(path = "", method = RequestMethod.GET)
-    public ResponseEntity<Integer> cercaTicketAud() {
-        Integer total = ticketAuditController.numberOfOpenTickets();
+    @RequestMapping(path = "{status}", method = RequestMethod.GET)
+    public ResponseEntity<Integer> NumberOfStatusTickets(@PathVariable String status) {
+        Integer total = ticketAuditController.numberOfStatusTickets(status);
         return new ResponseEntity<>(total, total == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
     }
 
