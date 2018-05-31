@@ -23,7 +23,6 @@ public class TicketController {
 
     @Transactional
     public @NotNull Ticket creaTicket(@NotNull Ticket ticket){
-
         Ticket ticketSalvato = ticketDao.save(ticket);
         return ticketSalvato;
 

@@ -2,28 +2,27 @@ package it.uniroma2.ticketingsystem.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.envers.Audited;
-
-import javax.persistence.Id;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import java.util.Set;
+
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
 
-@Audited
 public class Utente {
 
     @Id
     @GeneratedValue // Autoincrement
     private Integer id;
+
     private String nome;
     private String cognome;
     private String username;
@@ -31,22 +30,41 @@ public class Utente {
     private String email;
     private int tipo;
 
+    @OneToMany(mappedBy = "autore", cascade = CascadeType.ALL)
+    @JsonManagedReference(value="autore")   // to avoid infinite recursion in serialization
+    private Set<Ticket> ticketAperti;
 
-    public Utente(@NotNull String nome, @NotNull String cognome, @NotNull String username, @NotNull String password, @NotNull String email, @NotNull int tipo) {
+    @OneToMany(mappedBy = "teamMember", cascade = CascadeType.ALL)
+    @JsonManagedReference(value="team_member")   // to avoid infinite recursion in serialization
+    private Set<Ticket> ticketAssegnati;
+
+
+    public Utente(@NotNull String nome, @NotNull String cognome, @NotNull String username, @NotNull String password,
+                  @NotNull String email, @NotNull int tipo, @NotNull Set<Ticket> ticketAperti,
+                  @NotNull Set<Ticket> ticketAssegnati) {
+
         this.nome = nome;
         this.cognome = cognome;
         this.username = username;
         this.password = password;
         this.email = email;
         this.tipo = tipo;
+        this.ticketAperti = ticketAperti;
+        this.ticketAssegnati = ticketAssegnati;
+
     }
 
     public void aggiorna(@NotNull Utente datiAggiornati) {
+
         this.nome = datiAggiornati.nome;
         this.cognome = datiAggiornati.cognome;
         this.username = datiAggiornati.username;
         this.password = datiAggiornati.password;
         this.email = datiAggiornati.email;
         this.tipo = datiAggiornati.tipo;
+        this.ticketAperti = datiAggiornati.ticketAperti;
+        this.ticketAssegnati = datiAggiornati.ticketAssegnati;
+
     }
+
 }

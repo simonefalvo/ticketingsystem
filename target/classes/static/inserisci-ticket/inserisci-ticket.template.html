@@ -9,41 +9,13 @@
     <table class='table table-striped table-bordered table-hover'>
 
         <tr>
+            <td>Titolo</td>
+            <td><input type='text' ng-model='$ctrl.ticket.titolo' class='form-control' required></td>
+        </tr>
+
+        <tr>
             <td>Categoria</td>
             <td><input type='text' ng-model='$ctrl.ticket.categoria' class='form-control' required></td>
-        </tr>
-
-        <tr>
-            <td>Descrizione</td>
-            <td><input type='text' ng-model='$ctrl.ticket.descrizione' class='form-control' required></td>
-        </tr>
-
-        <tr>
-            <td>Priorità Customer</td>
-            <td>
-                <select class="form-control" ng-model='$ctrl.ticket.prioritaCustomer'>
-
-                    <option value=0> Critica </option>
-                    <option value=1> Alta </option>
-                    <option value=2> Bassa </option>
-                    <option value=3> Minima </option>
-
-                </select>
-            </td>
-        </tr>
-
-        <tr>
-            <td>Priorità Team</td>
-            <td>
-                <select class="form-control" ng-model='$ctrl.ticket.prioritaTeam'>
-
-                    <option value=0> Critica </option>
-                    <option value=1> Alta </option>
-                    <option value=2> Bassa </option>
-                    <option value=3> Minima </option>
-
-                </select>
-            </td>
         </tr>
 
         <tr>
@@ -58,13 +30,22 @@
         </tr>
 
         <tr>
-            <td>Titolo</td>
-            <td><input type='text' ng-model='$ctrl.ticket.titolo' class='form-control' required></td>
+            <td>Descrizione</td>
+            <td><input type='text' ng-model='$ctrl.ticket.descrizione' class='form-control' required></td>
         </tr>
 
         <tr>
-            <td>Stato</td>
-            <td><input type='text' ng-model='$ctrl.ticket.stato' class='form-control' required></td>
+            <td>Priorità</td>
+            <td>
+                <select class="form-control" ng-model='$ctrl.ticket.prioritaAutore'>
+
+                    <option value=0> Critica </option>
+                    <option value=1> Alta </option>
+                    <option value=2> Bassa </option>
+                    <option value=3> Minima </option>
+
+                </select>
+            </td>
         </tr>
 
         <tr>

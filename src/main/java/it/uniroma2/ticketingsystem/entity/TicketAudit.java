@@ -1,5 +1,5 @@
 package it.uniroma2.ticketingsystem.entity;
-
+/*
 import lombok.Getter;
 import lombok.Setter;
 
@@ -57,3 +57,4 @@ public class TicketAudit implements Serializable {
     public TicketAudit() {
     }
 }
+*/

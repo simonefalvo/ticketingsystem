@@ -13,7 +13,7 @@ component('listaUtente', {
             $http.get('utente/').then(function (response) {
                 self.utenti = response.data;
             }, function (reason) {
-                console.log("Error: " + reason.statusText);
+                alert("Error: " + reason.status);
             });
         };
 
