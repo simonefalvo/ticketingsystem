@@ -34,11 +34,14 @@ public class TicketRestService {
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> eliminaTicket(@PathVariable Integer id) {
-        boolean ticketEliminato = ticketController.eliminaTicket(id);
-        /*
+
+        //Creo l'evento ticket prima di eliminare il ticket stesso
         TicketEvent ticketEvent = new TicketEvent(this,ticketController.cercaTicketById(id),1);
+        //elimino il ticket
+        boolean ticketEliminato = ticketController.eliminaTicket(id);
+        //scateno gli eventi in seguito all'eliminazione richiamando il TicketEventListener
         applicationEventPublisher.publishEvent(ticketEvent);
-        */
+
         return new ResponseEntity<>(ticketEliminato, ticketEliminato ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
@@ -60,10 +63,10 @@ public class TicketRestService {
         Ticket ticketAggiornato;
         try {
             ticketAggiornato = ticketController.aggiornaTicket(id, ticket);
-            /*
+            //TODO: se nella prossima tabella teniamo tutti i dati del ticket allora devo archiviare il vecchio ticket (giusto?)
             TicketEvent ticketEvent = new TicketEvent(this,ticket,2);
             applicationEventPublisher.publishEvent(ticketEvent);
-            */
+
         } catch (EntitaNonTrovataException e) {
             return new ResponseEntity<>(ticket, HttpStatus.NOT_FOUND);
         }

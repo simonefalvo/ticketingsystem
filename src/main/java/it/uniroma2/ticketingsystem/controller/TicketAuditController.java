@@ -20,4 +20,12 @@ public class TicketAuditController {
     public void registraTicketInsert(TicketAudit ticketAudit){
         ticketAuditDao.save(ticketAudit);
     }
+    @Transactional
+    public void registraTicketDelete(TicketAudit ticketAudit){
+        ticketAuditDao.save(ticketAudit);
+    }
+    @Transactional
+    public void registraTicketEdit(TicketAudit ticketAudit){
+        ticketAuditDao.save(ticketAudit);
+    }
 }
