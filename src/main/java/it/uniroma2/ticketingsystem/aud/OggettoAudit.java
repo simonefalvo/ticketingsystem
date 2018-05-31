@@ -1,14 +1,15 @@
 package it.uniroma2.ticketingsystem.aud;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import it.uniroma2.ticketingsystem.entity.Ticket;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -20,18 +21,22 @@ public class OggettoAudit {
     @GeneratedValue
     private Integer id;
 
-    private Integer id_oggetto;
+    private Integer idOggetto;
     private String nome;
     private String versione;
+    private Timestamp timestamp;
 
-    private Timestamp time_stamp;
+    @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "oggetto")   // to avoid infinite recursion in serialization
+    private Set<TicketAudit> tickets;
 
-    public OggettoAudit(@NotNull Integer id, @NotNull Integer id_oggetto, @NotNull String nome,
-                        @NotNull String versione,@NotNull Timestamp time_stamp){
-        this.id=id;
-        this.id_oggetto=id_oggetto;
+    public OggettoAudit(@NotNull Integer id, @NotNull Integer idOggetto, @NotNull String nome,
+                        @NotNull String versione, @NotNull Timestamp timestamp){
+
+        this.id = id;
+        this.idOggetto = idOggetto;
         this.nome = nome;
         this.versione = versione;
-        this.time_stamp = time_stamp;
+        this.timestamp = timestamp;
     }
 }

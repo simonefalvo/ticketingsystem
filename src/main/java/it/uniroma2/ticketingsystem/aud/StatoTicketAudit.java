@@ -14,25 +14,25 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @Setter
-
 public class StatoTicketAudit {
 
     @Id
     @GeneratedValue
     private Integer id;
 
-    private Integer id_ticket;
-    private Timestamp time_stamp;
-
+    private Integer idTicket;
+    private Timestamp timestamp;
     private String stato;
 
-    public StatoTicketAudit(@NotNull Integer id, @NotNull Integer id_ticket, @NotNull String stato, @NotNull Timestamp time_stamp){
+
+    public StatoTicketAudit(@NotNull Integer id, @NotNull Integer idTicket, @NotNull String stato,
+                            @NotNull Timestamp timestamp) {
+
         this.id = id;
-        this.id_ticket = id_ticket;
+        this.idTicket = idTicket;
         this.stato = stato;
-        this.time_stamp =  time_stamp;
+        this.timestamp =  timestamp;
+
     }
-
-
 
 }

@@ -1,4 +1,4 @@
-package it.uniroma2.ticketingsystem.entity;
+package it.uniroma2.ticketingsystem.aud;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
@@ -16,11 +16,13 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Ticket {
+public class TicketAudit {
 
     @Id
     @GeneratedValue
     private Integer id;
+
+    private Integer idTicket;
     private String titolo;
     private String categoria;
     private String descrizione;
@@ -31,22 +33,22 @@ public class Ticket {
 
     @ManyToOne
     @JsonBackReference(value="autore") // to avoid infinite recursion in serialization
-    private Utente autore;
+    private UtenteAudit autore;
     @ManyToOne
     @JsonBackReference(value="team_member") // to avoid infinite recursion in serialization
-    private Utente teamMember;
+    private UtenteAudit teamMember;
     @ManyToOne
     @JsonBackReference(value="oggetto") // to avoid infinite recursion in serialization
-    private Oggetto oggetto;
-    
+    private OggettoAudit oggetto;
+
     //private Integer teamid;  //attributo opzionale
 
-    
-    public Ticket(@NotNull String categoria, @NotNull String descrizione, @NotNull Integer prioritaAutore,
-                  @NotNull Integer prioritaTeam, @NotNull String titolo, @NotNull String stato, 
-                  @NotNull Timestamp timestamp, @NotNull Utente autore, @NotNull Utente teamMember,
-                  @NotNull Oggetto oggetto) {
-        
+
+    public TicketAudit(@NotNull Integer idTicket, @NotNull String categoria, @NotNull String descrizione,
+                       @NotNull Integer prioritaAutore, @NotNull Integer prioritaTeam, @NotNull String titolo,
+                       @NotNull String stato, @NotNull Timestamp timestamp, @NotNull UtenteAudit autore,
+                       @NotNull UtenteAudit teamMember, @NotNull OggettoAudit oggetto) {
+
         this.categoria = categoria;
         this.descrizione = descrizione;
         this.prioritaAutore = prioritaAutore;
@@ -57,23 +59,6 @@ public class Ticket {
         this.autore = autore;
         this.teamMember = teamMember;
         this.oggetto = oggetto;
-
-    }
-
-    public void aggiorna(@NotNull Ticket nuovoTicket) {
-
-        this.titolo = nuovoTicket.titolo;
-        this.categoria = nuovoTicket.categoria;
-        this.descrizione= nuovoTicket.descrizione;
-        this.stato = nuovoTicket.stato;
-        this.prioritaAutore = nuovoTicket.prioritaAutore;
-        this.prioritaTeam = nuovoTicket.prioritaTeam;
-        this.timestamp = nuovoTicket.timestamp;
-        this.autore = nuovoTicket.autore;
-        this.teamMember = nuovoTicket.teamMember;
-        this.oggetto = nuovoTicket.oggetto;
-        //this.teamid = nuovoTicket.teamid;
-
     }
 
 }

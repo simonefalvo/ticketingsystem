@@ -63,7 +63,6 @@ import java.util.List;
             return new ResponseEntity<>(utenti, HttpStatus.OK);
         }
 
-
         /*
         @RequestMapping(method = RequestMethod.GET)
         public ResponseEntity<Utente> cercaUtentePerEmail(@RequestParam(value = "email") String email) {

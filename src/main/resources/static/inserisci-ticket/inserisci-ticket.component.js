@@ -12,7 +12,6 @@ component('inserisciTicket', {
         self.getAll = function () {
             $http.get('oggetto/').then(function(response) {
                 self.oggetti = response.data;
-                console.log("Success: " + response.statusText);
             }, function (reason) {
                 console.log("Error: " + reason.statusText);
             });
@@ -21,7 +20,7 @@ component('inserisciTicket', {
         self.getAll();
 
         self.inserisci = function () {
-            console.log(self.ticket);
+            self.ticket.stato = "pending";
             $http.post('ticket/', self.ticket)
                 .then(function () {
                     $location.path('/ticket');

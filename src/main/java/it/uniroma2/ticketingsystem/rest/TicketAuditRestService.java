@@ -1,27 +1,23 @@
 package it.uniroma2.ticketingsystem.rest;
 
-import it.uniroma2.ticketingsystem.controller.TicketAudController;
-import it.uniroma2.ticketingsystem.aud.TicketAud;
-import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
+import it.uniroma2.ticketingsystem.controller.TicketAuditController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping(path = "ticketaud")
-public class TicketAudRestService {
+@RequestMapping(path = "ticketaudit")
+public class TicketAuditRestService {
 
 
     @Autowired
-    private TicketAudController ticketAudController;
+    private TicketAuditController ticketAuditController;
 
     /*
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public ResponseEntity<TicketAud> creaTicketAud(@RequestBody TicketAud ticketAud) {
-        TicketAud ticketAudCreato = ticketAudController.creaTicketAud(ticketAud);
+    public ResponseEntity<TicketAudit> creaTicketAud(@RequestBody TicketAudit ticketAud) {
+        TicketAudit ticketAudCreato = ticketAudController.creaTicketAud(ticketAud);
         return new ResponseEntity<>(ticketAudCreato, HttpStatus.CREATED);
     }
 
@@ -32,21 +28,21 @@ public class TicketAudRestService {
     }
 
     @RequestMapping(path = "{id}", method = RequestMethod.GET)
-    public ResponseEntity<TicketAud> cercaTicketAud(@PathVariable Integer id) {
+    public ResponseEntity<TicketAudit> cercaTicketAud(@PathVariable Integer id) {
         System.out.print("\n Sono in responseEntity");
-        TicketAud ticketAudTrovato = ticketAudController.cercaTicketAudById(id);
+        TicketAudit ticketAudTrovato = ticketAudController.cercaTicketAudById(id);
         return new ResponseEntity<>(ticketAudTrovato, ticketAudTrovato == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
     }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public ResponseEntity<List<TicketAud>> prelevaTicketAuds() {
-        List<TicketAud> ticketAud = ticketAudController.prelevaTicketAuds();
+    public ResponseEntity<List<TicketAudit>> prelevaTicketAuds() {
+        List<TicketAudit> ticketAud = ticketAudController.prelevaTicketAuds();
         return new ResponseEntity<>(ticketAud, HttpStatus.OK);
     }
 
     @RequestMapping(path = "{id}", method = RequestMethod.PUT)
-    public ResponseEntity<TicketAud> aggiornaTicketAud(@PathVariable Integer id, @RequestBody TicketAud ticketAud) {
-        TicketAud ticketAudAggiornato;
+    public ResponseEntity<TicketAudit> aggiornaTicketAud(@PathVariable Integer id, @RequestBody TicketAudit ticketAud) {
+        TicketAudit ticketAudAggiornato;
         try {
             ticketAudAggiornato = ticketAudController.aggiornaTicketAud(id, ticketAud);
         } catch (EntitaNonTrovataException e) {
@@ -58,7 +54,7 @@ public class TicketAudRestService {
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     public ResponseEntity<Integer> cercaTicketAud() {
-        Integer total = ticketAudController.numberOfOpenTickets();
+        Integer total = ticketAuditController.numberOfOpenTickets();
         return new ResponseEntity<>(total, total == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
     }
 

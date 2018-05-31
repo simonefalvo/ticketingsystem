@@ -53,7 +53,9 @@ public class UtenteController {
         return utenteDao.findAll();
     }
 
+    /*
     public Utente cercaUtentePerEmail(@NotNull String email) {
         return utenteDao.findByEmailAddress(email);
     }
+    */
 }
