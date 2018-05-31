@@ -11,7 +11,7 @@
     <p>Nome :</p>
     <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.oggetto.nome">
     <p>Versione :</p>
-    <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.oggetto.versione">
+    <input ng-disabled="true" ng-model="$ctrl.oggetto.versione">
 
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>

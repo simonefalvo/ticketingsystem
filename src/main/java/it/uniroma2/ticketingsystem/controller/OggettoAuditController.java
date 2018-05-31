@@ -24,8 +24,11 @@ public class OggettoAuditController {
     }
     @Transactional
     public @NotNull OggettoAudit getMostRecentOggettoAudit(@NotNull Oggetto oggetto){
+        System.out.println("\n\n\n\n getMostRecentOggettoAudit oggetto = "+oggetto.toString());
         int audit_id = oad.getIdOfMostRecentOggettoAuditByOggetto(oggetto.getId());
         OggettoAudit oggettoAuditMostRecent = oad.getOne(audit_id);
+        if(oggettoAuditMostRecent == null)
+            System.out.println("\n\n\n\n\n\n\n oggettoAuditMostRecent is null \n\n\n\n");
         //OggettoAudit oggettoAuditMostRecent = oad.getMostRecentOggettoAudit(oggetto.getId());
         return oggettoAuditMostRecent;
 

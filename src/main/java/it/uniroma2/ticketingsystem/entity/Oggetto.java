@@ -43,4 +43,14 @@ public class Oggetto {
         this.tickets = nuovoOggetto.tickets;
 
     }
+
+    @Override
+    public String toString() {
+        return "Oggetto{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", versione='" + versione + '\'' +
+                ", tickets=" + tickets +
+                '}';
+    }
 }

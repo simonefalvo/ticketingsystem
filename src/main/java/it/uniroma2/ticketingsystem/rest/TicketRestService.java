@@ -62,6 +62,7 @@ public class TicketRestService {
     public ResponseEntity<Ticket> aggiornaTicket(@PathVariable Integer id, @RequestBody Ticket ticket) {
         Ticket ticketAggiornato;
         try {
+            System.out.println("\n\n\n\n\n\n aggiornaTicket Ticket = "+ticket.toString());
             ticketAggiornato = ticketController.aggiornaTicket(id, ticket);
             //TODO: se nella prossima tabella teniamo tutti i dati del ticket allora devo archiviare il vecchio ticket (giusto?)
             TicketEvent ticketEvent = new TicketEvent(this,ticket,2);

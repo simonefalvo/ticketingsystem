@@ -77,6 +77,20 @@ public class Ticket {
 
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", titolo='" + titolo + '\'' +
+                ", categoria='" + categoria + '\'' +
+                ", descrizione='" + descrizione + '\'' +
+                ", stato='" + stato + '\'' +
+                ", timestamp=" + timestamp +
+                ", prioritaAutore=" + prioritaAutore +
+                ", prioritaTeam=" + prioritaTeam +
+                ", autore=" + autore +
+                ", teamMember=" + teamMember +
+                ", oggetto=" + oggetto +
+                '}';
+    }
 }

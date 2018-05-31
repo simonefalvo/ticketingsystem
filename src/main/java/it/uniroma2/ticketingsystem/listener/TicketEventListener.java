@@ -24,12 +24,12 @@ public class TicketEventListener {
     @EventListener
     public void handleTicketEvent(TicketEvent ticketEvent){
 
+        OggettoAudit oggettoAudit;
         switch (ticketEvent.getToken()){
             case 0:
                 //registra inserimento
                 //prendi ultima istanza di OggettoAudit legato a ticket.oggettoID
-                System.out.println("\n\n\n\n Oggetto di ticket: "+ticketEvent.getTicket().getOggetto());
-                OggettoAudit oggettoAudit = getLastOggettoAudit(ticketEvent.getTicket().getOggetto());
+                oggettoAudit = getLastOggettoAudit(ticketEvent.getTicket().getOggetto());
                 registraInserimentoTicket(new TicketAudit(
                                                         ticketEvent.getTicket(),
                                                         new Timestamp(System.currentTimeMillis()),
@@ -38,16 +38,21 @@ public class TicketEventListener {
                 break;
             case 1:
                 //registra cancellazione
+                oggettoAudit = getLastOggettoAudit(ticketEvent.getTicket().getOggetto());
                 registraCancellazioneTicket(new TicketAudit(
                                                         ticketEvent.getTicket(),
                                                         new Timestamp(System.currentTimeMillis()),
+                                                        oggettoAudit,
                                                         1));
                 break;
             case 2:
                 //registra modifica
+                //prendi ultima istanza di OggettoAudit legato a ticket.oggettoID
+                oggettoAudit = getLastOggettoAudit(ticketEvent.getTicket().getOggetto());
                 registraModificaTicket(new TicketAudit(
                                                     ticketEvent.getTicket(),
                                                     new Timestamp(System.currentTimeMillis()),
+                                                    oggettoAudit,
                                                     2));
                 break;
         }
