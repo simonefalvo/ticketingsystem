@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Set;
+import it.uniroma2.ticketingsystem.entity.Utente;
 
 
 @Entity
@@ -30,6 +31,8 @@ public class UtenteAudit {
     private int tipo;
     private Timestamp timestamp;
 
+    private int operazione;
+
     @OneToMany(mappedBy = "autore", cascade = CascadeType.ALL)
     @JsonManagedReference(value="autore")   // to avoid infinite recursion in serialization
     private Set<TicketAudit> ticketAperti;
@@ -41,7 +44,7 @@ public class UtenteAudit {
     
     public UtenteAudit(@NotNull Integer id, @NotNull Integer idUtente, @NotNull String nome, @NotNull String cognome,
                        @NotNull String username, @NotNull String password, @NotNull String email, @NotNull int tipo,
-                       @NotNull Timestamp timestamp) {
+                       @NotNull Timestamp timestamp, @NotNull int operazione) {
 
         this.id = id;
         this.idUtente = idUtente;
@@ -52,6 +55,22 @@ public class UtenteAudit {
         this.email = email;
         this.tipo = tipo;
         this.timestamp = timestamp;
+        this.operazione = operazione;
+
+    }
+
+    public UtenteAudit(Utente utente, Timestamp timestamp, int operazione){
+
+        this.idUtente = utente.getId();
+        this.nome = utente.getNome();
+        this.cognome = utente.getCognome();
+        this.username = utente.getUsername();
+        this.password = utente.getPassword();
+        this.email = utente.getEmail();
+        this.tipo = utente.getTipo();
+        this.timestamp = timestamp;
+        this.operazione = operazione;
+
 
     }
 

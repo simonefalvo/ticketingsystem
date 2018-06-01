@@ -67,4 +67,31 @@ public class Utente {
 
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
 }

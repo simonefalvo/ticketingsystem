@@ -36,7 +36,7 @@ public class TicketRestService {
     public ResponseEntity<Boolean> eliminaTicket(@PathVariable Integer id) {
 
         //Creo l'evento ticket prima di eliminare il ticket stesso
-        TicketEvent ticketEvent = new TicketEvent(this,ticketController.cercaTicketById(id),1);
+        TicketEvent ticketEvent = new TicketEvent(this,ticketController.cercaTicketById(id),2);
 
         //scateno gli eventi in seguito all'eliminazione richiamando il TicketEventListener
         applicationEventPublisher.publishEvent(ticketEvent);
@@ -67,7 +67,7 @@ public class TicketRestService {
             System.out.println("\n\n\n\n\n\n aggiornaTicket Ticket = "+ticket.toString());
             ticketAggiornato = ticketController.aggiornaTicket(id, ticket);
             //TODO: se nella prossima tabella teniamo tutti i dati del ticket allora devo archiviare il vecchio ticket (giusto?)
-            TicketEvent ticketEvent = new TicketEvent(this,ticket,2);
+            TicketEvent ticketEvent = new TicketEvent(this,ticket,1);
             applicationEventPublisher.publishEvent(ticketEvent);
 
         } catch (EntitaNonTrovataException e) {

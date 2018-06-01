@@ -93,4 +93,8 @@ public class Ticket {
                 ", oggetto=" + oggetto +
                 '}';
     }
+
+    public Oggetto getOggetto() {
+        return oggetto;
+    }
 }

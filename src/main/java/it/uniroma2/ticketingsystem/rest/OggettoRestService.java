@@ -3,6 +3,7 @@ package it.uniroma2.ticketingsystem.rest;
 import it.uniroma2.ticketingsystem.controller.OggettoController;
 import it.uniroma2.ticketingsystem.entity.Oggetto;
 import it.uniroma2.ticketingsystem.event.OggettoEvent;
+import it.uniroma2.ticketingsystem.event.TicketEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -36,7 +37,16 @@ public class OggettoRestService {
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> eliminaOggetto(@PathVariable Integer id) {
+
+        //Creo l'evento ticket prima di eliminare il ticket stesso
+        OggettoEvent oggettoEvent = new OggettoEvent(this,oggettoController.cercaOggettoById(id),2);
+
+        //scateno gli eventi in seguito all'eliminazione richiamando il TicketEventListener
+        applicationEventPublisher.publishEvent(oggettoEvent);
+
+        //elimino il ticket
         boolean oggettoEliminato = oggettoController.eliminaOggetto(id);
+
         return new ResponseEntity<>(oggettoEliminato, oggettoEliminato ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
@@ -58,6 +68,12 @@ public class OggettoRestService {
         Oggetto oggettoAggiornato;
         try {
             oggettoAggiornato = oggettoController.aggiornaOggetto(id, oggetto);
+
+            //inserisco record nella tabella oggettoaudit
+            OggettoEvent oggettoEvent = new OggettoEvent(this, oggetto, 1);
+            applicationEventPublisher.publishEvent(oggettoEvent);
+
+
         } catch (EntitaNonTrovataException e) {
             return new ResponseEntity<>(oggetto, HttpStatus.NOT_FOUND);
         }

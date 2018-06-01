@@ -2,8 +2,10 @@ package it.uniroma2.ticketingsystem.rest;
 
 import it.uniroma2.ticketingsystem.controller.UtenteController;
 import it.uniroma2.ticketingsystem.entity.Utente;
+import it.uniroma2.ticketingsystem.event.UtenteEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +30,17 @@ import java.util.List;
         @Autowired
         private UtenteController utenteController;
 
+
+        @Autowired
+        private ApplicationEventPublisher applicationEventPublisher;
+
         @RequestMapping(path = "", method = RequestMethod.POST)
         public ResponseEntity<Utente> creaUtente(@RequestBody Utente utente) {
             Utente utenteCreato = utenteController.creaUtente(utente);
+
+            UtenteEvent utenteEvent =  new UtenteEvent(this,utente,0);
+            applicationEventPublisher.publishEvent(utenteEvent);
+
             return new ResponseEntity<>(utenteCreato, HttpStatus.CREATED);
         }
 
@@ -39,6 +49,10 @@ import java.util.List;
             Utente utenteAggiornato;
             try {
                 utenteAggiornato = utenteController.aggiornaUtente(id, utente);
+
+                UtenteEvent utenteEvent = new UtenteEvent(this,utente,1);
+                applicationEventPublisher.publishEvent(utenteEvent);
+
             } catch (EntitaNonTrovataException e) {
                 return new ResponseEntity<>(utente, HttpStatus.NOT_FOUND);
             }
@@ -54,6 +68,11 @@ import java.util.List;
 
         @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
         public ResponseEntity<Boolean> eliminaUtente(@PathVariable Integer id) {
+
+            UtenteEvent utenteEvent = new UtenteEvent(this, utenteController.cercaUtentePerId(id), 2);
+
+            applicationEventPublisher.publishEvent(utenteEvent);
+
             boolean eliminata = utenteController.eliminaUtente(id);
             return new ResponseEntity<>(eliminata, eliminata ? HttpStatus.OK : HttpStatus.NOT_FOUND);
         }

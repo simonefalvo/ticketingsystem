@@ -52,4 +52,16 @@ public class Oggetto {
                 ", nome='" + nome + '\'' +
                 '}';
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getVersione() {
+        return versione;
+    }
 }
