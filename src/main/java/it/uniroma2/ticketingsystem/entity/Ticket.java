@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
+import org.springframework.context.annotation.Bean;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @Setter
+
 public class Ticket {
 
     @Id
@@ -45,7 +47,7 @@ public class Ticket {
 
     public Ticket(@NotNull String categoria, @NotNull String descrizione, @NotNull Integer prioritaAutore,
                   @NotNull Integer prioritaTeam, @NotNull String titolo, @NotNull String stato,
-                  @NotNull Timestamp timestamp, @NotNull Utente autore, @NotNull Utente teamMember,
+                   @NotNull Utente autore, @NotNull Utente teamMember,
                   @NotNull Oggetto oggetto) {
 
         this.categoria = categoria;
@@ -54,7 +56,7 @@ public class Ticket {
         this.prioritaTeam = prioritaTeam;
         this.titolo = titolo;
         this.stato = stato;
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
         this.autore = autore;
         this.teamMember = teamMember;
         this.oggetto = oggetto;

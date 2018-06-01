@@ -14,6 +14,8 @@
     <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.categoria">
     <p>Descrizione :</p>
     <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.descrizione">
+    <p>Id Oggetto :</p>
+    <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.oggetto.id">
 
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>

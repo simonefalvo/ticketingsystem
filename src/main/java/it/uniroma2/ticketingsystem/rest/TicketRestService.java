@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,13 @@ public class TicketRestService {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
     public ResponseEntity<Ticket> creaTicket(@RequestBody Ticket ticket) {
+
+//        ticket.setTimestamp(new Timestamp(System.currentTimeMillis()));
+
         Ticket ticketCreato = ticketController.creaTicket(ticket);
+
+        System.out.println("\n\n\n Crea Ticket: dato arrivato dal web: "+ticket.toString());
+        System.out.println("\n\n\n Crea Ticket: dato arrivato dal controller: "+ticketCreato.toString());
 
         TicketEvent ticketEvent = new TicketEvent(this,ticket,0);
         applicationEventPublisher.publishEvent(ticketEvent);
