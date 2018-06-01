@@ -25,7 +25,8 @@ public class OggettoEventListener {
         switch (oggettoEvent.getToken()){
             case 0:
                 //registra inserimento
-                //prendi ultima istanza di OggettoAudit legato a ticket.oggettoID
+                registraInserimentoOggetto(new OggettoAudit(oggettoEvent.getOggetto(),
+                                            new Timestamp(System.currentTimeMillis())));
 
                 break;
             case 1:
@@ -38,5 +39,7 @@ public class OggettoEventListener {
                 break;
         }
     }
-
+    private void registraInserimentoOggetto(OggettoAudit oggettoAudit ){
+        oggettoAuditController.registraOggettoInsert(oggettoAudit);
+    }
 }

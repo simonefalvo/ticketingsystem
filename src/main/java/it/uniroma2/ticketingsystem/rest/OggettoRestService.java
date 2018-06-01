@@ -2,8 +2,10 @@ package it.uniroma2.ticketingsystem.rest;
 
 import it.uniroma2.ticketingsystem.controller.OggettoController;
 import it.uniroma2.ticketingsystem.entity.Oggetto;
+import it.uniroma2.ticketingsystem.event.OggettoEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +20,17 @@ public class OggettoRestService {
     @Autowired
     private OggettoController oggettoController;
 
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
+
+
     @RequestMapping(path = "", method = RequestMethod.POST)
     public ResponseEntity<Oggetto> creaOggetto(@RequestBody Oggetto oggetto) {
         Oggetto oggettoCreato = oggettoController.creaOggetto(oggetto);
+
+        OggettoEvent oggettoEvent= new OggettoEvent(this,oggetto,0);
+        applicationEventPublisher.publishEvent(oggettoEvent);
+
         return new ResponseEntity<>(oggettoCreato, HttpStatus.CREATED);
     }
 

@@ -1,6 +1,7 @@
 package it.uniroma2.ticketingsystem.controller;
 
 import it.uniroma2.ticketingsystem.aud.OggettoAudit;
+import it.uniroma2.ticketingsystem.aud.TicketAudit;
 import it.uniroma2.ticketingsystem.dao.OggettoAuditDao;
 import it.uniroma2.ticketingsystem.entity.Oggetto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,33 +14,39 @@ import javax.validation.constraints.NotNull;
 public class OggettoAuditController {
 
     @Autowired
-    private OggettoAuditDao oad;
+    private OggettoAuditDao oggettoAuditDao;
 
     @Transactional
     public @NotNull OggettoAudit creaOggettoAudit(@NotNull OggettoAudit oggettoAudit){
 
-        OggettoAudit oggettoAuditSalvato = oad.save(oggettoAudit);
+        OggettoAudit oggettoAuditSalvato = oggettoAuditDao.save(oggettoAudit);
         return oggettoAuditSalvato;
 
     }
     @Transactional
+    public void registraOggettoInsert(OggettoAudit oggettoAudit){
+        oggettoAuditDao.save(oggettoAudit);
+    }
+    
+    
+    @Transactional
     public @NotNull OggettoAudit getMostRecentOggettoAudit(@NotNull Oggetto oggetto){
-        System.out.println("\n\n\n\n getMostRecentOggettoAudit oggetto = "+oggetto.toString());
-        int audit_id = oad.getIdOfMostRecentOggettoAuditByOggetto(oggetto.getId());
-        OggettoAudit oggettoAuditMostRecent = oad.getOne(audit_id);
+        System.out.println("\n\n\n\n getMostRecentOggettoAudit oggetto ID = "+oggetto.getId());
+        int audit_id = oggettoAuditDao.getIdOfMostRecentOggettoAuditByOggetto(oggetto.getId());
+        OggettoAudit oggettoAuditMostRecent = oggettoAuditDao.getOne(audit_id);
         if(oggettoAuditMostRecent == null)
             System.out.println("\n\n\n\n\n\n\n oggettoAuditMostRecent is null \n\n\n\n");
-        //OggettoAudit oggettoAuditMostRecent = oad.getMostRecentOggettoAudit(oggetto.getId());
+        //OggettoAudit oggettoAuditMostRecent = oggettoAuditDao.getMostRecentOggettoAudit(oggetto.getId());
         return oggettoAuditMostRecent;
 
     }
 
     public boolean eliminaOggettoAudit(@NotNull Integer id){
-        if(!oad.existsById(id)){
+        if(!oggettoAuditDao.existsById(id)){
             return false;
         }
 
-        oad.deleteById(id);
+        oggettoAuditDao.deleteById(id);
         return true;
     }
 }

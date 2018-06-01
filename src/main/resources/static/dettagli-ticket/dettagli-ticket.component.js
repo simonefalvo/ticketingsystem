@@ -14,10 +14,12 @@ component('dettagliTicket', {
             $http.get('ticket/' + $routeParams.ticketId.toString()).
             then(function(response) {
                 self.ticket = response.data;
+                console.log(self.ticket);
             }, function (reason) {
                 alert(reason.toLocaleString());
             });
         };
+        console.log("\n\n\nfuori dalla funzione get "+self.ticket);
 
         self.get();
 

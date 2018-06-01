@@ -24,6 +24,7 @@ public class Oggetto {
     private String versione;
 
     @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
+    //TODO ?
     @JsonManagedReference(value = "oggetto")   // to avoid infinite recursion in serialization
     private Set<Ticket> tickets;
 
@@ -49,8 +50,6 @@ public class Oggetto {
         return "Oggetto{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
-                ", versione='" + versione + '\'' +
-                ", tickets=" + tickets +
                 '}';
     }
 }

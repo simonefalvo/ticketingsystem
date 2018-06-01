@@ -1,6 +1,7 @@
 package it.uniroma2.ticketingsystem.aud;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import it.uniroma2.ticketingsystem.entity.Oggetto;
 import it.uniroma2.ticketingsystem.entity.Ticket;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,13 @@ public class OggettoAudit {
         this.idOggetto = idOggetto;
         this.nome = nome;
         this.versione = versione;
+        this.timestamp = timestamp;
+    }
+
+    public OggettoAudit(Oggetto oggetto, Timestamp timestamp) {
+        this.idOggetto = oggetto.getId();
+        this.nome = oggetto.getNome();
+        this.versione = oggetto.getVersione();
         this.timestamp = timestamp;
     }
 

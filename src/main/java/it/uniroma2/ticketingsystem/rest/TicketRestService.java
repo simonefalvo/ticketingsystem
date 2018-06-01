@@ -16,8 +16,8 @@ import java.util.List;
 @RequestMapping(path = "ticket")
 public class TicketRestService {
 
-    @Autowired
-    private ApplicationEventPublisher applicationEventPublisher;
+        @Autowired
+        private ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
     private TicketController ticketController;
@@ -37,10 +37,12 @@ public class TicketRestService {
 
         //Creo l'evento ticket prima di eliminare il ticket stesso
         TicketEvent ticketEvent = new TicketEvent(this,ticketController.cercaTicketById(id),1);
-        //elimino il ticket
-        boolean ticketEliminato = ticketController.eliminaTicket(id);
+
         //scateno gli eventi in seguito all'eliminazione richiamando il TicketEventListener
         applicationEventPublisher.publishEvent(ticketEvent);
+
+        //elimino il ticket
+        boolean ticketEliminato = ticketController.eliminaTicket(id);
 
         return new ResponseEntity<>(ticketEliminato, ticketEliminato ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
