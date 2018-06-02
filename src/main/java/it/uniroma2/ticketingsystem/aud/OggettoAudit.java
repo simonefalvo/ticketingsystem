@@ -1,6 +1,8 @@
 package it.uniroma2.ticketingsystem.aud;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import it.uniroma2.ticketingsystem.entity.Ticket;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,9 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class OggettoAudit {
 
     @Id
@@ -27,16 +32,17 @@ public class OggettoAudit {
     private Timestamp timestamp;
 
     @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "oggetto")   // to avoid infinite recursion in serialization
     private Set<TicketAudit> tickets;
 
     public OggettoAudit(@NotNull Integer id, @NotNull Integer idOggetto, @NotNull String nome,
-                        @NotNull String versione, @NotNull Timestamp timestamp){
+                        @NotNull String versione, @NotNull Timestamp timestamp,
+                        @NotNull Set<TicketAudit> tickets){
 
         this.id = id;
         this.idOggetto = idOggetto;
         this.nome = nome;
         this.versione = versione;
         this.timestamp = timestamp;
+        this.tickets = tickets;
     }
 }

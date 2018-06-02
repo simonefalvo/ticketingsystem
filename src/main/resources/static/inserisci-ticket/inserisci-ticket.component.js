@@ -13,7 +13,7 @@ component('inserisciTicket', {
             $http.get('oggetto/').then(function(response) {
                 self.oggetti = response.data;
             }, function (reason) {
-                console.log("Error: " + reason.statusText);
+                alert("Error: " + JSON.stringify(reason));
             });
         };
 

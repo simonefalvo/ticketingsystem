@@ -1,6 +1,8 @@
 package it.uniroma2.ticketingsystem.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,10 +11,14 @@ import javax.validation.constraints.NotNull;
 
 import java.util.Set;
 
+
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Utente {
 
     @Id
@@ -25,13 +31,10 @@ public class Utente {
     private String password;
     private String email;
     private int tipo;
-
     @OneToMany(mappedBy = "autore", cascade = CascadeType.ALL)
-    @JsonManagedReference(value="autore")   // to avoid infinite recursion in serialization
     private Set<Ticket> ticketAperti;
 
     @OneToMany(mappedBy = "teamMember", cascade = CascadeType.ALL)
-    @JsonManagedReference(value="team_member")   // to avoid infinite recursion in serialization
     private Set<Ticket> ticketAssegnati;
 
 

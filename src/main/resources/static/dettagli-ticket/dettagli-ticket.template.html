@@ -8,6 +8,7 @@
     </div>
 
     <p>ID : {{$ctrl.ticket.id}}</p>
+    <p>Oggetto : <a ng-href="#!/dettagli-oggetto/{{$ctrl.ticket.oggetto.id}}">{{$ctrl.ticket.oggetto.nome + " " + $ctrl.ticket.oggetto.versione}}</a></p>
     <p>Titolo :</p>
     <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.titolo">
     <p>Categoria :</p>

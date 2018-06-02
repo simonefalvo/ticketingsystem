@@ -38,10 +38,8 @@ angular.
                 template: '<dettagli-oggetto></dettagli-oggetto>'
             }).
             when('/grafico', {
-                templateUrl: "./visualizza-grafico/visualizza-grafico.html"
-                ,
+                templateUrl: "./visualizza-grafico/visualizza-grafico.html",
                 controller: "GraphController"
-
             }).
             otherwise('/');
         }
