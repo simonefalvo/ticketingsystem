@@ -1,12 +1,10 @@
 package it.uniroma2.ticketingsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.envers.Audited;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,9 +23,8 @@ public class Oggetto {
     private String nome;
     private String versione;
 
-    @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
-    //TODO ?
 
+    //TODO ?
     @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
     @JsonBackReference(value="oggetto")
     private Set<Ticket> tickets;
