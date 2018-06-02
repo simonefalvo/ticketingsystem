@@ -1,5 +1,6 @@
 package it.uniroma2.ticketingsystem.aud;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,11 +32,11 @@ public class UtenteAudit {
     private Timestamp timestamp;
 
     @OneToMany(mappedBy = "autore", cascade = CascadeType.ALL)
-    @JsonManagedReference(value="autore")   // to avoid infinite recursion in serialization
+    @JsonBackReference(value="autore")   // to avoid infinite recursion in serialization
     private Set<TicketAudit> ticketAperti;
 
     @OneToMany(mappedBy = "teamMember", cascade = CascadeType.ALL)
-    @JsonManagedReference(value="team_member")   // to avoid infinite recursion in serialization
+    @JsonBackReference(value="team_member")   // to avoid infinite recursion in serialization
     private Set<TicketAudit> ticketAssegnati;
     
     

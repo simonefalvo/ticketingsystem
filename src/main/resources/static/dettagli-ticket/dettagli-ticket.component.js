@@ -14,6 +14,11 @@ component('dettagliTicket', {
             $http.get('ticket/' + $routeParams.ticketId.toString()).
             then(function(response) {
                 self.ticket = response.data;
+
+                console.log("response : "+JSON.stringify(response, null, 4));
+
+                console.log("self.ticket : "+JSON.stringify(self.ticket, null, 4));
+
                 console.log(self.ticket);
             }, function (reason) {
                 alert(reason.toLocaleString());
@@ -48,6 +53,8 @@ component('dettagliTicket', {
         };
 
         self.conferma = function () {
+            console.log("self.ticket : "+JSON.stringify(self.ticket, null, 4));
+
             $http.put('ticket/' + self.ticket.id.toString(), self.ticket).
             then(function () {
                 alert("Ticket modificato con successo!");

@@ -1,5 +1,7 @@
 package it.uniroma2.ticketingsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,11 +23,13 @@ public class Oggetto {
     private Integer id;
 
     private String nome;
+
     private String versione;
 
-    @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
     //TODO ?
-    @JsonManagedReference(value = "oggetto")   // to avoid infinite recursion in serialization
+
+    @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
+    @JsonBackReference(value="oggetto")
     private Set<Ticket> tickets;
 
 
@@ -50,6 +54,11 @@ public class Oggetto {
         return "Oggetto{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
+                ", versione='" + versione + '\'' +
                 '}';
     }
+
+
+
+
 }

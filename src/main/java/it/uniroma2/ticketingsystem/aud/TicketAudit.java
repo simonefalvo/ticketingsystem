@@ -1,6 +1,7 @@
 package it.uniroma2.ticketingsystem.aud;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import it.uniroma2.ticketingsystem.entity.Ticket;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,13 +36,13 @@ public class TicketAudit {
     private int operation;
 
     @ManyToOne
-    @JsonBackReference(value="autore") // to avoid infinite recursion in serialization
+    @JsonManagedReference(value="autore") // to avoid infinite recursion in serialization
     private UtenteAudit autore;
     @ManyToOne
-    @JsonBackReference(value="team_member") // to avoid infinite recursion in serialization
+    @JsonManagedReference(value="team_member") // to avoid infinite recursion in serialization
     private UtenteAudit teamMember;
     @ManyToOne
-    @JsonBackReference(value="oggetto") // to avoid infinite recursion in serialization
+    @JsonManagedReference(value="oggetto") // to avoid infinite recursion in serialization
     private OggettoAudit oggetto;
 
     //private Integer teamid;  //attributo opzionale

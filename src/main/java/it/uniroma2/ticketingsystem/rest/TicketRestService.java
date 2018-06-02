@@ -1,5 +1,6 @@
 package it.uniroma2.ticketingsystem.rest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import it.uniroma2.ticketingsystem.controller.TicketController;
 import it.uniroma2.ticketingsystem.entity.Ticket;
 import it.uniroma2.ticketingsystem.event.TicketEvent;
@@ -17,8 +18,8 @@ import java.util.List;
 @RequestMapping(path = "ticket")
 public class TicketRestService {
 
-        @Autowired
-        private ApplicationEventPublisher applicationEventPublisher;
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
     private TicketController ticketController;
@@ -58,12 +59,19 @@ public class TicketRestService {
     public ResponseEntity<Ticket> cercaTicket(@PathVariable Integer id) {
         System.out.print("\n Sono in responseEntity");
         Ticket ticketTrovato = ticketController.cercaTicketById(id);
-        return new ResponseEntity<>(ticketTrovato, ticketTrovato == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
+        System.out.println("\n\n\n\n Class TicketRestService method cercaTicket var ticketTrovato = "+ticketTrovato.toString());
+
+        ResponseEntity myResp = new ResponseEntity<>(ticketTrovato, ticketTrovato == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
+        System.out.println("\n\n\n\n  Class TicketRestService method cercaTicket var myResp  = "+myResp.toString());
+
+
+        return myResp;
     }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     public ResponseEntity<List<Ticket>> prelevaTickets() {
         List<Ticket> ticket = ticketController.prelevaTickets();
+        System.out.println("\n\n\n TicketRestService prelevaTicket = "+ticket.toString());
         return new ResponseEntity<>(ticket, HttpStatus.OK);
     }
 

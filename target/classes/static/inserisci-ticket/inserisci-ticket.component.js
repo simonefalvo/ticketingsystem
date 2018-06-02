@@ -24,9 +24,10 @@ component('inserisciTicket', {
         self.inserisci = function () {
             self.ticket.stato = "pending";
             self.ticket.timestamp = new Date();
+            /*
             //dato che si perdono alcuni dati dalla visualizzazione a quando mi tornano
             // dall'inserimento faccio una query per ri ottenerli
-            self.ticket.oggetto.nome = "fanculo";
+            self.ticket.oggetto.nome = "inizializzato da fuori";
             $http.get('oggetto/' + self.ticket.oggetto.id.toString()).
             then(function(response) {
                 console.log("response.data= "+JSON.stringify(response.data, null, 4));
@@ -37,11 +38,22 @@ component('inserisciTicket', {
             }, function (reason) {
                 alert(reason.toLocaleString());
             });
+            */
 
-            //console.log("self.oggetti : "+JSON.stringify(self.oggetti, null, 4));
 
-            //console.log("self.ticket= "+JSON.stringify(self.ticket, null, 4));
+            console.log("self.oggetti : "+JSON.stringify(self.oggetti, null, 4));
 
+            console.log("self.ticket.oggetto= "+JSON.stringify(self.ticket.oggetto, null, 4));
+
+
+            for(var i=0; i< self.oggetti.length; i++){
+
+                if(self.oggetti[i].id == self.ticket.oggetto.id){
+                    console.log("ho trovato l'oggetto");
+                    self.ticket.oggetto.nome = self.oggetti[i].nome;
+                    self.ticket.oggetto.versione = self.oggetti[i].versione;
+                }
+            }
 
 
             $http.post('ticket/', self.ticket)
