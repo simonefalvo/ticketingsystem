@@ -1,17 +1,14 @@
-
 var app = angular.module('visualizzaGrafico',['zingchart-angularjs']); //old visualizzaGrafico
 
-app.controller('GraphController', function($scope, $http, $q){
 
+app.controller('GraphController', function($scope, $http, $q){
 
     var getNumber = function(status) {
         var deferred = $q.defer();
         $http.get("ticketaudit/" + status).then(function (response) {
-            console.log(response.data);
             deferred.resolve(response.data);
         }, function (reason) {
-            alert("Error: " + reason.status);
-            deferred.reject({data: response, status: status});
+            alert(reason);
         });
         return deferred.promise;
     };
@@ -23,35 +20,37 @@ app.controller('GraphController', function($scope, $http, $q){
             fontColor :"black",
             text : "Statistiche Ticket "
         },
-        backgroundColor : "white",
+        backgroundColor : "transparent",
         series : [
             {
-                values : [
-                    getNumber('pending'),
-                    getNumber('open'),
-                    getNumber('closed')
-                ],
-                text : [
-                    'pending',
-                    'open',
-                    'closed'
-                ],
-                backgroundColor : "#4DC0CF"
+                values : [],
+                backgroundColor : "#00B08E"
             }
         ]
     };
 
-
     var init = function() {
 
-        $scope.myJson.series[0].values.push(getNumber("open"));
+        getNumber("pending").then(function (value) {
+            $scope.myJson.series[0].values[0] = value;
+        }, function (reason) {
+            alert(reason);
+        });
+
+        getNumber("open").then(function (value) {
+            $scope.myJson.series[0].values[1] = value;
+        }, function (reason) {
+            alert(reason);
+        });
+
+        getNumber("closed").then(function (value) {
+            $scope.myJson.series[0].values[2] = value;
+        }, function (reason) {
+            alert(reason);
+        });
     };
+
 
     init();
 
-    $scope.addValues = function(){
-        var val = Math.floor((Math.random() * 10));
-        console.log(val);
-        $scope.myJson.series[0].values.push(val);
-    }
 });

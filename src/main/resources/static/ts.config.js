@@ -41,6 +41,9 @@ angular.
                 templateUrl: "./visualizza-grafico/visualizza-grafico.html",
                 controller: "GraphController"
             }).
+            when('/auditing', {
+                template: '<auditing></auditing>'
+            }).
             otherwise('/');
         }
     ]);
