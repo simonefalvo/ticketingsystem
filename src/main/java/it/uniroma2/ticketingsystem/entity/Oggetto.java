@@ -23,9 +23,9 @@ public class Oggetto {
     private Integer id;
 
     private String nome;
-
     private String versione;
 
+    @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
     //TODO ?
 
     @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
@@ -57,8 +57,16 @@ public class Oggetto {
                 ", versione='" + versione + '\'' +
                 '}';
     }
+    //Get espliciti servono per elisa
+    public Integer getId() {
+        return id;
+    }
 
+    public String getNome() {
+        return nome;
+    }
 
-
-
+    public String getVersione() {
+        return versione;
+    }
 }

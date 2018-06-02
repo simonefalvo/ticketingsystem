@@ -26,7 +26,6 @@ public class TicketAuditController {
     }
 
 
-
     @Transactional
     public void registraTicketInsert(TicketAudit ticketAudit){
         ticketAuditDao.save(ticketAudit);

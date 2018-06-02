@@ -28,25 +28,29 @@ public class OggettoAudit {
     private String versione;
     private Timestamp timestamp;
 
+    private int operazione;
+
     @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
     @JsonBackReference(value = "oggetto")   // to avoid infinite recursion in serialization
     private Set<TicketAudit> tickets;
 
     public OggettoAudit(@NotNull Integer id, @NotNull Integer idOggetto, @NotNull String nome,
-                        @NotNull String versione, @NotNull Timestamp timestamp){
+                        @NotNull String versione, @NotNull Timestamp timestamp, @NotNull int operazione){
 
         this.id = id;
         this.idOggetto = idOggetto;
         this.nome = nome;
         this.versione = versione;
         this.timestamp = timestamp;
+        this.operazione = operazione;
     }
 
-    public OggettoAudit(Oggetto oggetto, Timestamp timestamp) {
+    public OggettoAudit(Oggetto oggetto, Timestamp timestamp, int operazione) {
         this.idOggetto = oggetto.getId();
         this.nome = oggetto.getNome();
         this.versione = oggetto.getVersione();
         this.timestamp = timestamp;
+        this.operazione = operazione;
     }
 
     @Override

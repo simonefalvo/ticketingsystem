@@ -3,14 +3,11 @@ package it.uniroma2.ticketingsystem.listener;
 import it.uniroma2.ticketingsystem.aud.OggettoAudit;
 import it.uniroma2.ticketingsystem.aud.TicketAudit;
 import it.uniroma2.ticketingsystem.controller.OggettoAuditController;
-import it.uniroma2.ticketingsystem.controller.TicketAuditController;
-import it.uniroma2.ticketingsystem.entity.Oggetto;
+
 import it.uniroma2.ticketingsystem.event.OggettoEvent;
-import it.uniroma2.ticketingsystem.event.TicketEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import java.sql.Timestamp;
 
@@ -26,15 +23,23 @@ public class OggettoEventListener {
             case 0:
                 //registra inserimento
                 registraInserimentoOggetto(new OggettoAudit(oggettoEvent.getOggetto(),
-                                            new Timestamp(System.currentTimeMillis())));
+                                            new Timestamp(System.currentTimeMillis()),0));
 
                 break;
             case 1:
-                //registra cancellazione
+               // registra modifica
+                registraInserimentoOggetto(new OggettoAudit(oggettoEvent.getOggetto(),
+                        new Timestamp(System.currentTimeMillis()),1));
+
 
                 break;
             case 2:
-                //registra modifica
+                //registra eliminazione
+
+                registraInserimentoOggetto(new OggettoAudit(oggettoEvent.getOggetto(),
+                        new Timestamp(System.currentTimeMillis()),2));
+
+
 
                 break;
         }
@@ -42,4 +47,5 @@ public class OggettoEventListener {
     private void registraInserimentoOggetto(OggettoAudit oggettoAudit ){
         oggettoAuditController.registraOggettoInsert(oggettoAudit);
     }
+
 }

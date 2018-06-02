@@ -19,7 +19,6 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @Setter
-
 public class Ticket {
 
     @Id
@@ -48,7 +47,7 @@ public class Ticket {
 
     public Ticket(@NotNull String categoria, @NotNull String descrizione, @NotNull Integer prioritaAutore,
                   @NotNull Integer prioritaTeam, @NotNull String titolo, @NotNull String stato,
-                   @NotNull Utente autore, @NotNull Utente teamMember,
+                  @NotNull Timestamp timestamp, @NotNull Utente autore, @NotNull Utente teamMember,
                   @NotNull Oggetto oggetto) {
 
         this.categoria = categoria;
@@ -57,7 +56,7 @@ public class Ticket {
         this.prioritaTeam = prioritaTeam;
         this.titolo = titolo;
         this.stato = stato;
-        this.timestamp = new Timestamp(System.currentTimeMillis());
+        this.timestamp = timestamp;
         this.autore = autore;
         this.teamMember = teamMember;
         this.oggetto = oggetto;
@@ -96,7 +95,8 @@ public class Ticket {
                 ", oggetto=" + oggetto +
                 '}';
     }
-
-
-
+    //get espliciti servono ad elisa
+    public Oggetto getOggetto() {
+        return oggetto;
+    }
 }
