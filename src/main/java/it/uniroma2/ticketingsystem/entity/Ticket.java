@@ -43,7 +43,7 @@ public class Ticket {
     
     //private Integer teamid;  //attributo opzionale
 
-    
+
     public Ticket(@NotNull String categoria, @NotNull String descrizione, @NotNull Integer prioritaAutore,
                   @NotNull Integer prioritaTeam, @NotNull String titolo, @NotNull String stato, 
                   @NotNull Timestamp timestamp, @NotNull Utente autore, @NotNull Utente teamMember,
