@@ -5,7 +5,7 @@ app.controller('GraphController', function($scope, $http, $q){
 
     var getNumber = function(status) {
         var deferred = $q.defer();
-        $http.get("ticketaudit/" + status).then(function (response) {
+        $http.get("ticketaudit/status/" + status).then(function (response) {
             deferred.resolve(response.data);
         }, function (reason) {
             alert(reason);

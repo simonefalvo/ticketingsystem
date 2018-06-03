@@ -46,6 +46,12 @@ public class TicketAuditRestService {
         List<TicketAudit> ticketAud = ticketAuditController.prelevaTicketAuds();
         return new ResponseEntity<>(ticketAud, HttpStatus.OK);
     }
+
+    @RequestMapping(path = "status/{status}", method = RequestMethod.GET)
+    public ResponseEntity<Integer> NumberOfStatusTickets(@PathVariable String status) {
+        Integer total = ticketAuditController.numberOfStatusTickets(status);
+        return new ResponseEntity<>(total, total == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
+    }
 /*
     @RequestMapping(path = "{id}", method = RequestMethod.PUT)
     public ResponseEntity<TicketAudit> aggiornaTicketAud(@PathVariable Integer id, @RequestBody TicketAudit ticketAud) {
