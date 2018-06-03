@@ -46,6 +46,7 @@ component('dettagliTicket', {
         };
 
         self.conferma = function () {
+            console.log(self.ticket);
             $http.put('ticket/' + self.ticket.id.toString(), self.ticket).
             then(function () {
                 alert("Ticket modificato con successo!");

@@ -1,6 +1,7 @@
 package it.uniroma2.ticketingsystem.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,9 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Oggetto {
 
     @Id
@@ -23,7 +27,6 @@ public class Oggetto {
     private String versione;
 
     @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "oggetto")   // to avoid infinite recursion in serialization
     private Set<Ticket> tickets;
 
 

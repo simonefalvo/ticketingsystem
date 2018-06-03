@@ -12,9 +12,8 @@ component('listaOggetto', {
         self.getAll = function () {
             $http.get('oggetto/').then(function(response) {
                 self.oggetti = response.data;
-                console.log("Success: " + response.statusText);
             }, function (reason) {
-                console.log("Error: " + reason.statusText);
+                alert("Error: " + reason.statusText);
             });
         };
 

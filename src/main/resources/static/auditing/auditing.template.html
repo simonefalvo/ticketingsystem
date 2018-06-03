@@ -1,0 +1,19 @@
+<div id="page-wrapper">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="page-header">Auditing</h3>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <p>Pending Tickets: {{$ctrl.pendingTickets}}</p>
+        <p>Open Tickets: {{$ctrl.openTickets}}</p>
+        <p>Closed Tickets: {{$ctrl.closedTickets}}</p>
+    </div>
+
+    <div class="row">
+        <zingchart id="myChart" zc-json="myJson" zc-height=500 zc-width=600></zingchart>
+    </div>
+
+</div>

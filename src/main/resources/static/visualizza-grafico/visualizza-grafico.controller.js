@@ -1,9 +1,17 @@
-
 var app = angular.module('visualizzaGrafico',['zingchart-angularjs']); //old visualizzaGrafico
 
-app.controller('GraphController', function($scope){
-    var self = this;
 
+app.controller('GraphController', function($scope, $http, $q){
+
+    var getNumber = function(status) {
+        var deferred = $q.defer();
+        $http.get("ticketaudit/" + status).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (reason) {
+            alert(reason);
+        });
+        return deferred.promise;
+    };
 
     $scope.myJson = {
         type : "bar",
@@ -12,19 +20,37 @@ app.controller('GraphController', function($scope){
             fontColor :"black",
             text : "Statistiche Ticket "
         },
-        backgroundColor : "white",
+        backgroundColor : "transparent",
         series : [
             {
-                values : [1,2,3,4],
-                backgroundColor : "#4DC0CF"
+                values : [],
+                backgroundColor : "#00B08E"
             }
         ]
     };
 
-    $scope.addValues = function(){
-        var val = Math.floor((Math.random() * 10));
-        console.log(val);
-        $scope.myJson.series[0].values.push(val);
-    }
+    var init = function() {
+
+        getNumber("pending").then(function (value) {
+            $scope.myJson.series[0].values[0] = value;
+        }, function (reason) {
+            alert(reason);
+        });
+
+        getNumber("open").then(function (value) {
+            $scope.myJson.series[0].values[1] = value;
+        }, function (reason) {
+            alert(reason);
+        });
+
+        getNumber("closed").then(function (value) {
+            $scope.myJson.series[0].values[2] = value;
+        }, function (reason) {
+            alert(reason);
+        });
+    };
+
+
+    init();
 
 });
