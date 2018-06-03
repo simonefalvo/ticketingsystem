@@ -33,8 +33,20 @@ component('auditing', {
                 alert(reason);
             });
 
+            getNumber("released").then(function (value) {
+                self.releasedTickets = value;
+            }, function (reason) {
+                alert(reason);
+            });
+
             getNumber("closed").then(function (value) {
                 self.closedTickets = value;
+            }, function (reason) {
+                alert(reason);
+            });
+
+            getNumber("rejected").then(function (value) {
+                self.rejectedTickets = value;
             }, function (reason) {
                 alert(reason);
             });
