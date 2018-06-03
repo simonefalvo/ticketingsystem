@@ -34,6 +34,9 @@ angular.
             when('/dettagli-ticket/:ticketId?', {
                 template: '<dettagli-ticket></dettagli-ticket>'
             }).
+            when('/dettagli-ticket/audit/:ticketId?', {
+                template: '<dettagli-ticket></dettagli-ticket>'
+            }).
             when('/dettagli-oggetto/:oggettoId?', {
                 template: '<dettagli-oggetto></dettagli-oggetto>'
             }).
@@ -43,6 +46,9 @@ angular.
             }).
             when('/auditing', {
                 template: '<auditing></auditing>'
+            }).
+            when('/tickethistory/:ticketId?', {
+                template: '<ticket-history></ticket-history>'
             }).
             otherwise('/');
         }

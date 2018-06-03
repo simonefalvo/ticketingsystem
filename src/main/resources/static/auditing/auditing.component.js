@@ -21,6 +21,12 @@ component('auditing', {
 
         var init = function () {
 
+            self.showPending = true;
+            self.showOpen = true;
+            self.showReleased = true;
+            self.showClosed = true;
+            self.showRejected = true;
+
             getNumber("pending").then(function (value) {
                 self.pendingTickets = value;
             }, function (reason) {

@@ -8,12 +8,15 @@ component('dettagliTicket', {
     controller: ['$http', '$routeParams', '$location', function dettagliTicketController($http, $routeParams, $location) {
 
         var self = this;
-        var modifyMode = false;
+        self.modifyMode = false;
+        self.audit = $location.path() === '/dettagli-ticket/audit/' + $routeParams.ticketId.toString();
 
         self.get = function () {
-            $http.get('ticket/' + $routeParams.ticketId.toString()).
+            var path = self.audit ? 'ticketaudit/' : 'ticket/';
+            $http.get(path + $routeParams.ticketId.toString()).
             then(function(response) {
                 self.ticket = response.data;
+                if (self.audit) self.ticket.id = self.ticket.ticketId;
             }, function (reason) {
                 alert(reason.toLocaleString());
             });
@@ -22,7 +25,8 @@ component('dettagliTicket', {
         self.get();
 
         self.indietro = function () {
-            $location.path('/ticket');
+            var path = self.audit ? '/tickethistory/' + self.ticket.id.toString() : '/ticket';
+            $location.path(path);
         };
 
         self.elimina = function (ticketId) {
@@ -54,6 +58,10 @@ component('dettagliTicket', {
             }, function (reason) {
                 alert(reason.toLocaleString());
             });
+        };
+
+        self.history = function () {
+            $location.path('/tickethistory/' + self.ticket.id.toString());
         };
 
     }]

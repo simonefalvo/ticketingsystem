@@ -16,6 +16,7 @@ angular.module('ticketingSystemApp', [
     'dettagliOggetto',
     'dettagliTicket',
     'visualizzaGrafico',
-    'auditing'
+    'auditing',
+    'ticketHistory',
 
 ]);

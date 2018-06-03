@@ -60,7 +60,6 @@ public class TicketAuditController {
 
 
     public Integer numberOfStatusTickets(String status){
-
         return ticketAuditDao.numberOfStatusTickets(status);
     }
 
@@ -71,5 +70,9 @@ public class TicketAuditController {
         Timestamp ts = new Timestamp(d3.getTime());
         //System.out.println(ts);
         return ticketAuditDao.dailyTickets(ts);
+    }
+
+    public List<TicketAudit> getTicketAudsByTicketId(Integer ticketId) {
+        return  ticketAuditDao.getTicketAudsByTicketId(ticketId);
     }
 }

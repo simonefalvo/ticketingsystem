@@ -1,7 +1,6 @@
 package it.uniroma2.ticketingsystem.aud;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,6 +50,7 @@ public class TicketAudit {
                        @NotNull String stato, @NotNull Date timestamp, @NotNull UtenteAudit autore,
                        @NotNull UtenteAudit teamMember, @NotNull OggettoAudit oggetto) {
 
+        this.idTicket = idTicket;
         this.categoria = categoria;
         this.descrizione = descrizione;
         this.prioritaAutore = prioritaAutore;
