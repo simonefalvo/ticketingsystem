@@ -32,6 +32,7 @@ public class OggettoAudit {
     private Integer idOggetto;
     private String nome;
     private String versione;
+    @Column(name = "edit_time")
     private Timestamp timestamp;
     private int operazione;
 
