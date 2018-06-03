@@ -1,7 +1,9 @@
 package it.uniroma2.ticketingsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,8 +21,10 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Ticket {
-
     @Id
     @GeneratedValue
     private Integer id;
@@ -33,13 +37,10 @@ public class Ticket {
     private Integer prioritaTeam;
 
     @ManyToOne
-    @JsonManagedReference(value="autore") // to avoid infinite recursion in serialization
     private Utente autore;
     @ManyToOne
-    @JsonManagedReference(value="team_member") // to avoid infinite recursion in serialization
     private Utente teamMember;
     @ManyToOne
-    @JsonManagedReference(value = "oggetto")   // to avoid infinite recursion in serialization
     private Oggetto oggetto;
 
     //private Integer teamid;  //attributo opzionale
@@ -96,7 +97,9 @@ public class Ticket {
                 '}';
     }
     //get espliciti servono ad elisa
+    /*
     public Oggetto getOggetto() {
         return oggetto;
     }
+    */
 }

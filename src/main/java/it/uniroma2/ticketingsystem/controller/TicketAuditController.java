@@ -38,8 +38,44 @@ public class TicketAuditController {
     public void registraTicketEdit(TicketAudit ticketAudit){
         ticketAuditDao.save(ticketAudit);
     }
+/*
+    @Transactional
+    public @NotNull TicketAudit aggiornaTicketAud(@NotNull Integer id, @NotNull TicketAudit datiAggiornati) throws EntitaNonTrovataException {
+        TicketAudit ticketAudDaAggiornare = ticketAuditDao.getOne(id);
+        if (ticketAudDaAggiornare == null)
+            throw new EntitaNonTrovataException();
+
+        ticketAudDaAggiornare.aggiorna(datiAggiornati);
+
+        TicketAudit ticketAudAggiornato = ticketAuditDao.save(ticketAudDaAggiornare);
+        return ticketAudAggiornato;
+    }
+
+    public boolean eliminaTicketAud(@NotNull Integer id){
+        if(!ticketAuditDao.existsById(id)){
+            return false;
+        }
+
+        ticketAuditDao.deleteById(id);
+        return true;
+    }
+
+    public TicketAudit cercaTicketAudById(@NotNull Integer id){
+        TicketAudit ticketAudTrovato = ticketAuditDao.getOne(id);
+        return ticketAudTrovato;
+    }
+
+    public List<TicketAudit> prelevaTicketAuds() {
+        return ticketAuditDao.findAll();
+    }
+    */
+
 
     public Integer numberOfOpenTickets(){
         return ticketAuditDao.numberOfOpenTickets();
+    }
+
+    public Integer numberOfStatusTickets(String status){
+        return ticketAuditDao.numberOfStatusTickets(status);
     }
 }

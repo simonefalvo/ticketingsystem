@@ -9,4 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface TicketAuditDao extends JpaRepository<TicketAudit,Integer> {
     @Query("select count (u) from TicketAudit u where u.stato = 'open'")
     public Integer numberOfOpenTickets();
+
+    @Query("select count (distinct u.idTicket) from TicketAudit u where u.stato = ?1")
+    public Integer numberOfStatusTickets(String status);
+
 }

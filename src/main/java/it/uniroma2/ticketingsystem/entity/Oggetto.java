@@ -1,6 +1,8 @@
 package it.uniroma2.ticketingsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +16,9 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Oggetto {
 
     @Id
@@ -24,9 +29,7 @@ public class Oggetto {
     private String versione;
 
 
-    //TODO ?
     @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
-    @JsonBackReference(value="oggetto")
     private Set<Ticket> tickets;
 
 
@@ -54,16 +57,5 @@ public class Oggetto {
                 ", versione='" + versione + '\'' +
                 '}';
     }
-    //Get espliciti servono per elisa
-    public Integer getId() {
-        return id;
-    }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public String getVersione() {
-        return versione;
-    }
 }

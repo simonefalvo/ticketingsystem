@@ -3,7 +3,6 @@ package it.uniroma2.ticketingsystem.controller;
 import it.uniroma2.ticketingsystem.dao.TicketDao;
 import it.uniroma2.ticketingsystem.entity.Ticket;
 import it.uniroma2.ticketingsystem.entity.Utente;
-import it.uniroma2.ticketingsystem.event.TicketEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;

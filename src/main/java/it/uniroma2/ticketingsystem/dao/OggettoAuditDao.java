@@ -13,5 +13,5 @@ public interface OggettoAuditDao extends JpaRepository<OggettoAudit,Integer> {
     OggettoAudit getMostRecentOggettoAudit(@Param("my_id") int id);
     */
     @Query("select u.id from OggettoAudit u where u.idOggetto= :my_id AND u.timestamp=(select max(timestamp) from OggettoAudit where u.idOggetto = :my_id)")
-    int getIdOfMostRecentOggettoAuditByOggetto(@Param("my_id") int id);
+    Integer getIdOfMostRecentOggettoAuditByOggetto(@Param("my_id") int id);
 }

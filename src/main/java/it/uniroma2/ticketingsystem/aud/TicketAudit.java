@@ -1,7 +1,9 @@
 package it.uniroma2.ticketingsystem.aud;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import it.uniroma2.ticketingsystem.entity.Ticket;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +16,14 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
+
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class TicketAudit {
 
     @Id
@@ -36,13 +42,10 @@ public class TicketAudit {
     private int operation;
 
     @ManyToOne
-    @JsonManagedReference(value="autore") // to avoid infinite recursion in serialization
     private UtenteAudit autore;
     @ManyToOne
-    @JsonManagedReference(value="team_member") // to avoid infinite recursion in serialization
     private UtenteAudit teamMember;
     @ManyToOne
-    @JsonManagedReference(value="oggetto") // to avoid infinite recursion in serialization
     private OggettoAudit oggetto;
 
     //private Integer teamid;  //attributo opzionale
@@ -90,21 +93,6 @@ public class TicketAudit {
         this.oggetto = oggetto;
     }
 
-    public TicketAudit(@NotNull Integer idTicket, @NotNull String categoria, @NotNull String descrizione,
-                       @NotNull Integer prioritaAutore, @NotNull Integer prioritaTeam, @NotNull String titolo,
-                       @NotNull String stato, @NotNull Timestamp timestamp, @NotNull UtenteAudit autore,
-                       @NotNull UtenteAudit teamMember, @NotNull OggettoAudit oggetto) {
 
-        this.categoria = categoria;
-        this.descrizione = descrizione;
-        this.prioritaAutore = prioritaAutore;
-        this.prioritaTeam = prioritaTeam;
-        this.titolo = titolo;
-        this.stato = stato;
-        this.timestamp = timestamp;
-        this.autore = autore;
-        this.teamMember = teamMember;
-        this.oggetto = oggetto;
-    }
 
 }

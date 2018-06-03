@@ -1,7 +1,6 @@
 package it.uniroma2.ticketingsystem.controller;
 
 import it.uniroma2.ticketingsystem.aud.OggettoAudit;
-import it.uniroma2.ticketingsystem.aud.TicketAudit;
 import it.uniroma2.ticketingsystem.dao.OggettoAuditDao;
 import it.uniroma2.ticketingsystem.entity.Oggetto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +31,9 @@ public class OggettoAuditController {
     @Transactional
     public @NotNull OggettoAudit getMostRecentOggettoAudit(@NotNull Oggetto oggetto){
         System.out.println("\n\n\n\n getMostRecentOggettoAudit oggetto ID = "+oggetto.getId());
-        int audit_id = oggettoAuditDao.getIdOfMostRecentOggettoAuditByOggetto(oggetto.getId());
-        OggettoAudit oggettoAuditMostRecent = oggettoAuditDao.getOne(audit_id);
+        Integer audit_id = oggettoAuditDao.getIdOfMostRecentOggettoAuditByOggetto(oggetto.getId());
+        System.out.println("\n audit_id = "+audit_id);
+        OggettoAudit oggettoAuditMostRecent = oggettoAuditDao.getOne(audit_id.intValue());
         if(oggettoAuditMostRecent == null)
             System.out.println("\n\n\n\n\n\n\n oggettoAuditMostRecent is null \n\n\n\n");
         //OggettoAudit oggettoAuditMostRecent = oggettoAuditDao.getMostRecentOggettoAudit(oggetto.getId());

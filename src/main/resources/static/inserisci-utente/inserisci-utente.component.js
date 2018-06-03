@@ -15,6 +15,7 @@ component('inserisciUtente', {
                 .then(function (response) {
                     $location.path('/utente');
                     console.log('Success: ' + response.statusText);
+                    alert("utente inserito con successo!");
                 }, function (reason) {
                     console.log('Error: ' + JSON.stringify(reason));
             });

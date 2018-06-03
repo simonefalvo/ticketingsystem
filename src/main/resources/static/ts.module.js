@@ -2,6 +2,7 @@
 
 // Define the `ticketingSystemApp` module
 angular.module('ticketingSystemApp', [
+
     'ui.bootstrap',
     'ngRoute',
     'navbar',
@@ -14,6 +15,7 @@ angular.module('ticketingSystemApp', [
     'dettagliUtente',
     'dettagliOggetto',
     'dettagliTicket',
-    'visualizzaGrafico'
+    'visualizzaGrafico',
+    'auditing'
 
 ]);

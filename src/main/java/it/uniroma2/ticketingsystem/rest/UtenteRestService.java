@@ -82,4 +82,11 @@ import java.util.List;
             List<Utente> utenti = utenteController.prelevaUtenti();
             return new ResponseEntity<>(utenti, HttpStatus.OK);
         }
+        /*
+        @RequestMapping(method = RequestMethod.GET)
+        public ResponseEntity<Utente> cercaUtentePerEmail(@RequestParam(value = "email") String email) {
+            Utente utenteTrovato = utenteController.cercaUtentePerEmail(email);
+            return new ResponseEntity<>(utenteTrovato, utenteTrovato == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
+        }
+        */
     }

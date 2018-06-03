@@ -1,7 +1,9 @@
 package it.uniroma2.ticketingsystem.aud;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,12 +15,15 @@ import java.util.Set;
 import it.uniroma2.ticketingsystem.entity.Utente;
 
 
+
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class UtenteAudit {
-
     @Id
     @GeneratedValue
     private Integer id;
@@ -35,14 +40,12 @@ public class UtenteAudit {
     private int operazione;
 
     @OneToMany(mappedBy = "autore", cascade = CascadeType.ALL)
-    @JsonBackReference(value="autore")   // to avoid infinite recursion in serialization
     private Set<TicketAudit> ticketAperti;
 
     @OneToMany(mappedBy = "teamMember", cascade = CascadeType.ALL)
-    @JsonBackReference(value="team_member")   // to avoid infinite recursion in serialization
     private Set<TicketAudit> ticketAssegnati;
-    
-    
+
+
     public UtenteAudit(@NotNull Integer id, @NotNull Integer idUtente, @NotNull String nome, @NotNull String cognome,
                        @NotNull String username, @NotNull String password, @NotNull String email, @NotNull int tipo,
                        @NotNull Timestamp timestamp, @NotNull int operazione) {
@@ -59,6 +62,25 @@ public class UtenteAudit {
         this.operazione = operazione;
 
     }
+
+    public UtenteAudit(@NotNull Integer id, @NotNull Integer idUtente, @NotNull String nome, @NotNull String cognome,
+                       @NotNull String username, @NotNull String password, @NotNull String email, @NotNull int tipo,
+                       @NotNull Timestamp timestamp, @NotNull Set<TicketAudit> ticketAperti,
+                       @NotNull Set<TicketAudit> ticketAssegnati) {
+
+        this.id = id;
+        this.idUtente = idUtente;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.tipo = tipo;
+        this.timestamp = timestamp;
+        this.ticketAperti = ticketAperti;
+        this.ticketAssegnati = ticketAssegnati;
+    }
+
 
     public UtenteAudit(Utente utente, Timestamp timestamp, int operazione){
 

@@ -52,4 +52,10 @@ public class UtenteController {
     public List<Utente> prelevaUtenti() {
         return utenteDao.findAll();
     }
+
+    /*
+    public Utente cercaUtentePerEmail(@NotNull String email) {
+        return utenteDao.findByEmailAddress(email);
+    }
+    */
 }
