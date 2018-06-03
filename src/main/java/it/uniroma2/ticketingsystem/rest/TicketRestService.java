@@ -52,5 +52,4 @@ public class TicketRestService {
         }
         return new ResponseEntity<>(ticketAggiornato, HttpStatus.OK);
     }
-
 }

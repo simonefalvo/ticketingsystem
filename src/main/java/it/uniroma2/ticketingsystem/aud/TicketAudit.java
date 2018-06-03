@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @NoArgsConstructor
@@ -27,7 +27,7 @@ public class TicketAudit {
     private String categoria;
     private String descrizione;
     private String stato;
-    private Timestamp timestamp;
+    private Date timestamp;
     private Integer prioritaAutore;
     private Integer prioritaTeam;
 
@@ -46,7 +46,7 @@ public class TicketAudit {
 
     public TicketAudit(@NotNull Integer idTicket, @NotNull String categoria, @NotNull String descrizione,
                        @NotNull Integer prioritaAutore, @NotNull Integer prioritaTeam, @NotNull String titolo,
-                       @NotNull String stato, @NotNull Timestamp timestamp, @NotNull UtenteAudit autore,
+                       @NotNull String stato, @NotNull Date timestamp, @NotNull UtenteAudit autore,
                        @NotNull UtenteAudit teamMember, @NotNull OggettoAudit oggetto) {
 
         this.categoria = categoria;
