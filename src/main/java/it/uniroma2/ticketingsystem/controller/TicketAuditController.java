@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -64,11 +69,11 @@ public class TicketAuditController {
         TicketAudit ticketAudTrovato = ticketAuditDao.getOne(id);
         return ticketAudTrovato;
     }
-
+*/
     public List<TicketAudit> prelevaTicketAuds() {
         return ticketAuditDao.findAll();
     }
-    */
+
 
 
     public Integer numberOfOpenTickets(){
@@ -78,4 +83,14 @@ public class TicketAuditController {
     public Integer numberOfStatusTickets(String status){
         return ticketAuditDao.numberOfStatusTickets(status);
     }
+
+    public Integer dailyTickets(String t) throws ParseException {
+        SimpleDateFormat datetimeFormatter1 = new SimpleDateFormat("yyyy-MM-dd");
+        Date d3 = datetimeFormatter1.parse(t); //parso la stringa e la trasformo in data
+        //System.out.println("gpsdate :" + d3);
+        Timestamp ts = new Timestamp(d3.getTime());
+        //System.out.println(ts);
+        return ticketAuditDao.dailyTickets(ts);
+    }
+
 }

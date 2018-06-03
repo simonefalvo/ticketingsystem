@@ -9,12 +9,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 @Entity
@@ -35,7 +33,9 @@ public class TicketAudit {
     private String categoria;
     private String descrizione;
     private String stato;
-    private Timestamp timestamp;
+
+    @Column(name = "edit_time")
+    private Date time_stamp;
     private Integer prioritaAutore;
     private Integer prioritaTeam;
 
@@ -50,7 +50,7 @@ public class TicketAudit {
 
     //private Integer teamid;  //attributo opzionale
 
-    public TicketAudit(@NotNull Ticket ticket,  @NotNull Timestamp timestamp, @NotNull OggettoAudit oggettoAudit, @NotNull int operation){
+    public TicketAudit(@NotNull Ticket ticket,  @NotNull Date time_stamp, @NotNull OggettoAudit oggettoAudit, @NotNull int operation){
         this.idTicket = ticket.getId();
         this.titolo = ticket.getTitolo();
         this.categoria = ticket.getCategoria();
@@ -60,11 +60,11 @@ public class TicketAudit {
         this.prioritaTeam = ticket.getPrioritaTeam();
         this.oggetto = oggettoAudit;
         System.out.println("\n\n\n Oggetto inserito= "+this.oggetto.toString());
-        this.timestamp = timestamp;
+        this.time_stamp = time_stamp;
         this.operation = operation;
         //todo aggiungere autore e team member
     }
-    public TicketAudit(@NotNull Ticket ticket,  @NotNull Timestamp timestamp, @NotNull int operation){
+    public TicketAudit(@NotNull Ticket ticket,  @NotNull Date time_stamp, @NotNull int operation){
         this.idTicket = ticket.getId();
         this.titolo = ticket.getTitolo();
         this.categoria = ticket.getCategoria();
@@ -73,18 +73,18 @@ public class TicketAudit {
         this.prioritaAutore = ticket.getPrioritaAutore();
         this.prioritaTeam = ticket.getPrioritaTeam();
         //this.oggetto = oggettoAudit;
-        this.timestamp = timestamp;
+        this.time_stamp = time_stamp;
         this.operation = operation;
         //todo aggiungere autore e team member
     }
 
-    public TicketAudit(Integer idTicket, String titolo, String categoria, String descrizione, String stato, Timestamp timestamp, Integer prioritaAutore, Integer prioritaTeam, int operation, UtenteAudit autore, UtenteAudit teamMember, OggettoAudit oggetto) {
+    public TicketAudit(Integer idTicket, String titolo, String categoria, String descrizione, String stato, Timestamp time_stamp, Integer prioritaAutore, Integer prioritaTeam, int operation, UtenteAudit autore, UtenteAudit teamMember, OggettoAudit oggetto) {
         this.idTicket = idTicket;
         this.titolo = titolo;
         this.categoria = categoria;
         this.descrizione = descrizione;
         this.stato = stato;
-        this.timestamp = timestamp;
+        this.time_stamp = time_stamp;
         this.prioritaAutore = prioritaAutore;
         this.prioritaTeam = prioritaTeam;
         this.operation = operation;

@@ -33,29 +33,29 @@ public class OggettoAudit {
     private String nome;
     private String versione;
     @Column(name = "edit_time")
-    private Timestamp timestamp;
+    private Timestamp time_stamp;
     private int operazione;
 
     @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
     private Set<TicketAudit> tickets;
 
     public OggettoAudit(@NotNull Integer id, @NotNull Integer idOggetto, @NotNull String nome,
-                        @NotNull String versione, @NotNull Timestamp timestamp, @NotNull int operazione,
+                        @NotNull String versione, @NotNull Timestamp time_stamp, @NotNull int operazione,
                         @NotNull Set<TicketAudit> tickets){
 
         this.id = id;
         this.idOggetto = idOggetto;
         this.nome = nome;
         this.versione = versione;
-        this.timestamp = timestamp;
+        this.time_stamp = time_stamp;
         this.operazione = operazione;
         this.tickets = tickets;
     }
-    public OggettoAudit(Oggetto oggetto, Timestamp timestamp, int operazione) {
+    public OggettoAudit(Oggetto oggetto, Timestamp time_stamp, int operazione) {
         this.idOggetto = oggetto.getId();
         this.nome = oggetto.getNome();
         this.versione = oggetto.getVersione();
-        this.timestamp = timestamp;
+        this.time_stamp = time_stamp;
         this.operazione = operazione;
     }
 
@@ -66,7 +66,7 @@ public class OggettoAudit {
                 ", idOggetto=" + idOggetto +
                 ", nome='" + nome + '\'' +
                 ", versione='" + versione + '\'' +
-                ", timestamp=" + timestamp +
+                ", timestamp=" + time_stamp +
                 ", operazione=" + operazione +
                 ", tickets=" + tickets +
                 '}';

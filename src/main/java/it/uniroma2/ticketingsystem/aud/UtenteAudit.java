@@ -35,7 +35,9 @@ public class UtenteAudit {
     private String password;
     private String email;
     private int tipo;
-    private Timestamp timestamp;
+
+    @Column(name = "edit_time")
+    private Timestamp time_stamp;
 
     private int operazione;
 
@@ -48,7 +50,7 @@ public class UtenteAudit {
 
     public UtenteAudit(@NotNull Integer id, @NotNull Integer idUtente, @NotNull String nome, @NotNull String cognome,
                        @NotNull String username, @NotNull String password, @NotNull String email, @NotNull int tipo,
-                       @NotNull Timestamp timestamp, @NotNull int operazione) {
+                       @NotNull Timestamp time_stamp, @NotNull int operazione) {
 
         this.id = id;
         this.idUtente = idUtente;
@@ -58,14 +60,14 @@ public class UtenteAudit {
         this.password = password;
         this.email = email;
         this.tipo = tipo;
-        this.timestamp = timestamp;
+        this.time_stamp = time_stamp;
         this.operazione = operazione;
 
     }
 
     public UtenteAudit(@NotNull Integer id, @NotNull Integer idUtente, @NotNull String nome, @NotNull String cognome,
                        @NotNull String username, @NotNull String password, @NotNull String email, @NotNull int tipo,
-                       @NotNull Timestamp timestamp, @NotNull Set<TicketAudit> ticketAperti,
+                       @NotNull Timestamp time_stamp, @NotNull Set<TicketAudit> ticketAperti,
                        @NotNull Set<TicketAudit> ticketAssegnati) {
 
         this.id = id;
@@ -76,13 +78,13 @@ public class UtenteAudit {
         this.password = password;
         this.email = email;
         this.tipo = tipo;
-        this.timestamp = timestamp;
+        this.time_stamp = time_stamp;
         this.ticketAperti = ticketAperti;
         this.ticketAssegnati = ticketAssegnati;
     }
 
 
-    public UtenteAudit(Utente utente, Timestamp timestamp, int operazione){
+    public UtenteAudit(Utente utente, Timestamp time_stamp, int operazione){
 
         this.idUtente = utente.getId();
         this.nome = utente.getNome();
@@ -91,7 +93,7 @@ public class UtenteAudit {
         this.password = utente.getPassword();
         this.email = utente.getEmail();
         this.tipo = utente.getTipo();
-        this.timestamp = timestamp;
+        this.time_stamp = time_stamp;
         this.operazione = operazione;
 
 
