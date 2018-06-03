@@ -6,7 +6,6 @@
         </div>
     </div>
 
-
     <table class='table table-striped table-bordered table-hover'>
 
         <tr>
@@ -23,20 +22,16 @@
             <td>Oggetto</td>
             <td>
                 <select ng-model='$ctrl.ticket.oggetto.id' class="form-control" id="oggetto">
-                    <option ng-repeat="x in $ctrl.oggetti" value={{x.id}} >
+                    <option ng-repeat="x in $ctrl.oggetti" value={{x.id}}>
                         {{x.nome + " " + x.versione}}
-                        <!--
-                         <input type="hidden" ng-model="$ctrl.ticket.oggetto.nome"  class="form-control" value="{{x.nome}}" />
-                         -->
                     </option>
-
                 </select>
             </td>
         </tr>
 
         <tr>
             <td>Descrizione</td>
-            <td><input type='text' ng-model='$ctrl.ticket.descrizione' class='form-control' required></td>
+            <td><textarea ng-model='$ctrl.ticket.descrizione' class='form-control' required></textarea></td>
         </tr>
 
         <tr>

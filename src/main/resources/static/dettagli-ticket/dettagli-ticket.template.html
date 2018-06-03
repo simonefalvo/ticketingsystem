@@ -7,14 +7,22 @@
         <!-- /.col-lg-12 -->
     </div>
 
-    <p>ID : {{$ctrl.ticket.id}}</p>
-    <p>Oggetto : <a ng-href="#!/dettagli-oggetto/{{$ctrl.ticket.oggetto.id}}">{{$ctrl.ticket.oggetto.nome + " " + $ctrl.ticket.oggetto.versione}}</a></p>
-    <p>Titolo :</p>
-    <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.titolo">
-    <p>Categoria :</p>
-    <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.categoria">
-    <p>Descrizione :</p>
-    <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.descrizione">
+    <div class="row">
+        <div class="col-xs-6">
+            <p>ID : {{$ctrl.ticket.id}}</p>
+            <p>Oggetto : <a ng-href="#!/dettagli-oggetto/{{$ctrl.ticket.oggetto.id}}">{{$ctrl.ticket.oggetto.nome + " " + $ctrl.ticket.oggetto.versione}}</a></p>
+            <p>Titolo :</p>
+            <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.titolo">
+            <p>Categoria :</p>
+            <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.categoria">
+            <p>Descrizione :</p>
+            <textarea ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.descrizione"></textarea>
+        </div>
+
+        <div class="col-xs-6">
+            <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.history()">History</button>
+        </div>
+    </div>
 
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>
@@ -23,5 +31,6 @@
         <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.conferma()">Conferma</button>
         <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>
     </div>
+
 
 </div>

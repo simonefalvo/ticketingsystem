@@ -23,7 +23,7 @@ component('inserisciTicket', {
 
         self.inserisci = function () {
             self.ticket.stato = "pending";
-            self.ticket.timestamp = new Date();
+            self.ticket.time_stamp = new Date();
             /*
             //dato che si perdono alcuni dati dalla visualizzazione a quando mi tornano
             // dall'inserimento faccio una query per ri ottenerli

@@ -11,7 +11,7 @@ component('auditing', {
 
         var getNumber = function(status) {
             var deferred = $q.defer();
-            $http.get("ticketaudit/" + status).then(function (response) {
+            $http.get("ticketaudit/status/" + status).then(function (response) {
                 deferred.resolve(response.data);
             }, function (reason) {
                 alert(reason);
@@ -33,11 +33,26 @@ component('auditing', {
                 alert(reason);
             });
 
+            getNumber("released").then(function (value) {
+                self.releasedTickets = value;
+            }, function (reason) {
+                alert(reason);
+            });
+
             getNumber("closed").then(function (value) {
                 self.closedTickets = value;
             }, function (reason) {
                 alert(reason);
             });
+
+            getNumber("rejected").then(function (value) {
+                self.rejectedTickets = value;
+            }, function (reason) {
+                alert(reason);
+            });
+
+
+
 
         };
 
