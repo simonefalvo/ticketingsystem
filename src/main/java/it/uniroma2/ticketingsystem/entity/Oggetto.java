@@ -2,9 +2,14 @@ package it.uniroma2.ticketingsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,23 +31,31 @@ public class Oggetto {
     private String nome;
     private String versione;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
     private Set<Ticket> tickets;
 
 
     public Oggetto(@NotNull String nome, @NotNull String versione, @NotNull Set<Ticket> tickets) {
-
         this.nome = nome;
         this.versione = versione;
         this.tickets = tickets;
-
     }
 
     public void aggiorna(@NotNull Oggetto nuovoOggetto){
-
+        this.id = nuovoOggetto.id;
         this.nome = nuovoOggetto.nome;
         this.versione = nuovoOggetto.versione;
         this.tickets = nuovoOggetto.tickets;
-
     }
+
+    @Override
+    public String toString() {
+        return "Oggetto{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", versione='" + versione + '\'' +
+                '}';
+    }
+
 }

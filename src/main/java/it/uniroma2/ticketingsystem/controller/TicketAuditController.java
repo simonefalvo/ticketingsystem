@@ -23,16 +23,26 @@ public class TicketAuditController {
     private TicketAuditDao ticketAuditDao;
 
     @Transactional
-    public void registraTicketInsert(TicketAudit ticketAudit) {
-        ticketAuditDao.save(ticketAudit);
-    }
-
-    @Transactional
     public @NotNull TicketAudit creaTicketAud(@NotNull TicketAudit ticketAudit){
 
         TicketAudit ticketAuditSalvato = ticketAuditDao.save(ticketAudit);
         return ticketAuditSalvato;
 
+    }
+
+    @Transactional
+    public void registraTicketInsert(TicketAudit ticketAudit) {
+        ticketAuditDao.save(ticketAudit);
+    }
+
+    @Transactional
+    public void registraTicketDelete(TicketAudit ticketAudit){
+        ticketAuditDao.save(ticketAudit);
+    }
+
+    @Transactional
+    public void registraTicketEdit(TicketAudit ticketAudit){
+        ticketAuditDao.save(ticketAudit);
     }
 
     public List<TicketAudit> prelevaTicketAuds() {

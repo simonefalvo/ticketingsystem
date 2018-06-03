@@ -1,16 +1,16 @@
 package it.uniroma2.ticketingsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.envers.Audited;
+import org.springframework.context.annotation.Bean;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
@@ -22,7 +22,6 @@ import java.sql.Timestamp;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
 public class Ticket {
-
     @Id
     @GeneratedValue
     private Integer id;
@@ -30,7 +29,9 @@ public class Ticket {
     private String categoria;
     private String descrizione;
     private String stato;
-    private Timestamp timestamp;
+
+    @Column(name = "edit_time")
+    private Timestamp time_stamp;
     private Integer prioritaAutore;
     private Integer prioritaTeam;
 
@@ -40,22 +41,22 @@ public class Ticket {
     private Utente teamMember;
     @ManyToOne
     private Oggetto oggetto;
-    
+
     //private Integer teamid;  //attributo opzionale
 
 
     public Ticket(@NotNull String categoria, @NotNull String descrizione, @NotNull Integer prioritaAutore,
-                  @NotNull Integer prioritaTeam, @NotNull String titolo, @NotNull String stato, 
-                  @NotNull Timestamp timestamp, @NotNull Utente autore, @NotNull Utente teamMember,
+                  @NotNull Integer prioritaTeam, @NotNull String titolo, @NotNull String stato,
+                  @NotNull Timestamp time_stamp, @NotNull Utente autore, @NotNull Utente teamMember,
                   @NotNull Oggetto oggetto) {
-        
+
         this.categoria = categoria;
         this.descrizione = descrizione;
         this.prioritaAutore = prioritaAutore;
         this.prioritaTeam = prioritaTeam;
         this.titolo = titolo;
         this.stato = stato;
-        this.timestamp = timestamp;
+        this.time_stamp = time_stamp;
         this.autore = autore;
         this.teamMember = teamMember;
         this.oggetto = oggetto;
@@ -70,7 +71,7 @@ public class Ticket {
         this.stato = nuovoTicket.stato;
         this.prioritaAutore = nuovoTicket.prioritaAutore;
         this.prioritaTeam = nuovoTicket.prioritaTeam;
-        this.timestamp = nuovoTicket.timestamp;
+        this.time_stamp = nuovoTicket.time_stamp;
         this.autore = nuovoTicket.autore;
         this.teamMember = nuovoTicket.teamMember;
         this.oggetto = nuovoTicket.oggetto;
@@ -78,4 +79,26 @@ public class Ticket {
 
     }
 
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", titolo='" + titolo + '\'' +
+                ", categoria='" + categoria + '\'' +
+                ", descrizione='" + descrizione + '\'' +
+                ", stato='" + stato + '\'' +
+                ", timestamp=" + time_stamp +
+                ", prioritaAutore=" + prioritaAutore +
+                ", prioritaTeam=" + prioritaTeam +
+                ", autore=" + autore +
+                ", teamMember=" + teamMember +
+                ", oggetto=" + oggetto +
+                '}';
+    }
+    //get espliciti servono ad elisa
+    /*
+    public Oggetto getOggetto() {
+        return oggetto;
+    }
+    */
 }

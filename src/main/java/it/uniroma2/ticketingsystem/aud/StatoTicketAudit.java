@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,17 +22,19 @@ public class StatoTicketAudit {
     private Integer id;
 
     private Integer idTicket;
-    private Timestamp timestamp;
+
+    @Column(name = "edit_time")
+    private Timestamp time_stamp;
     private String stato;
 
 
     public StatoTicketAudit(@NotNull Integer id, @NotNull Integer idTicket, @NotNull String stato,
-                            @NotNull Timestamp timestamp) {
+                            @NotNull Timestamp time_stamp) {
 
         this.id = id;
         this.idTicket = idTicket;
         this.stato = stato;
-        this.timestamp =  timestamp;
+        this.time_stamp =  time_stamp;
 
     }
 

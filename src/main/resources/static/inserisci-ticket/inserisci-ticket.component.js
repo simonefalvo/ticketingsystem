@@ -4,6 +4,7 @@
 angular.
 module('inserisciTicket').
 component('inserisciTicket', {
+
     templateUrl: 'inserisci-ticket/inserisci-ticket.template.html',
     controller: ['$http', '$location', function inserisciTicketController($http, $location) {
 
@@ -11,9 +12,10 @@ component('inserisciTicket', {
 
         self.getAll = function () {
             $http.get('oggetto/').then(function(response) {
+
                 self.oggetti = response.data;
             }, function (reason) {
-                alert("Error: " + JSON.stringify(reason));
+                console.log("Error: " + reason.statusText);
             });
         };
 
@@ -21,6 +23,39 @@ component('inserisciTicket', {
 
         self.inserisci = function () {
             self.ticket.stato = "pending";
+            self.ticket.time_stamp = new Date();
+            /*
+            //dato che si perdono alcuni dati dalla visualizzazione a quando mi tornano
+            // dall'inserimento faccio una query per ri ottenerli
+            self.ticket.oggetto.nome = "inizializzato da fuori";
+            $http.get('oggetto/' + self.ticket.oggetto.id.toString()).
+            then(function(response) {
+                console.log("response.data= "+JSON.stringify(response.data, null, 4));
+
+                self.ticket.oggetto.nome = response.data.nome;
+                self.ticket.oggetto.versione = response.data.versione;
+
+            }, function (reason) {
+                alert(reason.toLocaleString());
+            });
+            */
+
+
+            console.log("self.oggetti : "+JSON.stringify(self.oggetti, null, 4));
+
+            console.log("self.ticket.oggetto= "+JSON.stringify(self.ticket.oggetto, null, 4));
+
+
+            for(var i=0; i< self.oggetti.length; i++){
+
+                if(self.oggetti[i].id == self.ticket.oggetto.id){
+                    console.log("ho trovato l'oggetto");
+                    self.ticket.oggetto.nome = self.oggetti[i].nome;
+                    self.ticket.oggetto.versione = self.oggetti[i].versione;
+                }
+            }
+
+
             $http.post('ticket/', self.ticket)
                 .then(function () {
                     $location.path('/ticket');
