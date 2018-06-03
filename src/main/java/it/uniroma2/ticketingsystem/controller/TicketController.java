@@ -3,7 +3,10 @@ package it.uniroma2.ticketingsystem.controller;
 import it.uniroma2.ticketingsystem.dao.TicketDao;
 import it.uniroma2.ticketingsystem.entity.Ticket;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
+import it.uniroma2.ticketingsystem.entity.Utente;
+import it.uniroma2.ticketingsystem.event.TicketEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,6 +21,7 @@ public class TicketController {
 
     @Transactional
     public @NotNull Ticket creaTicket(@NotNull Ticket ticket){
+
         Ticket ticketSalvato = ticketDao.save(ticket);
         return ticketSalvato;
 
@@ -50,7 +54,7 @@ public class TicketController {
     }
 
     public List<Ticket> prelevaTickets() {
-
         return ticketDao.findAll();
     }
+
 }
