@@ -2,6 +2,7 @@ package it.uniroma2.ticketingsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,7 @@ public class Oggetto {
     private String versione;
 
 
+    @JsonIgnore
     @OneToMany(mappedBy = "oggetto", cascade = CascadeType.ALL)
     private Set<Ticket> tickets;
 
