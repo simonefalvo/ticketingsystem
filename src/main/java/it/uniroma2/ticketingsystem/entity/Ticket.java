@@ -1,14 +1,10 @@
 package it.uniroma2.ticketingsystem.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.envers.Audited;
-import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,8 +26,8 @@ public class Ticket {
     private String descrizione;
     private String stato;
 
-    @Column(name = "edit_time")
-    private Timestamp time_stamp;
+    //@Column(name = "edit_time")
+    private Timestamp timestamp;
     private Integer prioritaAutore;
     private Integer prioritaTeam;
 
@@ -47,7 +43,7 @@ public class Ticket {
 
     public Ticket(@NotNull String categoria, @NotNull String descrizione, @NotNull Integer prioritaAutore,
                   @NotNull Integer prioritaTeam, @NotNull String titolo, @NotNull String stato,
-                  @NotNull Timestamp time_stamp, @NotNull Utente autore, @NotNull Utente teamMember,
+                  @NotNull Timestamp timestamp, @NotNull Utente autore, @NotNull Utente teamMember,
                   @NotNull Oggetto oggetto) {
 
         this.categoria = categoria;
@@ -56,7 +52,7 @@ public class Ticket {
         this.prioritaTeam = prioritaTeam;
         this.titolo = titolo;
         this.stato = stato;
-        this.time_stamp = time_stamp;
+        this.timestamp = timestamp;
         this.autore = autore;
         this.teamMember = teamMember;
         this.oggetto = oggetto;
@@ -71,7 +67,7 @@ public class Ticket {
         this.stato = nuovoTicket.stato;
         this.prioritaAutore = nuovoTicket.prioritaAutore;
         this.prioritaTeam = nuovoTicket.prioritaTeam;
-        this.time_stamp = nuovoTicket.time_stamp;
+        this.timestamp = nuovoTicket.timestamp;
         this.autore = nuovoTicket.autore;
         this.teamMember = nuovoTicket.teamMember;
         this.oggetto = nuovoTicket.oggetto;
@@ -87,7 +83,7 @@ public class Ticket {
                 ", categoria='" + categoria + '\'' +
                 ", descrizione='" + descrizione + '\'' +
                 ", stato='" + stato + '\'' +
-                ", timestamp=" + time_stamp +
+                ", timestamp=" + timestamp +
                 ", prioritaAutore=" + prioritaAutore +
                 ", prioritaTeam=" + prioritaTeam +
                 ", autore=" + autore +
@@ -95,6 +91,7 @@ public class Ticket {
                 ", oggetto=" + oggetto +
                 '}';
     }
+
     //get espliciti servono ad elisa
     /*
     public Oggetto getOggetto() {

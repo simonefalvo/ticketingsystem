@@ -18,7 +18,7 @@ component('ticketHistory', {
         };
 
         self.getAll = function () {
-            $http.get('ticketaudit/' + $routeParams.ticketId.toString()).then(function(response) {
+            $http.get('ticketaudit/history/' + $routeParams.ticketId).then(function(response) {
                 self.tickets = response.data;
             }, function (reason) {
                 alert("Error: " + JSON.stringify(reason));
@@ -29,7 +29,10 @@ component('ticketHistory', {
         self.getAll();
 
         self.dettagli = function (ticketId) {
-            $location.path('/dettagli-ticket/audit/' + ticketId.toString());
+            $location.path('/dettagli-ticket/audit/' + ticketId);
+        };
+        self.indietro = function () {
+            $location.path('/dettagli-ticket/' + self.ticket.id);
         };
     }]
 });

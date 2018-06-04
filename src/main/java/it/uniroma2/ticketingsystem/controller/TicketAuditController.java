@@ -66,4 +66,8 @@ public class TicketAuditController {
     public List<TicketAudit> getTicketAudsByTicketId(Integer ticketId) {
         return  ticketAuditDao.getTicketAudsByTicketId(ticketId);
     }
+
+    public TicketAudit getTicketAudById(Integer id) {
+        return ticketAuditDao.getOne(id);
+    }
 }

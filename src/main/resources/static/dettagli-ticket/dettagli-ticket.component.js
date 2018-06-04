@@ -16,7 +16,7 @@ component('dettagliTicket', {
             $http.get(path + $routeParams.ticketId.toString()).
             then(function(response) {
                 self.ticket = response.data;
-                if (self.audit) self.ticket.id = self.ticket.ticketId;
+                if (self.audit) self.ticket.id = self.ticket.idTicket;
             }, function (reason) {
                 alert(reason.toLocaleString());
             });

@@ -23,18 +23,18 @@ public class StatoTicketAudit {
 
     private Integer idTicket;
 
-    @Column(name = "edit_time")
-    private Timestamp time_stamp;
+    //@Column(name = "edit_time")
+    private Timestamp timestamp;
     private String stato;
 
 
     public StatoTicketAudit(@NotNull Integer id, @NotNull Integer idTicket, @NotNull String stato,
-                            @NotNull Timestamp time_stamp) {
+                            @NotNull Timestamp timestamp) {
 
         this.id = id;
         this.idTicket = idTicket;
         this.stato = stato;
-        this.time_stamp =  time_stamp;
+        this.timestamp =  timestamp;
 
     }
 

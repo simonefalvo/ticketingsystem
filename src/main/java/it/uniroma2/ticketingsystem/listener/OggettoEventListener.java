@@ -1,7 +1,6 @@
 package it.uniroma2.ticketingsystem.listener;
 
 import it.uniroma2.ticketingsystem.aud.OggettoAudit;
-import it.uniroma2.ticketingsystem.aud.TicketAudit;
 import it.uniroma2.ticketingsystem.controller.OggettoAuditController;
 
 import it.uniroma2.ticketingsystem.event.OggettoEvent;

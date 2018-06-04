@@ -27,6 +27,12 @@ public class TicketAuditRestService {
     }
 
     @RequestMapping(path = "{id}", method = RequestMethod.GET)
+    public ResponseEntity<TicketAudit> getTicketAudById(@PathVariable Integer id) {
+        TicketAudit ticketAud = ticketAuditController.getTicketAudById(id);
+        return new ResponseEntity<>(ticketAud, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "history/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<TicketAudit>> getTicketAudsByTicketId(@PathVariable Integer id) {
         List<TicketAudit> ticketAud = ticketAuditController.getTicketAudsByTicketId(id);
         return new ResponseEntity<>(ticketAud, HttpStatus.OK);
