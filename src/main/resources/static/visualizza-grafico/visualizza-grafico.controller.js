@@ -30,9 +30,21 @@ app.controller('GraphController', function($scope, $http, $q){
             }
         },
         title:{
+            adjustLayout: true,
             backgroundColor : "transparent",
             fontColor :"black",
-            text : "Percentuale Rigetti e Completamenti "
+            text : "Percentuale Ticket Rigettati e Risolti"
+        },
+        legend: {
+            backgroundColor : "transparent",
+            layout: "x5",
+            position: "50%",
+            adjustLayout: true,
+            borderColor: "transparent",
+            marker: {
+                borderRadius: 10,
+                borderColor: "transparent"
+            }
         },
         backgroundColor : "transparent",
 
@@ -60,9 +72,21 @@ app.controller('GraphController', function($scope, $http, $q){
     $scope.myBar = {
         type : "bar",
         title:{
+            adjustLayout: true,
             backgroundColor : "transparent",
             fontColor :"black",
-            text : "Numero Ticket Attuali "
+            text : "Numero Ticket nel Sistema"
+        },
+        legend: {
+            adjustLayout: true,
+            backgroundColor : "transparent",
+            layout: "x5",
+            position: "50%",
+            borderColor: "transparent",
+            marker: {
+                borderRadius: 10,
+                borderColor: "transparent"
+            }
         },
         tooltip: {
             text: "%v %t Tickets"
