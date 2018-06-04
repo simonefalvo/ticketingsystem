@@ -34,5 +34,6 @@ component('ticketHistory', {
         self.indietro = function () {
             $location.path('/dettagli-ticket/' + self.ticket.id);
         };
+
     }]
 });
