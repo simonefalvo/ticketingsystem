@@ -37,7 +37,15 @@ public class TicketAuditRestService {
 
     @RequestMapping(path = "status/{status}", method = RequestMethod.GET)
     public ResponseEntity<Integer> NumberOfStatusTickets(@PathVariable String status) {
-        Integer total = ticketAuditController.numberOfStatusTickets(status);
+        Integer total;
+        if (!status.equals("others"))
+            total = ticketAuditController.numberOfStatusTickets(status);
+        else {
+            Integer pending = ticketAuditController.numberOfStatusTickets("pending");
+            Integer rejected = ticketAuditController.numberOfStatusTickets("rejected");
+            Integer closed = ticketAuditController.numberOfStatusTickets("closed");
+            total = pending - rejected - closed;
+        }
         return new ResponseEntity<>(total, total == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
     }
 

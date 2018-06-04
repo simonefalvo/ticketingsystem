@@ -3,9 +3,9 @@ var app = angular.module('visualizzaGrafico',['zingchart-angularjs']); //old vis
 
 app.controller('GraphController', function($scope, $http, $q){
 
-    var getNumber = function(status) {
+    var getNumber = function(path, status) {
         var deferred = $q.defer();
-        $http.get("ticket/status/" + status).then(function (response) {
+        $http.get(path + status).then(function (response) {
             deferred.resolve(response.data);
         }, function (reason) {
             alert(reason);
@@ -13,7 +13,7 @@ app.controller('GraphController', function($scope, $http, $q){
         return deferred.promise;
     };
 
-    $scope.myJson = {
+    $scope.myPie = {
         type : "pie",
         plot: {
             borderColor: "#2b313b",
@@ -32,7 +32,7 @@ app.controller('GraphController', function($scope, $http, $q){
         title:{
             backgroundColor : "transparent",
             fontColor :"black",
-            text : "Statistiche Ticket "
+            text : "Percentuale Rigetti e Completamenti "
         },
         backgroundColor : "transparent",
 
@@ -40,55 +40,115 @@ app.controller('GraphController', function($scope, $http, $q){
         series : [
             {
                 values : [],
-                backgroundColor : "#b00209",
-                text: "Pending ",
+                backgroundColor : "#b0a513",
+                text: "Others ",
                 detached: true
             }, {
                 values : [],
-                backgroundColor : "#aeb037",
-                text: "Open ",
-                detached: true
-            }, {
-                values : [],
-                backgroundColor : "#32b000",
+                backgroundColor : "#07b006",
                 text: "Closed ",
+                detached: true
+            }, {
+                values : [],
+                backgroundColor : "#b01322",
+                text: "Rejected ",
                 detached: true
             }
         ]
     };
 
-    $scope.myJson2 = {
+    $scope.myBar = {
         type : "bar",
         title:{
             backgroundColor : "transparent",
             fontColor :"black",
-            text : "Statistiche Ticket "
+            text : "Numero Ticket Attuali "
+        },
+        tooltip: {
+            text: "%v %t Tickets"
         },
         backgroundColor : "transparent",
         series : [
             {
-                values : [1,2,3,4],
-                backgroundColor : "#b02a43"
+                values : [],
+                backgroundColor : "#b0a513",
+                text: "Pending ",
+                detached: true
+            }, {
+                values : [],
+                backgroundColor : "#16b0af",
+                text: "Open ",
+                detached: true
+            }, {
+                values : [],
+                backgroundColor : "#202db0",
+                text: "Released ",
+                detached: true
+            }, {
+                values : [],
+                backgroundColor : "#07b006",
+                text: "Closed ",
+                detached: true
+            }, {
+                values : [],
+                backgroundColor : "#b01322",
+                text: "Rejected ",
+                detached: true
             }
         ]
     };
 
     var init = function() {
 
-        getNumber("pending").then(function (value) {
-            $scope.myJson.series[0].values[0] = value;
+        getNumber("ticket/status/", "pending").then(function (value) {
+            $scope.myBar.series[0].values[0] = value;
         }, function (reason) {
             alert(reason);
         });
 
-        getNumber("open").then(function (value) {
-            $scope.myJson.series[1].values[0]= value;
+        getNumber("ticket/status/", "open").then(function (value) {
+            $scope.myBar.series[1].values[0]= value;
         }, function (reason) {
             alert(reason);
         });
 
-        getNumber("closed").then(function (value) {
-            $scope.myJson.series[2].values[0]= value;
+        getNumber("ticket/status/", "released").then(function (value) {
+            $scope.myBar.series[2].values[0]= value;
+        }, function (reason) {
+            alert(reason);
+        });
+
+        getNumber("ticket/status/", "closed").then(function (value) {
+            $scope.myBar.series[3].values[0]= value;
+        }, function (reason) {
+            alert(reason);
+        });
+
+        getNumber("ticket/status/", "rejected").then(function (value) {
+            $scope.myBar.series[4].values[0]= value;
+        }, function (reason) {
+            alert(reason);
+        });
+
+
+
+        getNumber("ticketaudit/status/", "closed").then(function (value) {
+            $scope.myPie.series[1].values[0]= value;
+            console.log("closed");
+        }, function (reason) {
+            alert(reason);
+        });
+
+        getNumber("ticketaudit/status/", "rejected").then(function (value) {
+            $scope.myPie.series[2].values[0]= value;
+            console.log("rejected");
+        }, function (reason) {
+            alert(reason);
+        });
+
+        getNumber("ticketaudit/status/", "others").then(function (value) {
+            $scope.myPie.series[0].values[0] = value;
+            console.log("others");
         }, function (reason) {
             alert(reason);
         });
