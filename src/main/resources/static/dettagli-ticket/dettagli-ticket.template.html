@@ -17,6 +17,16 @@
             <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.categoria">
             <p>Descrizione :</p>
             <textarea ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.descrizione"></textarea>
+            <p>Stato :</p>
+            <div class="col-xs-6">
+                <select ng-disabled="!$ctrl.modifyMode" class="form-control" ng-model="$ctrl.ticket.stato">
+                        <option value="pending"> Pending </option>
+                        <option value="open"> Open </option>
+                        <option value="released"> Released </option>
+                        <option value="closed"> Closed </option>
+                        <option value="rejected"> Rejected </option>
+                </select>
+            </div>
         </div>
         <div class="col-xs-6">
             <button class="btn" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.history()">Storico</button>

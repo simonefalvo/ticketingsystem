@@ -24,8 +24,8 @@
 
         <tbody>
         <tr ng-repeat="x in $ctrl.tickets" ng-click="$ctrl.dettagli(x.id)">
-            <td>{{ x.timestamp}}</td>
-            <td>{{ x.operation}}</td>
+            <td>{{ x.timestamp | date: 'dd/MM/yyyy'}}</td>
+            <td>{{ x.operation | operation_filter}}</td>
             <td>{{ x.autore}}</td>
         </tr>
         </tbody>
