@@ -90,4 +90,10 @@ public class TicketRestService {
         return new ResponseEntity<>(ticketAggiornato, HttpStatus.OK);
     }
 
+    @RequestMapping(path = "status/{status}", method = RequestMethod.GET)
+    public ResponseEntity<Integer> NumberOfStatusTickets(@PathVariable String status) {
+        Integer total = ticketController.numberOfStatusTickets(status);
+        return new ResponseEntity<>(total, total == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
+    }
+
 }

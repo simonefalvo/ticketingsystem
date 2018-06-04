@@ -13,7 +13,7 @@ public interface TicketAuditDao extends JpaRepository<TicketAudit,Integer> {
     @Query("select count (distinct t.idTicket) from TicketAudit t where t.stato = ?1")
     Integer numberOfStatusTickets(String status);
 
-    @Query("select count (distinct u.idTicket) from TicketAudit u where u.timestamp >= ?1 and u.timestamp <= ?2")
+    @Query("select count (distinct t.idTicket) from TicketAudit t where t.timestamp >= ?1 and t.timestamp <= ?2")
     Integer ticketInIntervallo(Timestamp timestamp1, Timestamp timestamp2);
 
     @Query("select count (distinct t.idTicket) from TicketAudit t where t.timestamp = ?1")

@@ -50,4 +50,7 @@ public class TicketController {
         return ticketDao.findAll();
     }
 
+    public Integer numberOfStatusTickets(String status) {
+        return ticketDao.numberOfStatusTickets(status);
+    }
 }

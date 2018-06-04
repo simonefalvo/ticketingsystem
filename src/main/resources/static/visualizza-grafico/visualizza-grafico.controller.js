@@ -5,7 +5,7 @@ app.controller('GraphController', function($scope, $http, $q){
 
     var getNumber = function(status) {
         var deferred = $q.defer();
-        $http.get("ticketaudit/status/" + status).then(function (response) {
+        $http.get("ticket/status/" + status).then(function (response) {
             deferred.resolve(response.data);
         }, function (reason) {
             alert(reason);
@@ -25,6 +25,22 @@ app.controller('GraphController', function($scope, $http, $q){
             {
                 values : [],
                 backgroundColor : "#00B08E"
+            }
+        ]
+    };
+
+    $scope.myJson2 = {
+        type : "bar",
+        title:{
+            backgroundColor : "transparent",
+            fontColor :"black",
+            text : "Statistiche Ticket "
+        },
+        backgroundColor : "transparent",
+        series : [
+            {
+                values : [1,2,3,4],
+                backgroundColor : "#b02a43"
             }
         ]
     };
