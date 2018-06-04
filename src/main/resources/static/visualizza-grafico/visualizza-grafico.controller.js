@@ -14,17 +14,45 @@ app.controller('GraphController', function($scope, $http, $q){
     };
 
     $scope.myJson = {
-        type : "bar",
+        type : "pie",
+        plot: {
+            borderColor: "#2b313b",
+            borderWidth: 0,
+            animation: {
+                effect: 2,
+                method: 5,
+                speed: 900,
+                sequence: 1,
+                delay: 3000
+            },
+            tooltip: {
+                text: "%v %t Tickets"
+            }
+        },
         title:{
             backgroundColor : "transparent",
             fontColor :"black",
             text : "Statistiche Ticket "
         },
         backgroundColor : "transparent",
+
+
         series : [
             {
                 values : [],
-                backgroundColor : "#00B08E"
+                backgroundColor : "#b00209",
+                text: "Pending ",
+                detached: true
+            }, {
+                values : [],
+                backgroundColor : "#aeb037",
+                text: "Open ",
+                detached: true
+            }, {
+                values : [],
+                backgroundColor : "#32b000",
+                text: "Closed ",
+                detached: true
             }
         ]
     };
@@ -54,13 +82,13 @@ app.controller('GraphController', function($scope, $http, $q){
         });
 
         getNumber("open").then(function (value) {
-            $scope.myJson.series[0].values[1] = value;
+            $scope.myJson.series[1].values[0]= value;
         }, function (reason) {
             alert(reason);
         });
 
         getNumber("closed").then(function (value) {
-            $scope.myJson.series[0].values[2] = value;
+            $scope.myJson.series[2].values[0]= value;
         }, function (reason) {
             alert(reason);
         });
