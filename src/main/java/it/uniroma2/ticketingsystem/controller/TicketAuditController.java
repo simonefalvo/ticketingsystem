@@ -72,4 +72,15 @@ public class TicketAuditController {
         //System.out.println(ts);
         return ticketAuditDao.dailyTickets(ts);
     }
+
+    public Integer ticketInIntervallo(String t1, String t2) throws ParseException {
+        SimpleDateFormat datetimeFormatter1 = new SimpleDateFormat("yyyy-MM-dd");
+        Date d1 = datetimeFormatter1.parse(t1); //parso la stringa e la trasformo in data
+        Date d2 = datetimeFormatter1.parse(t2);
+        //System.out.println("gpsdate :" + d3);
+        Timestamp ts1 = new Timestamp(d1.getTime());
+        Timestamp ts2 = new Timestamp(d2.getTime());
+        //System.out.println(ts);
+        return ticketAuditDao.ticketInIntervallo(ts1,ts2);
+    }
 }
