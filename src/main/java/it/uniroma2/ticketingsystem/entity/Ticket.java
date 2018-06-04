@@ -1,16 +1,12 @@
 package it.uniroma2.ticketingsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
@@ -22,7 +18,6 @@ import java.sql.Timestamp;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
 public class Ticket {
-
     @Id
     @GeneratedValue
     private Integer id;
@@ -30,6 +25,8 @@ public class Ticket {
     private String categoria;
     private String descrizione;
     private String stato;
+
+    //@Column(name = "edit_time")
     private Timestamp timestamp;
     private Integer prioritaAutore;
     private Integer prioritaTeam;
@@ -40,15 +37,15 @@ public class Ticket {
     private Utente teamMember;
     @ManyToOne
     private Oggetto oggetto;
-    
+
     //private Integer teamid;  //attributo opzionale
 
 
     public Ticket(@NotNull String categoria, @NotNull String descrizione, @NotNull Integer prioritaAutore,
-                  @NotNull Integer prioritaTeam, @NotNull String titolo, @NotNull String stato, 
+                  @NotNull Integer prioritaTeam, @NotNull String titolo, @NotNull String stato,
                   @NotNull Timestamp timestamp, @NotNull Utente autore, @NotNull Utente teamMember,
                   @NotNull Oggetto oggetto) {
-        
+
         this.categoria = categoria;
         this.descrizione = descrizione;
         this.prioritaAutore = prioritaAutore;
@@ -78,4 +75,27 @@ public class Ticket {
 
     }
 
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", titolo='" + titolo + '\'' +
+                ", categoria='" + categoria + '\'' +
+                ", descrizione='" + descrizione + '\'' +
+                ", stato='" + stato + '\'' +
+                ", timestamp=" + timestamp +
+                ", prioritaAutore=" + prioritaAutore +
+                ", prioritaTeam=" + prioritaTeam +
+                ", autore=" + autore +
+                ", teamMember=" + teamMember +
+                ", oggetto=" + oggetto +
+                '}';
+    }
+
+    //get espliciti servono ad elisa
+    /*
+    public Oggetto getOggetto() {
+        return oggetto;
+    }
+    */
 }

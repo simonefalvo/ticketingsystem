@@ -1,7 +1,6 @@
 package it.uniroma2.ticketingsystem.configuration;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +25,6 @@ public class JacksonConfigurator {
         // livello di Object. In tal modo, tutte le classi che ereditano da Object (ovvero tutte le classi Java) verranno
         // serializzate applicando la configurazione di serializzazione definita come secondo parametro
         mapper.addMixIn(Object.class, IgnoreHibernatePropertiesInJackson.class);
-        mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         return mapper;
     }
 

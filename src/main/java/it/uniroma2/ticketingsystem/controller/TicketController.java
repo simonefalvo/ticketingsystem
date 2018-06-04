@@ -18,9 +18,7 @@ public class TicketController {
 
     @Transactional
     public @NotNull Ticket creaTicket(@NotNull Ticket ticket){
-        Ticket ticketSalvato = ticketDao.save(ticket);
-        return ticketSalvato;
-
+        return ticketDao.save(ticket);
     }
 
     @Transactional
@@ -31,8 +29,8 @@ public class TicketController {
 
         ticketDaAggiornare.aggiorna(datiAggiornati);
 
-        Ticket ticketAggiornato = ticketDao.save(ticketDaAggiornare);
-        return ticketAggiornato;
+        return ticketDao.save(ticketDaAggiornare);
+
     }
 
     public boolean eliminaTicket(@NotNull Integer id){
@@ -45,12 +43,11 @@ public class TicketController {
     }
 
     public Ticket cercaTicketById(@NotNull Integer id){
-        Ticket ticketTrovato = ticketDao.getOne(id);
-        return ticketTrovato;
+        return ticketDao.getOne(id);
     }
 
     public List<Ticket> prelevaTickets() {
-
         return ticketDao.findAll();
     }
+
 }

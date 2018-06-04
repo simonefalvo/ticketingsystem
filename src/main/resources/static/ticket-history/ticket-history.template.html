@@ -1,0 +1,38 @@
+<div id="page-wrapper">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="page-header">Storico Ticket</h3>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-xs-3"><p>Id: {{$ctrl.ticket.id}}</p></div>
+        <div class="col-xs-3"><p>Titolo: {{$ctrl.ticket.titolo}}</p></div>
+        <div class="col-xs-3"><p>Oggetto: {{$ctrl.ticket.oggetto.nome + " " + $ctrl.ticket.oggetto.versione}}</p></div>
+    </div>
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Data Modifica</th>
+            <th>Tipo Modifica</th>
+            <th>Autore Modifica</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="x in $ctrl.tickets" ng-click="$ctrl.dettagli(x.id)">
+            <td>{{ x.timestamp}}</td>
+            <td>{{ x.operation}}</td>
+            <td>{{ x.autore}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="modal-footer">
+        <button class="btn" type="button" ng-click="$ctrl.indietro()">Indietro</button>
+    </div>
+
+
+</div>

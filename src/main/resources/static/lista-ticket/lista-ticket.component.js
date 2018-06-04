@@ -21,7 +21,6 @@ component('listaTicket', {
 
         self.dettagli = function (ticketId) {
             $location.path('/dettagli-ticket/' + ticketId.toString());
-            //$http.get('ticket/' + ticketId.toString());
         };
 
         self.elimina = function (ticketId) {

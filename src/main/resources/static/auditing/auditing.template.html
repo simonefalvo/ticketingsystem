@@ -6,10 +6,27 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+
     <div class="row">
-        <p>Pending Tickets: {{$ctrl.pendingTickets}}</p>
-        <p>Open Tickets: {{$ctrl.openTickets}}</p>
-        <p>Closed Tickets: {{$ctrl.closedTickets}}</p>
+        <div class="col-xs-6">
+            <p>Data inizio</p><input type="date" class="form-control input-sm" ng-model="$ctrl.startDate">
+            <p>Data fine</p><input type="date" class="form-control input-sm" ng-model="$ctrl.endDate">
+        </div>
+        <div class="col-xs-6 checkbox">
+            <input type="checkbox" ng-model="$ctrl.showPending" checked> Pending<br>
+            <input type="checkbox" ng-model="$ctrl.showOpen" checked> Open<br>
+            <input type="checkbox" ng-model="$ctrl.showReleased" checked> Released<br>
+            <input type="checkbox" ng-model="$ctrl.showClosed" checked> Closed<br>
+            <input type="checkbox" ng-model="$ctrl.showRejected" checked> Rejected<br>
+        </div>
+    </div>
+
+    <div class="row">
+        <p ng-show="$ctrl.showPending"> Pending Tickets: {{$ctrl.RejectedTickets}}</p>
+        <p ng-show="$ctrl.showOpen"> Open Tickets: {{$ctrl.openTickets}}</p>
+        <p ng-show="$ctrl.showReleased"> Released Tickets: {{$ctrl.releasedTickets}}</p>
+        <p ng-show="$ctrl.showClosed"> Closed Tickets: {{$ctrl.closedTickets}}</p>
+        <p ng-show="$ctrl.showRejected"> Rejected Tickets: {{$ctrl.rejectedTickets}}</p>
     </div>
 
     <div class="row">
