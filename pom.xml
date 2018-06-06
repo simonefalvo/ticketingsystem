@@ -72,6 +72,11 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.4</version>
         </dependency>
+
+        <dependency><!-- Dipendenza per annotazioni custom-->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
         
     </dependencies>
 

@@ -23,9 +23,11 @@ public class RecordReader {
         return  recordController.getAllRecords();
     }
 
+    /*
     public List<Record> getAllRecordsByObjectId(@NotNull Integer id){
         return recordController.getAllRecordsByObjectId(id);
     }
+    */
 
 
 

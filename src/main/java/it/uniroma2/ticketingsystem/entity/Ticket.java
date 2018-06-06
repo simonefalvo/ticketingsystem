@@ -25,8 +25,6 @@ public class Ticket {
     private String categoria;
     private String descrizione;
     private String stato;
-
-    //@Column(name = "edit_time")
     private Timestamp timestamp;
     private Integer prioritaAutore;
     private Integer prioritaTeam;
@@ -50,6 +48,7 @@ public class Ticket {
         this.descrizione = descrizione;
         this.prioritaAutore = prioritaAutore;
         this.prioritaTeam = prioritaTeam;
+
         this.titolo = titolo;
         this.stato = stato;
         this.timestamp = timestamp;

@@ -4,6 +4,7 @@ import it.uniroma2.ticketingsystem.controller.UtenteController;
 import it.uniroma2.ticketingsystem.entity.Utente;
 import it.uniroma2.ticketingsystem.event.UtenteEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
+import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,7 @@ import java.util.List;
         @Autowired
         private ApplicationEventPublisher applicationEventPublisher;
 
+        @LogOperation
         @RequestMapping(path = "", method = RequestMethod.POST)
         public ResponseEntity<Utente> creaUtente(@RequestBody Utente utente) {
             Utente utenteCreato = utenteController.creaUtente(utente);

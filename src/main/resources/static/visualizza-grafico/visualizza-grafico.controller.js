@@ -52,7 +52,7 @@ app.controller('GraphController', function($scope, $http, $q){
         series : [
             {
                 values : [],
-                backgroundColor : "#b0a513",
+                backgroundColor : "#616cb0",
                 text: "Others ",
                 detached: true
             }, {

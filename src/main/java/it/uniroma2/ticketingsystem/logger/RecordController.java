@@ -33,8 +33,9 @@ public class RecordController {
         }
         return recordDao.getOne(id);
     }
-
+/*
     public List<Record> getAllRecordsByObjectId(@NotNull Integer id){
         return recordDao.findRecordsByObjectId(id);
     }
+    */
 }
