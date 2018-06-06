@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.URL;
 
 import java.lang.reflect.Field;
 
-public class ReflactionController {
+public class ReflectionController {
 
     //call as getField(istanceOfAClass casted as Object, nameOfAttributeToKnow)
     public static String getField(Object myIstance, String fieldName){
