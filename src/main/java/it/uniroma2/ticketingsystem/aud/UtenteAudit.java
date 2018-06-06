@@ -88,7 +88,7 @@ public class UtenteAudit {
 
 
     public UtenteAudit(Utente utente, Timestamp timestamp, int operazione){
-
+        //esempio
 
         this.idUtente = utente.getId();
         this.nome = utente.getNome();
