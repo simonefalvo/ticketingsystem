@@ -4,16 +4,19 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import it.uniroma2.ticketingsystem.controller.ReflactionController;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.util.Set;
 import it.uniroma2.ticketingsystem.entity.Utente;
-
+import org.apache.commons.lang3.reflect.FieldUtils;
 
 
 @Entity
@@ -86,8 +89,11 @@ public class UtenteAudit {
 
     public UtenteAudit(Utente utente, Timestamp timestamp, int operazione){
 
+
         this.idUtente = utente.getId();
         this.nome = utente.getNome();
+        //test funzionamento reflaction
+        this.nome = ReflactionController.getField((Object) utente,"nome");
         this.cognome = utente.getCognome();
         this.username = utente.getUsername();
         this.password = utente.getPassword();
@@ -97,5 +103,6 @@ public class UtenteAudit {
         this.operazione = operazione;
 
     }
+
 
 }
