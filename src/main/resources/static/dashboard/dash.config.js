@@ -1,7 +1,7 @@
 'use strict';
 
 angular.
-    module('ticketingSystemApp').
+    module('dash').
     config(['$locationProvider' ,'$routeProvider',
         function config($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('!');
@@ -41,7 +41,7 @@ angular.
                 template: '<dettagli-oggetto></dettagli-oggetto>'
             }).
             when('/grafico', {
-                templateUrl: "./visualizza-grafico/visualizza-grafico.html",
+                templateUrl: "../visualizza-grafico/visualizza-grafico.html",
                 controller: "GraphController"
             }).
             when('/auditing', {

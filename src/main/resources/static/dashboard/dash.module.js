@@ -1,7 +1,7 @@
 'use strict';
 
 // Define the `ticketingSystemApp` module
-angular.module('ticketingSystemApp', [
+angular.module('dash', [
 
     'ui.bootstrap',
     'ngRoute',

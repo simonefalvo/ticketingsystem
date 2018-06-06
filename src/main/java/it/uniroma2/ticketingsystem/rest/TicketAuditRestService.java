@@ -49,22 +49,22 @@ public class TicketAuditRestService {
         return new ResponseEntity<>(total, total == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
     }
 
-    @RequestMapping(path = "timestamp/{timestamp}", method = RequestMethod.GET)
-    public ResponseEntity<Integer> DailyTickets(@PathVariable String timestamp) {
+    @RequestMapping(path = "{timestamp}/{stato}", method = RequestMethod.GET)
+    public ResponseEntity<Integer> DailyTickets(@PathVariable String timestamp, @PathVariable String stato) {
         Integer total=0;
         try {
-            total = ticketAuditController.dailyTickets(timestamp);
+            total = ticketAuditController.dailyTickets(timestamp, stato);
         } catch (java.text.ParseException e) {
             e.printStackTrace();
         }
         return new ResponseEntity<>(total, total == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
     }
 
-    @RequestMapping(path = "{timestamp1}/{timestamp2}", method = RequestMethod.GET)
-    public ResponseEntity<Integer> TicketInIntervallo(@PathVariable String timestamp1, @PathVariable String timestamp2) {
+    @RequestMapping(path = "{timestamp1}/{timestamp2}/{stato}", method = RequestMethod.GET)
+    public ResponseEntity<Integer> TicketInIntervallo(@PathVariable String timestamp1, @PathVariable String timestamp2, @PathVariable String stato) {
         Integer total=0;
         try {
-            total = ticketAuditController.ticketInIntervallo(timestamp1, timestamp2);
+            total = ticketAuditController.ticketInIntervallo(timestamp1, timestamp2, stato);
         } catch (java.text.ParseException e) {
             e.printStackTrace();
         }
