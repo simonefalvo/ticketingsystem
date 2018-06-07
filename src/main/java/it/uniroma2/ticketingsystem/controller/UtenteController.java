@@ -3,6 +3,9 @@ package it.uniroma2.ticketingsystem.controller;
 import it.uniroma2.ticketingsystem.dao.UtenteDao;
 import it.uniroma2.ticketingsystem.entity.Utente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
 
@@ -17,8 +20,16 @@ public class UtenteController {
     @Autowired
     private UtenteDao utenteDao;
 
+    @Bean
+    public PasswordEncoder getPasswordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+
+
     @Transactional
     public @NotNull Utente creaUtente(@NotNull Utente utente) {
+        utente.setPassword(getPasswordEncoder().encode(utente.getPassword()));
         Utente utenteSalvato = utenteDao.save(utente);
         return utenteSalvato;
     }

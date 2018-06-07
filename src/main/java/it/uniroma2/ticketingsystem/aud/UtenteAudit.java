@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import it.uniroma2.ticketingsystem.controller.ReflactionController;
+import it.uniroma2.ticketingsystem.entity.Ruolo;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 import it.uniroma2.ticketingsystem.entity.Utente;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -37,7 +39,9 @@ public class UtenteAudit {
     private String username;
     private String password;
     private String email;
-    private int tipo;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    private List<Ruolo> ruoli;
 
     //@Column(name = "edit_time")
     private Timestamp timestamp;
@@ -52,7 +56,7 @@ public class UtenteAudit {
 
 
     public UtenteAudit(@NotNull Integer id, @NotNull Integer idUtente, @NotNull String nome, @NotNull String cognome,
-                       @NotNull String username, @NotNull String password, @NotNull String email, @NotNull int tipo,
+                       @NotNull String username, @NotNull String password, @NotNull String email, @NotNull List<Ruolo> ruoli,
                        @NotNull Timestamp timestamp, @NotNull int operazione) {
 
         this.id = id;
@@ -62,14 +66,14 @@ public class UtenteAudit {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.tipo = tipo;
+        this.ruoli = ruoli;
         this.timestamp = timestamp;
         this.operazione = operazione;
 
     }
 
     public UtenteAudit(@NotNull Integer id, @NotNull Integer idUtente, @NotNull String nome, @NotNull String cognome,
-                       @NotNull String username, @NotNull String password, @NotNull String email, @NotNull int tipo,
+                       @NotNull String username, @NotNull String password, @NotNull String email, @NotNull List<Ruolo> ruoli,
                        @NotNull Timestamp timestamp, @NotNull Set<TicketAudit> ticketAperti,
                        @NotNull Set<TicketAudit> ticketAssegnati) {
 
@@ -80,7 +84,7 @@ public class UtenteAudit {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.tipo = tipo;
+        this.ruoli = ruoli;
         this.timestamp = timestamp;
         this.ticketAperti = ticketAperti;
         this.ticketAssegnati = ticketAssegnati;
@@ -98,7 +102,7 @@ public class UtenteAudit {
         this.username = utente.getUsername();
         this.password = utente.getPassword();
         this.email = utente.getEmail();
-        this.tipo = utente.getTipo();
+        this.ruoli = utente.getRuoli();
         this.timestamp = timestamp;
         this.operazione = operazione;
 

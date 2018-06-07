@@ -10,4 +10,5 @@ public interface UtenteDao extends JpaRepository<Utente,Integer>  {
     @Query("select u from Utente u where u.email = ?1")
     Utente findByEmailAddress(String emailAddress);
     */
+    Utente findByUsername(String username);
 }
