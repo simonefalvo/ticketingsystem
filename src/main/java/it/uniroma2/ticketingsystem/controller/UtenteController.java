@@ -4,6 +4,8 @@ import it.uniroma2.ticketingsystem.dao.UtenteDao;
 import it.uniroma2.ticketingsystem.entity.Utente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,8 +26,6 @@ public class UtenteController {
     public PasswordEncoder getPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
-
 
     @Transactional
     public @NotNull Utente creaUtente(@NotNull Utente utente) {
