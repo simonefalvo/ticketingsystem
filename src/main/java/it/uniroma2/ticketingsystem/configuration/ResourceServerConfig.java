@@ -13,17 +13,19 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
  *to the Spring Security filter chain.
  */
 
-@Configuration
-@EnableResourceServer
+
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    @Override
+    /*@Override
     public void configure(HttpSecurity http) throws Exception {
         http.headers().frameOptions().disable().and()
                 .authorizeRequests()
                 .antMatchers("/","/home","/register","/login").permitAll()
-                .antMatchers("/private/**").authenticated();
-    }
+                .antMatchers("/private/**").authenticated()
+                .and().formLogin().loginPage("/login").failureUrl("/login?error=true")
+                .usernameParameter("username")
+                .passwordParameter("password");
+    }*/
 
 
 }

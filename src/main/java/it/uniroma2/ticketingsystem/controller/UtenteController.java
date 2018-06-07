@@ -64,6 +64,10 @@ public class UtenteController {
         return utenteDao.findAll();
     }
 
+    public Utente cercaPerUsername(String username){
+        return utenteDao.findByUsername(username);
+    }
+
     /*
     public Utente cercaUtentePerEmail(@NotNull String email) {
         return utenteDao.findByEmailAddress(email);

@@ -28,7 +28,8 @@ public class TicketingsystemApplication {
     @Autowired
     public void authenticationManager(AuthenticationManagerBuilder builder, UtenteDao repository, UtenteController service) throws Exception {
         if (repository.count()==0)
-            service.creaUtente(new Utente("Andrea", "Ranfone", "Ranfo","prova","mail@mail" ,Arrays.asList(new Ruolo("ADMIN")),null,null));
+            service.creaUtente(new Utente("Andrea", "Ranfone", "Prova","ciao","mail@mail" ,Arrays.asList(new Ruolo("USER")),null,null));
+
         builder.userDetailsService(userDetailsService(repository)).passwordEncoder(passwordEncoder);
     }
 
