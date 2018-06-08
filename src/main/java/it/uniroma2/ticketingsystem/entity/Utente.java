@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 
 import java.util.Set;
 
-
 @Entity
 @NoArgsConstructor
 @Getter
@@ -66,4 +65,16 @@ public class Utente {
 
     }
 
+    @Override
+    public String toString() {
+        return "Utente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", tipo=" + tipo +
+                '}';
+    }
 }

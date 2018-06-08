@@ -35,7 +35,6 @@ import java.util.List;
         @Autowired
         private ApplicationEventPublisher applicationEventPublisher;
 
-        @LogOperation
         @RequestMapping(path = "", method = RequestMethod.POST)
         public ResponseEntity<Utente> creaUtente(@RequestBody Utente utente) {
             Utente utenteCreato = utenteController.creaUtente(utente);

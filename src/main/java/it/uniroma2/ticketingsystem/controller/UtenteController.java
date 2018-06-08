@@ -2,6 +2,7 @@ package it.uniroma2.ticketingsystem.controller;
 
 import it.uniroma2.ticketingsystem.dao.UtenteDao;
 import it.uniroma2.ticketingsystem.entity.Utente;
+import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
@@ -17,12 +18,14 @@ public class UtenteController {
     @Autowired
     private UtenteDao utenteDao;
 
+    @LogOperation
     @Transactional
     public @NotNull Utente creaUtente(@NotNull Utente utente) {
         Utente utenteSalvato = utenteDao.save(utente);
         return utenteSalvato;
     }
 
+    @LogOperation(objName = "datiAggiornati")
     @Transactional
     public @NotNull Utente aggiornaUtente(@NotNull Integer id, @NotNull Utente datiAggiornati) throws EntitaNonTrovataException {
         Utente utenteDaAggiornare = utenteDao.getOne(id);
