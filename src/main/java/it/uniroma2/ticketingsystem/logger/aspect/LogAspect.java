@@ -1,9 +1,12 @@
 package it.uniroma2.ticketingsystem.logger.aspect;
 
+import it.uniroma2.ticketingsystem.logger.Record;
+import it.uniroma2.ticketingsystem.logger.RecordController;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -12,8 +15,14 @@ import java.lang.reflect.Method;
 @Component
 public class LogAspect {
 
+    @Autowired
+    private RecordController recordController;
+
+
     @After("@annotation(LogOperation)")
     public void logExecutionTime(JoinPoint jp) throws Throwable {
+
+        String methodName = jp.getSignature().getName();
 
         MethodSignature signature = (MethodSignature) jp.getSignature();
         Method method = signature.getMethod();
@@ -34,6 +43,8 @@ public class LogAspect {
         Object target = args[index];
 
         System.out.println("**** LogAspect.logOperation() " + target.toString());
+
+
     }
 
 }
