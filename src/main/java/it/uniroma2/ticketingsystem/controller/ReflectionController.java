@@ -1,8 +1,6 @@
 package it.uniroma2.ticketingsystem.controller;
 
-import org.apache.tomcat.util.ExceptionUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.hibernate.validator.constraints.URL;
 
 
 import java.lang.reflect.Field;

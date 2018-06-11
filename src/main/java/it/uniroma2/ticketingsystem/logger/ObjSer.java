@@ -57,31 +57,5 @@ public class ObjSer {
 
     }
 
-    public String buildJson(Object object, List<String> attributes) throws NoSuchFieldException {
-
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("{ ");
-
-        stringBuilder.append(" \"id\" : " + reflectionController.getField(object,"id") + ", ");
-
-
-
-        int len = attributes.size();
-        int i=0;
-        while(i<0){
-            String temp_attr = attributes.get(i);
-
-            String attr_value = reflectionController.getField(object,temp_attr);
-
-            //suddividere casi stringa e int
-            stringBuilder.append("\"" + temp_attr + "\": "+ attr_value +", ");
-
-        }
-
-        stringBuilder.append(" }");
-        String jsonString = stringBuilder.toString();
-        return jsonString;
-
-    }
 
 }

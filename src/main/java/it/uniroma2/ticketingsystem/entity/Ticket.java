@@ -2,6 +2,7 @@ package it.uniroma2.ticketingsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import it.uniroma2.ticketingsystem.logger.aspect.LogClass;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.sql.Timestamp;
 @Entity
 @NoArgsConstructor
 @Getter
+@LogClass(logAttrs = {"stato", "descrizione"})
 @Setter
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,

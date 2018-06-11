@@ -37,7 +37,7 @@ public class TicketAudit {
     private Integer prioritaAutore;
     private Integer prioritaTeam;
 
-    private int operation;
+    private int operazione;
 
     @ManyToOne
     private UtenteAudit autore;
@@ -59,7 +59,7 @@ public class TicketAudit {
         this.oggetto = oggettoAudit;
         System.out.println("\n\n\n Oggetto inserito= "+this.oggetto.toString());
         this.timestamp = timestamp;
-        this.operation = operation;
+        this.operazione = operation;
         //todo aggiungere autore e team member
     }
     public TicketAudit(@NotNull Ticket ticket,  @NotNull Date timestamp, @NotNull int operation){
@@ -72,7 +72,7 @@ public class TicketAudit {
         this.prioritaTeam = ticket.getPrioritaTeam();
         //this.oggetto = oggettoAudit;
         this.timestamp = timestamp;
-        this.operation = operation;
+        this.operazione = operation;
         //todo aggiungere autore e team member
     }
 
@@ -85,7 +85,7 @@ public class TicketAudit {
         this.timestamp = timestamp;
         this.prioritaAutore = prioritaAutore;
         this.prioritaTeam = prioritaTeam;
-        this.operation = operation;
+        this.operazione = operation;
         this.autore = autore;
         this.teamMember = teamMember;
         this.oggetto = oggetto;

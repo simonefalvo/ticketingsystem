@@ -18,7 +18,7 @@ public class UtenteController {
     @Autowired
     private UtenteDao utenteDao;
 
-    @LogOperation
+    @LogOperation(objName = "utente")
     @Transactional
     public @NotNull Utente creaUtente(@NotNull Utente utente) {
         Utente utenteSalvato = utenteDao.save(utente);
@@ -43,6 +43,7 @@ public class UtenteController {
         return utenteTrovato;
     }
 
+    @LogOperation(objName = "id")
     public boolean eliminaUtente(@NotNull Integer id) {
         if (!utenteDao.existsById(id)) {
             return false;

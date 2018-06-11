@@ -1,7 +1,10 @@
 package it.uniroma2.ticketingsystem.logger.aspect;
 
+import it.uniroma2.ticketingsystem.controller.ReflectionController;
+import it.uniroma2.ticketingsystem.logger.ObjSer;
 import it.uniroma2.ticketingsystem.logger.Record;
 import it.uniroma2.ticketingsystem.logger.RecordController;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 @Aspect
@@ -18,6 +22,9 @@ public class LogAspect {
 
     @Autowired
     private RecordController recordController;
+
+    private ObjSer objSer;
+    private ReflectionController reflectionController;
 
 
     @After("@annotation(LogOperation)")
@@ -42,11 +49,23 @@ public class LogAspect {
             }
             index++;
         }
+
         Object target = args[index];
-        getParameters(target);
+        String[] param = getParameters(target);
 
         System.out.println("\n\n\n**** LogAspect.logOperation() " + target.toString());
+
+        String jsonString = buildJson(target,param);
+
+        Field field = FieldUtils.getField(target.getClass(), "id", true);
+        Integer objectId = (Integer) field.get(target);
+
+        Record rec = new Record(methodName, null, "class",objectId,jsonString);
+
+        recordController.createRecord(rec);
+
     }
+
     //controllare se la classe dell'oggetto è annotata
     //se si, controllare se ha inserito dei parametri rilevanti
     //restituire i parametri rilevanti
@@ -68,6 +87,30 @@ public class LogAspect {
         }
 
         return params;
+
+    }
+
+    public String buildJson(Object object, String[] attributes) throws Throwable {
+
+        Field field = FieldUtils.getField(object.getClass(), "id", true);
+        Integer result = (Integer) field.get(object);
+
+        String st = "{ id: " + result +", ";
+
+        int l = attributes.length;
+        int i=0;
+
+        while(i<l){
+            String t = "\""+attributes[i]+"\": \""+ reflectionController.getField(object,attributes[i])+"\", ";
+            st =st.concat(t);
+            i++;
+        }
+
+        st =st.concat(" }");
+
+        System.out.println("\n\n*******"+st+"*******");
+
+        return st;
 
     }
 }
