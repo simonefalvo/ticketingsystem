@@ -1,4 +1,5 @@
-<div id="wrapper">
+<div id="wrapper" xmlns:th="http://www.w3.org/1999/xhtml"
+     xmlns:th="http://www.thymeleaf.org">
 
     <nav class="navbar navbar-default navbar-static-top" role="navigation">
         <div class="navbar-header">
@@ -37,8 +38,9 @@
                 <li>
                     <div class="user-info-wrapper">
                         <div class="user-info">
-                            <div class="user-welcome">Benvenuto</div>
-                        </div>
+                            <div class="user-welcome" >Benvenuto </div>
+                            <span th:utext="${userName}"></span>
+                    </div>
                     </div>
                 </li>
                 <!-- /input-group -->
