@@ -13,17 +13,16 @@ public class ReflectionController {
         try {
             Field field = FieldUtils.getField(myIstance.getClass(), fieldName, true);
             result = (String) field.get(myIstance);
-        } catch (Exception e) {
+        } catch (IllegalAccessException e) {
             //System.err.print(ExceptionUtils.getStackTrace(e));
             System.err.print(e.getStackTrace());
         }
-        System.out.println("Using Reflection Utils "+fieldName+" : " + result);
+        //System.out.println("Using Reflection Utils "+fieldName+" : " + result);
         Field[] myField = FieldUtils.getAllFields(myIstance.getClass());
-        for(int i=0; i<myField.length; i++){
-            System.out.println("\n Field "+i+" = "+myField[i]);
+        for (int i=0; i<myField.length; i++) {
+            //System.out.println("\n Field "+i+" = "+myField[i]);
         }
 
         return result;
-
     }
 }
