@@ -1,6 +1,10 @@
 package it.uniroma2.ticketingsystem.rest;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import it.uniroma2.ticketingsystem.controller.RuoloController;
 import it.uniroma2.ticketingsystem.controller.UtenteController;
+import it.uniroma2.ticketingsystem.entity.Ruolo;
 import it.uniroma2.ticketingsystem.entity.Utente;
 import it.uniroma2.ticketingsystem.event.UtenteEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
@@ -10,7 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 // @RestController e @Controller identificano uno Spring Bean che nell'architettura MVC è l'anello di congiunzione tra
@@ -23,6 +29,7 @@ import java.util.List;
 // il MimeType dei dati restituiti e ricevuti, rispettivamente. Quando input e output sono in formato JSON, l'annotazione
 // @RestController è un metodo sintetico per dichiararlo e fornire a Spring la configurazione necessaria per serialzizare
 // e deserializzare il JSON.
+
     @RestController
     @RequestMapping(path = "utente")
     public class UtenteRestService {
@@ -30,12 +37,14 @@ import java.util.List;
         @Autowired
         private UtenteController utenteController;
 
-
         @Autowired
         private ApplicationEventPublisher applicationEventPublisher;
 
+        @JsonIgnore
+        @JsonProperty(value = "utente")
         @RequestMapping(path = "", method = RequestMethod.POST)
         public ResponseEntity<Utente> creaUtente(@RequestBody Utente utente) {
+
             Utente utenteCreato = utenteController.creaUtente(utente);
 
             UtenteEvent utenteEvent =  new UtenteEvent(this,utente,0);

@@ -32,8 +32,8 @@ public class Utente {
     private String password;
     private String email;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    private List<Ruolo> ruoli;
+    @ManyToOne
+    private Ruolo ruolo;
 
     @OneToMany(mappedBy = "autore", cascade = CascadeType.ALL)
     private Set<Ticket> ticketAperti;
@@ -43,7 +43,7 @@ public class Utente {
 
 
     public Utente(@NotNull String nome, @NotNull String cognome, @NotNull String username, @NotNull String password,
-                  @NotNull String email, @NotNull List<Ruolo> ruoli, @NotNull Set<Ticket> ticketAperti,
+                  @NotNull String email, @NotNull Ruolo ruolo, @NotNull Set<Ticket> ticketAperti,
                   @NotNull Set<Ticket> ticketAssegnati) {
 
         this.nome = nome;
@@ -51,7 +51,7 @@ public class Utente {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.ruoli = ruoli;
+        this.ruolo = ruolo;
         this.ticketAperti = ticketAperti;
         this.ticketAssegnati = ticketAssegnati;
 
@@ -64,7 +64,7 @@ public class Utente {
         this.username = datiAggiornati.username;
         this.password = datiAggiornati.password;
         this.email = datiAggiornati.email;
-        this.ruoli = datiAggiornati.ruoli;
+        this.ruolo = datiAggiornati.ruolo;
         this.ticketAperti = datiAggiornati.ticketAperti;
         this.ticketAssegnati = datiAggiornati.ticketAssegnati;
 

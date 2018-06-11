@@ -12,7 +12,6 @@ component('inserisciUtente', {
         self.getRuoli = function (){
             $http.get('ruolo/').then(function (response) {
                 self.ruoli = response.data;
-                alert(self.ruoli);
             }, function (reason) {
                 alert("Error: " + reason.status);
             });
@@ -22,7 +21,8 @@ component('inserisciUtente', {
 
         self.inserisci = function () {
             //console.log(self.utente);
-
+            self.utente.ruolo = self.ruolo;
+            console.log(self.utente);
             $http.post('utente/', self.utente)
                 .then(function (response) {
                     $location.path('/utente');

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -33,10 +34,10 @@ public class LoginRestController {
         //ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Utente user = utenteController.cercaPerUsername(auth.getName());
-        List<Ruolo> list = user.getRuoli();
-        if (list.get(0).getName().equals("ADMIN")){
+        Ruolo ruolo = user.getRuolo();
+        if (ruolo.getName().equals("ADMIN")){
             return new ModelAndView("redirect:dashboard/dash").addObject("userName",user.getUsername());
-        }else if (list.get(0).getName().equals("USER")){
+        }else if (ruolo.getName().equals("USER")){
             return new ModelAndView("redirect:index").addObject("userName","USER");
         }
         //modelAndView.setViewName("dashboard/dash");

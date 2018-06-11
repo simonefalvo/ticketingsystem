@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Provides a basic implementation of the UserDetails interface
@@ -23,24 +24,22 @@ public class CustomUserDetails implements UserDetails {
     public CustomUserDetails(Utente user) {
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.authorities = translate(user.getRuoli());
+        this.authorities = translate(user.getRuolo());
     }
 
     /**
      * Translates the List<Ruolo> to a List<GrantedAuthority>
-     * @param roles the input list of roles.
+     * @param ruolo the input list of roles.
      * @return a list of granted authorities
      */
 
-    private Collection<? extends GrantedAuthority> translate(List<Ruolo> roles) {
+    private Collection<? extends GrantedAuthority> translate(Ruolo ruolo) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        for (Ruolo role : roles) {
-            String name = role.getName().toUpperCase();
-            //Make sure that all roles start with "ROLE_"
-            if (!name.startsWith("ROLE_"))
-                name = "ROLE_" + name;
-            authorities.add(new SimpleGrantedAuthority(name));
-        }
+        String name = ruolo.getName().toUpperCase();
+        //Make sure that all roles start with "ROLE_"
+        if (!name.startsWith("ROLE_"))
+            name = "ROLE_" + name;
+        authorities.add(new SimpleGrantedAuthority(name));
         return authorities;
     }
 

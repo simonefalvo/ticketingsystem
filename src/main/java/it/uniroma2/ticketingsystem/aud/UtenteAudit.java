@@ -40,8 +40,8 @@ public class UtenteAudit {
     private String password;
     private String email;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    private List<Ruolo> ruoli;
+    @ManyToOne
+    private Ruolo ruolo;
 
     //@Column(name = "edit_time")
     private Timestamp timestamp;
@@ -56,7 +56,7 @@ public class UtenteAudit {
 
 
     public UtenteAudit(@NotNull Integer id, @NotNull Integer idUtente, @NotNull String nome, @NotNull String cognome,
-                       @NotNull String username, @NotNull String password, @NotNull String email, @NotNull List<Ruolo> ruoli,
+                       @NotNull String username, @NotNull String password, @NotNull String email, @NotNull Ruolo ruolo,
                        @NotNull Timestamp timestamp, @NotNull int operazione) {
 
         this.id = id;
@@ -66,14 +66,14 @@ public class UtenteAudit {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.ruoli = ruoli;
+        this.ruolo = ruolo;
         this.timestamp = timestamp;
         this.operazione = operazione;
 
     }
 
     public UtenteAudit(@NotNull Integer id, @NotNull Integer idUtente, @NotNull String nome, @NotNull String cognome,
-                       @NotNull String username, @NotNull String password, @NotNull String email, @NotNull List<Ruolo> ruoli,
+                       @NotNull String username, @NotNull String password, @NotNull String email, @NotNull Ruolo ruolo,
                        @NotNull Timestamp timestamp, @NotNull Set<TicketAudit> ticketAperti,
                        @NotNull Set<TicketAudit> ticketAssegnati) {
 
@@ -84,7 +84,7 @@ public class UtenteAudit {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.ruoli = ruoli;
+        this.ruolo = ruolo;
         this.timestamp = timestamp;
         this.ticketAperti = ticketAperti;
         this.ticketAssegnati = ticketAssegnati;
@@ -102,7 +102,7 @@ public class UtenteAudit {
         this.username = utente.getUsername();
         this.password = utente.getPassword();
         this.email = utente.getEmail();
-        this.ruoli = utente.getRuoli();
+        this.ruolo = utente.getRuolo();
         this.timestamp = timestamp;
         this.operazione = operazione;
 

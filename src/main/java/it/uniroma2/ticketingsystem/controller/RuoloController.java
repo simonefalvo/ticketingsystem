@@ -17,4 +17,7 @@ public class RuoloController {
         return ruoloDao.findAll();
     }
 
+    public Ruolo cercaPerNome (String nome){
+        return ruoloDao.findByName(nome);
+    }
 }
