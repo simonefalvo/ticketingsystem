@@ -5,6 +5,8 @@ import it.uniroma2.ticketingsystem.entity.Oggetto;
 import it.uniroma2.ticketingsystem.event.OggettoEvent;
 import it.uniroma2.ticketingsystem.event.TicketEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
+import it.uniroma2.ticketingsystem.logger.aspect.LogClass;
+import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -62,7 +64,6 @@ public class OggettoRestService {
         List<Oggetto> oggetto = oggettoController.prelevaOggetti();
         return new ResponseEntity<>(oggetto, HttpStatus.OK);
     }
-
     @RequestMapping(path = "{id}", method = RequestMethod.PUT)
     public ResponseEntity<Oggetto> aggiornaOggetto(@PathVariable Integer id, @RequestBody Oggetto oggetto) {
         Oggetto oggettoAggiornato;

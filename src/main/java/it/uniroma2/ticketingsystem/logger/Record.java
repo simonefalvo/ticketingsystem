@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -33,6 +34,7 @@ public class Record {
 
     private Integer objectId; //
 
+    @Column(columnDefinition="TEXT")
     private String payload;
 
     private Timestamp recordTimeStamp;
@@ -48,7 +50,7 @@ public class Record {
 
     }
 
-    public Record(@NotNull String typology, Integer userId) {
+    public Record(String typology, Integer userId) {
         this.typology = typology;
         this.userId = userId;
         this.recordTimeStamp = new Timestamp(System.currentTimeMillis());

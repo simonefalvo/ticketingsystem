@@ -43,7 +43,7 @@ public class UtenteController {
         return utenteTrovato;
     }
 
-    @LogOperation(objName = "id")
+    @LogOperation
     public boolean eliminaUtente(@NotNull Integer id) {
         if (!utenteDao.existsById(id)) {
             return false;
