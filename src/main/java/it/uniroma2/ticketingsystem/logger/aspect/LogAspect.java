@@ -35,8 +35,8 @@ public class LogAspect {
         //prendo firma del metodo annotato
         MethodSignature signature = (MethodSignature) jp.getSignature();
         Method method = signature.getMethod();
-        LogOperation a = method.getAnnotation(LogOperation.class);
-        String value = a.objName();
+        LogOperation annotation = method.getAnnotation(LogOperation.class);
+        String value = annotation.objName();
         String[] argNames = signature.getParameterNames();
         Object[] args = jp.getArgs();
 
@@ -50,17 +50,17 @@ public class LogAspect {
             index++;
         }
 
-        Object target = args[index];
-        String[] param = getParameters(target);
+        Object targetObject = args[index];
+        String[] params = getParameters(targetObject);
 
-        System.out.println("\n\n\n**** LogAspect.logOperation() " + target.toString());
+        System.out.println("\n\n\n**** LogAspect.logOperation() " + targetObject.toString());
 
-        String jsonString = buildJson(target,param);
+        String jsonString = buildJson(targetObject, params);
 
-        Field field = FieldUtils.getField(target.getClass(), "id", true);
-        Integer objectId = (Integer) field.get(target);
+        Field field = FieldUtils.getField(targetObject.getClass(), "id", true);
+        Integer objectId = (Integer) field.get(targetObject);
 
-        Record rec = new Record(methodName, null, "class",objectId,jsonString);
+        Record rec = new Record(methodName, null);
 
         recordController.createRecord(rec);
 
@@ -69,10 +69,10 @@ public class LogAspect {
     //controllare se la classe dell'oggetto è annotata
     //se si, controllare se ha inserito dei parametri rilevanti
     //restituire i parametri rilevanti
-    private String[] getParameters(Object target){
+    private String[] getParameters(Object targetObject){
         String[]params = null;
         //analizzo tutte le annotazioni della classe dell'oggetto
-        for (Annotation annotation : target.getClass().getAnnotations()){
+        for (Annotation annotation : targetObject.getClass().getAnnotations()){
 
             System.out.println("\n\n\n annotazione = "+annotation.toString());
             if(annotation.annotationType().equals(LogClass.class)) {

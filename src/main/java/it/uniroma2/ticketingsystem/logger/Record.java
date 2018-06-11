@@ -48,4 +48,9 @@ public class Record {
 
     }
 
+    public Record(@NotNull String typology, Integer userId) {
+        this.typology = typology;
+        this.userId = userId;
+        this.recordTimeStamp = new Timestamp(System.currentTimeMillis());
+    }
 }

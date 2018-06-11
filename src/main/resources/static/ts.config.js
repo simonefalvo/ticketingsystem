@@ -50,6 +50,9 @@ angular.
             when('/tickethistory/:ticketId?', {
                 template: '<ticket-history></ticket-history>'
             }).
+            when('/log', {
+                template: '<log></log>'
+            }).
             otherwise('/');
         }
     ]);

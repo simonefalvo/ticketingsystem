@@ -20,9 +20,9 @@ public class TicketRestService {
 
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
-
     @Autowired
     private TicketController ticketController;
+
 
     @RequestMapping(path = "", method = RequestMethod.POST)
     public ResponseEntity<Ticket> creaTicket(@RequestBody Ticket ticket) {
