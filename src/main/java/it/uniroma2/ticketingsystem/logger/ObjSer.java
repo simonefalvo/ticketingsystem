@@ -22,10 +22,10 @@ public class ObjSer {
 
     }
 
-    public String objToJson(Object object){
+    public static String objToJson(Object object){
 
         String jsonString=null;
-
+        ObjectMapper objectMapper = new ObjectMapper();
         try {
 
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -49,10 +49,10 @@ public class ObjSer {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+    /*
         System.out.print("----------------");
         System.out.println(jsonString);
-
+*/
         return jsonString;
 
     }

@@ -67,7 +67,6 @@ public class OggettoAudit {
                 ", versione='" + versione + '\'' +
                 ", timestamp=" + timestamp +
                 ", operazione=" + operazione +
-                ", tickets=" + tickets +
                 '}';
     }
 }

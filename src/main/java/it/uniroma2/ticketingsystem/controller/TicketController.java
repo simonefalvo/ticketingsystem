@@ -18,7 +18,7 @@ public class TicketController {
     private TicketDao ticketDao;
 
     @Transactional
-    @LogOperation(objName = "ticket")
+    //@LogOperation(objName = "ticket")
     public @NotNull Ticket creaTicket(@NotNull Ticket ticket){
         return ticketDao.save(ticket);
     }
