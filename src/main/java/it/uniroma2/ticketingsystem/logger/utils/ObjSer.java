@@ -44,12 +44,12 @@ public abstract class ObjSer {
         String[] idParams = ReflectUtils.getIDParameters(object);
         String id = getIDJsonString(object, idParams);
 
-        String t, st = "{ " + id + " , ";
+        String t, st = "{ " + id + " ,\n ";
 
         int i , l = attributes.length;
 
         for (i = 0; i < l - 1; i++) {
-            t = "\"" + attributes[i] + "\": \"" + ReflectUtils.fieldToString(object, attributes[i]) + "\", ";
+            t = "\"" + attributes[i] + "\": \"" + ReflectUtils.fieldToString(object, attributes[i]) + "\",\n ";
             st = st.concat(t);
         }
         t = "\"" + attributes[i] + "\": \"" + ReflectUtils.fieldToString(object, attributes[i]) + "\" }";
@@ -84,7 +84,7 @@ public abstract class ObjSer {
         while (i < l - 1) {
             Field field = FieldUtils.getField(object.getClass(), attributes[i], true);
             // TODO: check su tipo dell'oggetto
-            t = "\"" + attributes[i] + "\": \"" + field.get(object) + "\", ";
+            t = "\"" + attributes[i] + "\": \"" + field.get(object) + "\",\n ";
             st = st.concat(t);
             i++;
         }

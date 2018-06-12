@@ -30,19 +30,6 @@ public abstract class ReflectUtils {
         return result;
     }
 
-    public static Integer fieldToInteger(Object instance, String fieldName) {
-
-        Integer result = null;
-
-        try {
-            Field field = FieldUtils.getField(instance.getClass(), fieldName, true);
-            result = (Integer) field.get(instance);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
 
     public static Object getMethodParameter(String objectName, MethodSignature signature, Object[] args)
             throws ObjNotFoundException {

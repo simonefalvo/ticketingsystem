@@ -11,10 +11,6 @@ public class RecordReader {
     @Autowired
     private RecordController recordController;
 
-    public void createRecord(@NotNull Record record){
-        recordController.createRecord(record);
-    }
-
     public void deleteRecord(@NotNull Integer id){
         recordController.deleteRecord(id);
     }

@@ -49,16 +49,13 @@ public class LogAspect {
             String serializedObject;
 
             if (params == null)
-                // voglio serializzare tutti i parametri dell oggetto
-                //serializzo il singolo oggetto
+                // serializza tutti i parametri dell oggetto
                 serializedObject = ObjSer.objToJson(targetObject);
             else
-                //voglio serializzare solo alcuni attributi dell'oggetto
+                // serializza solo alcuni attributi dell'oggetto
                 serializedObject = ObjSer.buildJson(targetObject, params);
 
-
-            // TODO: mettere il nome della classe
-            Record record = new Record(methodName, null, "class", objectId, serializedObject);
+            Record record = new Record(methodName, null, targetObject.getClass().getSimpleName(), objectId, serializedObject);
             recordController.createRecord(record);
         }
         
