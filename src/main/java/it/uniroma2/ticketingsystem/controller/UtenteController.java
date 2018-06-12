@@ -28,7 +28,6 @@ public class UtenteController {
         return new BCryptPasswordEncoder();
     }
 
-    @LogOperation(objName = "utente")
     @Transactional
     public @NotNull Utente creaUtente(@NotNull Utente utente) {
         utente.setPassword(getPasswordEncoder().encode(utente.getPassword()));
@@ -36,7 +35,6 @@ public class UtenteController {
         return utenteSalvato;
     }
 
-    @LogOperation(objName = "datiAggiornati")
     @Transactional
     public @NotNull Utente aggiornaUtente(@NotNull Integer id, @NotNull Utente datiAggiornati) throws EntitaNonTrovataException {
         Utente utenteDaAggiornare = utenteDao.getOne(id);
@@ -54,7 +52,6 @@ public class UtenteController {
         return utenteTrovato;
     }
 
-    @LogOperation
     public boolean eliminaUtente(@NotNull Integer id) {
         if (!utenteDao.existsById(id)) {
             return false;

@@ -81,7 +81,7 @@ public class Utente {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", tipo=" + tipo +
+                ", tipo=" + ruolo +
                 '}';
     }
 }

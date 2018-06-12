@@ -1,10 +1,8 @@
 package it.uniroma2.ticketingsystem.aud;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import it.uniroma2.ticketingsystem.controller.ReflactionController;
+import it.uniroma2.ticketingsystem.controller.ReflectionController;
 import it.uniroma2.ticketingsystem.entity.Ruolo;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,7 +16,6 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 import it.uniroma2.ticketingsystem.entity.Utente;
-import org.apache.commons.lang3.reflect.FieldUtils;
 
 
 @Entity
@@ -96,8 +93,8 @@ public class UtenteAudit {
 
         this.idUtente = utente.getId();
         this.nome = utente.getNome();
-        //test funzionamento reflaction
-        this.nome = ReflactionController.getField((Object) utente,"nome");
+        //test funzionamento reflection
+        this.nome = ReflectionController.getField((Object) utente,"nome");
         this.cognome = utente.getCognome();
         this.username = utente.getUsername();
         this.password = utente.getPassword();
