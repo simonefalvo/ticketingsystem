@@ -2,6 +2,7 @@ package it.uniroma2.ticketingsystem;
 
 
 import it.uniroma2.ticketingsystem.configuration.CustomUserDetails;
+import it.uniroma2.ticketingsystem.controller.RuoloController;
 import it.uniroma2.ticketingsystem.controller.UtenteController;
 import it.uniroma2.ticketingsystem.dao.UtenteDao;
 import it.uniroma2.ticketingsystem.entity.Ruolo;
@@ -26,10 +27,12 @@ public class TicketingsystemApplication {
     }
 
     @Autowired
-    public void authenticationManager(AuthenticationManagerBuilder builder, UtenteDao repository, UtenteController service) throws Exception {
-        if (repository.count()==0)
-          service.creaUtente(new Utente("Andrea", "Ranfone", "Prova","ciao","mail@mail" ,new Ruolo("USER"),null,null));
-
+    public void authenticationManager(AuthenticationManagerBuilder builder, UtenteDao repository, UtenteController service, RuoloController ruoloService) throws Exception {
+        if (repository.count()==0) {
+            Ruolo user = ruoloService.creaRuolo(new Ruolo("USER"));
+            Ruolo admin = ruoloService.creaRuolo(new Ruolo("ADMIN"));
+            service.creaUtente(new Utente("Andrea", "Ranfone", "Prova","ciao","mail@mail" ,user,null,null));
+        }
         builder.userDetailsService(userDetailsService(repository)).passwordEncoder(passwordEncoder);
     }
 

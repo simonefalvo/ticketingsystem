@@ -37,7 +37,7 @@
     <tr>
         <td>Tipo</td>
         <td>
-            <select ng-model="$ctrl.ruolo" ng-options="ruolo as ruolo for ruolo in $ctrl.ruoli" class="form-control">
+            <select ng-model="$ctrl.ruolo" ng-options="ruolo as ruolo.name for ruolo in $ctrl.ruoli" class="form-control">
                 <option value="" selected disabled> Seleziona il ruolo </option>
             </select>
         </td>

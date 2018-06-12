@@ -40,8 +40,6 @@ public class LoginRestController {
         }else if (ruolo.getName().equals("USER")){
             return new ModelAndView("redirect:index").addObject("userName","USER");
         }
-        //modelAndView.setViewName("dashboard/dash");
-        //return modelAndView;
         return null;
     }
 
@@ -51,16 +49,5 @@ public class LoginRestController {
         modelAndView.setViewName("index");
         return modelAndView;
     }
-
-    /*@RequestMapping(value="/dashboard/dash")
-    public ModelAndView home(){
-        ModelAndView modelAndView = new ModelAndView();
-        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        //Utente user = utenteController.cercaPerUsername(auth.getName());
-        //modelAndView.addObject("userName", "Welcome " + user.getNome() + " " + user.getCognome() + " (" + user.getUsername() + ")");
-        //modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-        modelAndView.setViewName("dashboard/dash");
-        return modelAndView;
-    }*/
 
 }
