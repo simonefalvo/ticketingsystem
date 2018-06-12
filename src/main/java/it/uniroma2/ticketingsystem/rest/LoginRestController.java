@@ -36,7 +36,7 @@ public class LoginRestController {
         Utente user = utenteController.cercaPerUsername(auth.getName());
         Ruolo ruolo = user.getRuolo();
         if (ruolo.getName().equals("ADMIN")){
-            return new ModelAndView("redirect:dashboard/dash").addObject("userName",user.getUsername());
+            return new ModelAndView("redirect:index").addObject("userName",user.getUsername());
         }else if (ruolo.getName().equals("USER")){
             return new ModelAndView("redirect:index").addObject("userName","USER");
         }
@@ -50,4 +50,10 @@ public class LoginRestController {
         return modelAndView;
     }
 
+    @RequestMapping(value="/dashboard/dash")
+    public ModelAndView dash(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("dashboard/dash");
+        return modelAndView;
+    }
 }
