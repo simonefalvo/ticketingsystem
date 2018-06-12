@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 //use as @LogClass(logAttrs={"attribute1", "attribute2"})
 public @interface KeyId {
-    String[] IdAttrs() default "";
+    String[] idAttrs() default "";
 }

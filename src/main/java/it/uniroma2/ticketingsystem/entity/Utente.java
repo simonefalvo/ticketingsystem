@@ -3,6 +3,7 @@ package it.uniroma2.ticketingsystem.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import it.uniroma2.ticketingsystem.logger.aspect.KeyId;
 import it.uniroma2.ticketingsystem.logger.aspect.LogClass;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @LogClass(logAttrs = {"nome", "cognome"})
+@KeyId(idAttrs = {"id"})
 @Getter
 @Setter
 @JsonIdentityInfo(

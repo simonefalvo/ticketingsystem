@@ -28,7 +28,7 @@ public class Record {
 
     private String typology;
 
-    private Integer userId; // reflection? what if userId is a string? or smth else?
+    private String userId; // reflection? what if userId is a string? or smth else?
 
     private String objectType; //
 
@@ -39,7 +39,7 @@ public class Record {
 
     private Timestamp recordTimeStamp;
 
-    public Record(@NotNull String typology, Integer userId, String objectType, String objectId, String payload){
+    public Record(@NotNull String typology, String userId, String objectType, String objectId, String payload){
 
         this.typology = typology;
         this.userId = userId;
@@ -50,7 +50,7 @@ public class Record {
 
     }
 
-    public Record(String typology, Integer userId) {
+    public Record(String typology, String userId) {
         this.typology = typology;
         this.userId = userId;
         this.recordTimeStamp = new Timestamp(System.currentTimeMillis());

@@ -9,6 +9,8 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -29,6 +31,8 @@ public class LogAspect {
         Method method = signature.getMethod();
         LogOperation annotation = method.getAnnotation(LogOperation.class);
         String objectName = annotation.objName();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String author = auth.getName();
 
 
         // controllo che il parametro sia stato valorizzato
@@ -55,13 +59,10 @@ public class LogAspect {
                 // serializza solo alcuni attributi dell'oggetto
                 serializedObject = ObjSer.buildJson(targetObject, params);
 
-            Record record = new Record(methodName, null, targetObject.getClass().getSimpleName(), objectId, serializedObject);
+            Record record = new Record(methodName, author, targetObject.getClass().getSimpleName(), objectId, serializedObject);
             recordController.createRecord(record);
         }
         
     }
-
-
-
 
 }

@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @LogClass(logAttrs = {"stato", "descrizione"})
-@KeyId(IdAttrs = {"id"})
+@KeyId(idAttrs = {"id"})
 @Setter
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
