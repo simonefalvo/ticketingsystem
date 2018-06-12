@@ -54,16 +54,16 @@ public class TicketAuditController {
         return ticketAuditDao.numberOfStatusTickets(status);
     }
 
-    public Integer dailyTickets(String t) throws ParseException {
+    public Integer dailyTickets(String t, String stato) throws ParseException {
         SimpleDateFormat datetimeFormatter1 = new SimpleDateFormat("yyyy-MM-dd");
         Date d3 = datetimeFormatter1.parse(t); //parso la stringa e la trasformo in data
         //System.out.println("gpsdate :" + d3);
         Timestamp ts = new Timestamp(d3.getTime());
         //System.out.println(ts);
-        return ticketAuditDao.dailyTickets(ts);
+        return ticketAuditDao.dailyTickets(ts,stato);
     }
 
-    public Integer ticketInIntervallo(String t1, String t2) throws ParseException {
+    public Integer ticketInIntervallo(String t1, String t2, String stato) throws ParseException {
         SimpleDateFormat datetimeFormatter1 = new SimpleDateFormat("yyyy-MM-dd");
         Date d1 = datetimeFormatter1.parse(t1); //parso la stringa e la trasformo in data
         Date d2 = datetimeFormatter1.parse(t2);
@@ -71,7 +71,7 @@ public class TicketAuditController {
         Timestamp ts1 = new Timestamp(d1.getTime());
         Timestamp ts2 = new Timestamp(d2.getTime());
         //System.out.println(ts);
-        return ticketAuditDao.ticketInIntervallo(ts1,ts2);
+        return ticketAuditDao.ticketInIntervallo(ts1,ts2,stato);
     }
 
     public List<TicketAudit> getTicketAudsByTicketId(Integer ticketId) {

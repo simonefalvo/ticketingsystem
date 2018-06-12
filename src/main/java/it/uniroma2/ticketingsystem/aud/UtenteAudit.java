@@ -1,17 +1,24 @@
 package it.uniroma2.ticketingsystem.aud;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import it.uniroma2.ticketingsystem.controller.ReflectionController;
+import it.uniroma2.ticketingsystem.controller.ReflactionController;
+import it.uniroma2.ticketingsystem.entity.Ruolo;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Field;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 import it.uniroma2.ticketingsystem.entity.Utente;
+import org.apache.commons.lang3.reflect.FieldUtils;
 
 
 @Entity
@@ -32,7 +39,9 @@ public class UtenteAudit {
     private String username;
     private String password;
     private String email;
-    private int tipo;
+
+    @ManyToOne
+    private Ruolo ruolo;
 
     //@Column(name = "edit_time")
     private Timestamp timestamp;
@@ -47,7 +56,7 @@ public class UtenteAudit {
 
 
     public UtenteAudit(@NotNull Integer id, @NotNull Integer idUtente, @NotNull String nome, @NotNull String cognome,
-                       @NotNull String username, @NotNull String password, @NotNull String email, @NotNull int tipo,
+                       @NotNull String username, @NotNull String password, @NotNull String email, @NotNull Ruolo ruolo,
                        @NotNull Timestamp timestamp, @NotNull int operazione) {
 
         this.id = id;
@@ -57,14 +66,14 @@ public class UtenteAudit {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.tipo = tipo;
+        this.ruolo = ruolo;
         this.timestamp = timestamp;
         this.operazione = operazione;
 
     }
 
     public UtenteAudit(@NotNull Integer id, @NotNull Integer idUtente, @NotNull String nome, @NotNull String cognome,
-                       @NotNull String username, @NotNull String password, @NotNull String email, @NotNull int tipo,
+                       @NotNull String username, @NotNull String password, @NotNull String email, @NotNull Ruolo ruolo,
                        @NotNull Timestamp timestamp, @NotNull Set<TicketAudit> ticketAperti,
                        @NotNull Set<TicketAudit> ticketAssegnati) {
 
@@ -75,7 +84,7 @@ public class UtenteAudit {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.tipo = tipo;
+        this.ruolo = ruolo;
         this.timestamp = timestamp;
         this.ticketAperti = ticketAperti;
         this.ticketAssegnati = ticketAssegnati;
@@ -83,17 +92,17 @@ public class UtenteAudit {
 
 
     public UtenteAudit(Utente utente, Timestamp timestamp, int operazione){
-        //esempio
+
 
         this.idUtente = utente.getId();
         this.nome = utente.getNome();
         //test funzionamento reflaction
-        this.nome = ReflectionController.getField((Object) utente,"nome");
+        this.nome = ReflactionController.getField((Object) utente,"nome");
         this.cognome = utente.getCognome();
         this.username = utente.getUsername();
         this.password = utente.getPassword();
         this.email = utente.getEmail();
-        this.tipo = utente.getTipo();
+        this.ruolo = utente.getRuolo();
         this.timestamp = timestamp;
         this.operazione = operazione;
 

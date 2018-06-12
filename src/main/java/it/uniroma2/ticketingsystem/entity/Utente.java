@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -32,7 +33,10 @@ public class Utente {
     private String username;
     private String password;
     private String email;
-    private int tipo;
+
+    @ManyToOne
+    private Ruolo ruolo;
+
     @OneToMany(mappedBy = "autore", cascade = CascadeType.ALL)
     private Set<Ticket> ticketAperti;
 
@@ -41,7 +45,7 @@ public class Utente {
 
 
     public Utente(@NotNull String nome, @NotNull String cognome, @NotNull String username, @NotNull String password,
-                  @NotNull String email, @NotNull int tipo, @NotNull Set<Ticket> ticketAperti,
+                  @NotNull String email, @NotNull Ruolo ruolo, @NotNull Set<Ticket> ticketAperti,
                   @NotNull Set<Ticket> ticketAssegnati) {
 
         this.nome = nome;
@@ -49,7 +53,7 @@ public class Utente {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.tipo = tipo;
+        this.ruolo = ruolo;
         this.ticketAperti = ticketAperti;
         this.ticketAssegnati = ticketAssegnati;
 
@@ -62,7 +66,7 @@ public class Utente {
         this.username = datiAggiornati.username;
         this.password = datiAggiornati.password;
         this.email = datiAggiornati.email;
-        this.tipo = datiAggiornati.tipo;
+        this.ruolo = datiAggiornati.ruolo;
         this.ticketAperti = datiAggiornati.ticketAperti;
         this.ticketAssegnati = datiAggiornati.ticketAssegnati;
 
