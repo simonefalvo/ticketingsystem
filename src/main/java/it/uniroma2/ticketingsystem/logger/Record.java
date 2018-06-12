@@ -32,20 +32,20 @@ public class Record {
 
     private String objectType; //
 
-    private Integer objectId; //
+    private String objectId; //
 
     @Column(columnDefinition="TEXT")
     private String payload;
 
     private Timestamp recordTimeStamp;
 
-    public Record(@NotNull String typology, Integer userId, String object, Integer objectId, String payload){
+    public Record(@NotNull String typology, Integer userId, String objectType, String objectId, String payload){
 
         this.typology = typology;
         this.userId = userId;
         this.payload = payload;
         this.objectId = objectId;
-        this.objectType = object;
+        this.objectType = objectType;
         this.recordTimeStamp = new Timestamp(System.currentTimeMillis());
 
     }

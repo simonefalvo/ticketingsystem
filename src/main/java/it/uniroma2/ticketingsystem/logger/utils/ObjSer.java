@@ -1,10 +1,12 @@
 package it.uniroma2.ticketingsystem.logger.utils;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.apache.commons.lang3.reflect.FieldUtils;
 
 
 public abstract class ObjSer {
@@ -37,12 +39,12 @@ public abstract class ObjSer {
     }
 
 
-    public static String buildJson(Object object, String[] attributes) {
+    public static String buildJson(Object object, String[] attributes) throws Throwable {
 
-        // TODO: sostituire (non è detto che l'identificativo sia un intero e che si chiami id)
-        Integer id = ReflectUtils.fieldToInteger(object, "id");
+        String[] idParams = ReflectUtils.getIDParameters(object);
+        String id = getIDJsonString(object, idParams);
 
-        String t, st = "{ \"id\": \"" + id +"\", ";
+        String t, st = "{ " + id + " , ";
 
         int i , l = attributes.length;
 
@@ -57,4 +59,43 @@ public abstract class ObjSer {
         return st;
     }
 
+
+
+    public static String buildIDJson(Object object, String[] attributes) throws Throwable{
+
+        String st="{ ";
+
+        String s = getIDJsonString(object,attributes);
+
+        st = st.concat(s);
+        st = st.concat(" }");
+        return st;
+
+    }
+
+
+    public static String getIDJsonString(Object object, String[] attributes) throws Throwable {
+
+        String t, st = "";
+
+        int l = attributes.length;
+        int i = 0;
+
+        while (i < l - 1) {
+            Field field = FieldUtils.getField(object.getClass(), attributes[i], true);
+            // TODO: check su tipo dell'oggetto
+            t = "\"" + attributes[i] + "\": \"" + field.get(object) + "\", ";
+            st = st.concat(t);
+            i++;
+        }
+
+        Field field_attr = FieldUtils.getField(object.getClass(), attributes[i], true);
+        t = "\"" + attributes[i] + "\": \"" + field_attr.get(object) + "\"";
+
+        //System.out.print("\n\n\n ATTR:"+t+"\n\n\n");
+
+        st = st.concat(t);
+
+        return st;
+    }
 }
