@@ -63,7 +63,7 @@ public abstract class ReflectUtils {
 
             if(annotation.annotationType().equals(KeyId.class)){
                 KeyId myAnn = (KeyId) annotation;
-                params = ((KeyId) annotation).IdAttrs();
+                params = ((KeyId) annotation).idAttrs();
                 break;
             }
         }
