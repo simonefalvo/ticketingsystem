@@ -6,8 +6,9 @@ import java.text.SimpleDateFormat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
 import org.apache.commons.lang3.reflect.FieldUtils;
-
+import org.springframework.stereotype.Service;
 
 public abstract class ObjSer {
 
@@ -60,7 +61,6 @@ public abstract class ObjSer {
     }
 
 
-
     public static String buildIDJson(Object object, String[] attributes) throws Throwable{
 
         String st="{ ";
@@ -98,4 +98,7 @@ public abstract class ObjSer {
 
         return st;
     }
+
+
+
 }

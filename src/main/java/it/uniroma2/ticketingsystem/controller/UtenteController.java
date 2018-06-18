@@ -3,6 +3,7 @@ package it.uniroma2.ticketingsystem.controller;
 import it.uniroma2.ticketingsystem.dao.UtenteDao;
 import it.uniroma2.ticketingsystem.entity.Utente;
 import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
+import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
@@ -21,9 +22,18 @@ public class UtenteController {
     @LogOperation(objName = "utente")
     @Transactional
     public @NotNull Utente creaUtente(@NotNull Utente utente) {
-        Utente utenteSalvato = utenteDao.save(utente);
-        return utenteSalvato;
-    }
+       Utente utenteSalvato = utenteDao.save(utente);
+       return utenteSalvato;
+   }
+
+   /*
+
+   @LogOperation(objName = "i")
+   public void daCancellare(Integer i){
+        System.out.print("stampa :"+i);
+   }
+   */
+
 
     @LogOperation(objName = "datiAggiornati")
     @Transactional
@@ -43,7 +53,7 @@ public class UtenteController {
         return utenteTrovato;
     }
 
-    @LogOperation
+    @LogOperation(objName = "id")
     public boolean eliminaUtente(@NotNull Integer id) {
         if (!utenteDao.existsById(id)) {
             return false;
