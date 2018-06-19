@@ -99,15 +99,15 @@ public abstract class ObjSer {
         return st;
     }
 
-    public static String objectsToJson(String[] objs, String[] objName){
+    public static String objectsToJson(String[] objs, String[] inputArgs){
         String mergedJson="";
-        for (int i=0; i<objName.length;++i){
+        for (int i=0; i<inputArgs.length;++i){
             if (i==0){
                 mergedJson+= "{  ";
             }
             String json_i = objs[i];
-            mergedJson += "\n \t '"+objName[i]+"' : "+ json_i ;
-            if (i<objName.length-1){
+            mergedJson += "\n \t '"+inputArgs[i]+"' : "+ json_i ;
+            if (i<inputArgs.length-1){
                 mergedJson+=",";
             }else {
                 mergedJson += "\n }";

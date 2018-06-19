@@ -19,7 +19,7 @@ public class UtenteController {
     @Autowired
     private UtenteDao utenteDao;
 
-    @LogOperation(objName = "utente")
+    @LogOperation(inputArgs = "utente")
     @Transactional
     public @NotNull Utente creaUtente(@NotNull Utente utente) {
        Utente utenteSalvato = utenteDao.save(utente);
@@ -28,14 +28,14 @@ public class UtenteController {
 
    /*
 
-   @LogOperation(objName = "i")
+   @LogOperation(inputArgs = "i")
    public void daCancellare(Integer i){
         System.out.print("stampa :"+i);
    }
    */
 
 
-    @LogOperation(objName = "datiAggiornati")
+    @LogOperation(inputArgs = "datiAggiornati")
     @Transactional
     public @NotNull Utente aggiornaUtente(@NotNull Integer id, @NotNull Utente datiAggiornati) throws EntitaNonTrovataException {
         Utente utenteDaAggiornare = utenteDao.getOne(id);
@@ -53,7 +53,7 @@ public class UtenteController {
         return utenteTrovato;
     }
 
-    @LogOperation(objName = "id")
+    @LogOperation(inputArgs = "id")
     public boolean eliminaUtente(@NotNull Integer id) {
         if (!utenteDao.existsById(id)) {
             return false;

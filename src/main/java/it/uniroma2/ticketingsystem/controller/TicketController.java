@@ -18,13 +18,13 @@ public class TicketController {
     private TicketDao ticketDao;
 
     @Transactional
-    @LogOperation(objName = "ticket")
+    @LogOperation(inputArgs = "ticket")
     public @NotNull Ticket creaTicket(@NotNull Ticket ticket){
         return ticketDao.save(ticket);
     }
 
     @Transactional
-    @LogOperation(objName = "datiAggiornati", returnObject = "true")
+    @LogOperation(inputArgs = "datiAggiornati", returnObject = "true")
     public @NotNull Ticket aggiornaTicket(@NotNull Integer id, @NotNull Ticket datiAggiornati) throws EntitaNonTrovataException {
         Ticket ticketDaAggiornare = ticketDao.getOne(id);
         if (ticketDaAggiornare == null)

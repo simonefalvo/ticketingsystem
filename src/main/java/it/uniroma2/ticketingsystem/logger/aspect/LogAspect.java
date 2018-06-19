@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.plaf.synth.SynthEditorPaneUI;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
@@ -33,7 +34,7 @@ public class LogAspect {
         Boolean result=false;
         try {
             // todo
-            /*defaultValue =*/  LogOperation.class.getDeclaredMethod("inputArgs").getDefaultValue();
+            /*defaultValue =*/  LogOperation.class.getDeclaredMethod("inputArgsNames").getDefaultValue();
             defaultValue = "";
             if(annotation.inputArgs().equals(defaultValue))
                 result = false;
@@ -89,9 +90,19 @@ public class LogAspect {
 
     }
 
+    private boolean defaultOption(Annotation annotation, Object option, String optionName) {
+        Object defaultValue = null;
+        try {
+            defaultValue = annotation.getClass().getDeclaredMethod(optionName).getDefaultValue();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return option.equals(defaultValue);
+    }
+
 
     @Around("@annotation(LogOperation)")
-    public void logOperationFlow(ProceedingJoinPoint jp) throws Throwable {
+    public void logOperationAdvice(ProceedingJoinPoint jp) throws Throwable {
 
         // run annotated method
         Object returnObject = jp.proceed();
@@ -103,31 +114,36 @@ public class LogAspect {
         String methodName = getOperationName(signature);
 
         //get annotation options
-        String[] objectName= annotation.inputArgs();
-        String returnObj = annotation.returnObject();
+        String[] inputArgsNames = annotation.inputArgs();
+        String returnObjectName = annotation.returnObject();
 
         Record record;
 
+        if (defaultOption(annotation, returnObjectName, "returnObject"))
+            System.err.println("opzione return object DEFAULT");
+        else
+            System.err.println("opzione return object NON DEFAULT");
+
         //if serialized object is set true get it in json
-        String serializedReturnObject = getSerializedReturnObject(signature,returnObject);
+        String serializedReturnObject = getSerializedReturnObject(signature, returnObject);
 
 
         if (!optionInputArgsIsSet(signature)) {
             // non voglio serializzare oggetti in input
-            record = new Record(methodName, null,serializedReturnObject);
+            record = new Record(methodName, null, serializedReturnObject);
         }
         else{
             // voglio serializzare uno o più oggetti passato come parametri del metodo
             // estraggo gli oggetti di interesse da serializzare
 
-            //itero per ogni elemento nella lista @objectName
-            Object[] targetObject = new Object[objectName.length];
-            String[] serializedObject = new String[objectName.length];
+            //itero per ogni elemento nella lista @inputArgsNames
+            Object[] targetObject = new Object[inputArgsNames.length];
+            String[] serializedObject = new String[inputArgsNames.length];
 
-            System.out.print("\n\n "+ objectName);
+            System.out.print("\n\n "+ inputArgsNames);
 
-            for (int i=0; i<objectName.length;++i){
-                targetObject[i] = ReflectUtils.getMethodParameter(objectName[i], signature, jp.getArgs());
+            for (int i=0; i<inputArgsNames.length;++i){
+                targetObject[i] = ReflectUtils.getMethodParameter(inputArgsNames[i], signature, jp.getArgs());
 
                 // analizzo i parametri di interesse della classe dell'oggetto da serializzare
                 String[] params = ReflectUtils.getParameters(targetObject[i]);
@@ -143,7 +159,7 @@ public class LogAspect {
 
             }
 
-            String mergedJson = ObjSer.objectsToJson(serializedObject,objectName);
+            String mergedJson = ObjSer.objectsToJson(serializedObject,inputArgsNames);
 
             record = new Record(methodName, null, targetObject.getClass().getSimpleName(), mergedJson, serializedReturnObject);
 
@@ -154,6 +170,8 @@ public class LogAspect {
 
 
     }
+
+
 
     private static String serializeObject(Object object) throws Throwable{
 
@@ -185,7 +203,6 @@ public class LogAspect {
         }
 
         return serializedObject;
-
 
     }
 
