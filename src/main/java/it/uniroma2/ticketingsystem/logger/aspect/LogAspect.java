@@ -34,7 +34,7 @@ public class LogAspect {
         Boolean result=false;
         try {
             // todo
-            /*defaultValue =*/  LogOperation.class.getDeclaredMethod("inputArgsNames").getDefaultValue();
+            /*defaultValue =*/  LogOperation.class.getDeclaredMethod("inputArgs").getDefaultValue();
             defaultValue = "";
             if(annotation.inputArgs().equals(defaultValue))
                 result = false;
