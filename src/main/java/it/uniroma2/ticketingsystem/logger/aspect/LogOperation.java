@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LogOperation {
-    String objName() default "";
+    String[] objName() default "";
     String returnObject() default "false";
 
 }

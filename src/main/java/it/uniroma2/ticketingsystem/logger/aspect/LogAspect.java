@@ -33,7 +33,7 @@ public class LogAspect {
         MethodSignature signature = (MethodSignature) jp.getSignature();
         Method method = signature.getMethod();
         LogOperation annotation = method.getAnnotation(LogOperation.class);
-        String objectName = annotation.objName();
+        String[] objectName= annotation.objName();
 
         String returnObj = annotation.returnObject();
         Record record;
@@ -60,7 +60,7 @@ public class LogAspect {
         else{ // voglio serializzare un oggetto specifico passato come parametro del metodo
             // estraggo l'oggetto di interesse da serializzare
 
-            /*
+
             String methodName = signature.getName();
             //itero per ogni elemento nella lista @objectName
             Object[] targetObject = new Object[objectName.length];
@@ -80,11 +80,11 @@ public class LogAspect {
 
                 if (params == null) {
                     // serializza tutti i parametri dell oggetto
-                    serializedObject[i] = ObjSer.objToJson(targetObject);
+                    serializedObject[i] = ObjSer.objToJson(targetObject[i]);
                 }else {
                     // serializza solo alcuni attributi dell'oggetto
                     System.out.print("\n tagetObj = "+targetObject+" \t params = "+params.toString());
-                    serializedObject[i] = ObjSer.buildJson(targetObject, params);
+                    serializedObject[i] = ObjSer.buildJson(targetObject[i], params);
                 }
 
             }
@@ -92,7 +92,7 @@ public class LogAspect {
             String mergedJson = ObjSer.objectsToJson(serializedObject,objectName);
 
             System.out.println("*************************\n" + mergedJson + "\n ***************************");
-*/
+/*
 
 
             Object targetObject = ReflectUtils.getMethodParameter(objectName, signature, jp.getArgs());
@@ -110,6 +110,10 @@ public class LogAspect {
             serializedObject = serializeObject(targetObject);
 
             record = new Record(methodName, null, targetObject.getClass().getSimpleName(), serializedObject,serializedReturnObject);
+*/
+            record = new Record(methodName, null, targetObject.getClass().getSimpleName(), mergedJson, serializedReturnObject);
+
+
         }
 
         recordController.createRecord(record);
