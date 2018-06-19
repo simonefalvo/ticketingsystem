@@ -103,7 +103,7 @@ public abstract class ObjSer {
         String mergedJson="";
         for (int i=0; i<inputArgs.length;++i){
             if (i==0){
-                mergedJson+= "{  ";
+                mergedJson+= "{";
             }
             String json_i = objs[i];
             mergedJson += "\n \t '"+inputArgs[i]+"' : "+ json_i ;

@@ -1,5 +1,6 @@
 package it.uniroma2.ticketingsystem.logger.aspect;
 
+import it.uniroma2.ticketingsystem.logger.utils.AspectUtils;
 import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
 import it.uniroma2.ticketingsystem.logger.Record;
 import it.uniroma2.ticketingsystem.logger.RecordController;
@@ -11,7 +12,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.lang.annotation.Annotation;
 
 
 @Aspect
@@ -20,82 +20,6 @@ public class LogAspect {
 
     @Autowired
     private RecordController recordController;
-
-
-    private static Boolean optionInputArgsIsSet(MethodSignature signature){
-        LogOperation annotation = signature.getMethod().getAnnotation(LogOperation.class);
-        String defaultValue;
-        Boolean result=false;
-        try {
-            // todo
-            /*defaultValue =*/  LogOperation.class.getDeclaredMethod("inputArgs").getDefaultValue();
-            defaultValue = "";
-            if(annotation.inputArgs().equals(defaultValue))
-                result = false;
-            else
-                result = true;
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    private static String getOperationName(MethodSignature signature){
-        LogOperation annotation = signature.getMethod().getAnnotation(LogOperation.class);
-        String defaultValue;
-        String methodName= "";
-
-        try {
-            //todo
-            /*defaultValue =(String) */LogOperation.class.getDeclaredMethod("opName").getDefaultValue();
-            defaultValue = "";
-            String opName = annotation.opName();
-
-            methodName = opName.equals(defaultValue) ? signature.getName() : opName;
-
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        System.out.println("getOperationName methodName = "+methodName);
-        return methodName;
-    }
-
-    private static String getSerializedReturnObject (MethodSignature signature, Object returnObject){
-        LogOperation annotation = signature.getMethod().getAnnotation(LogOperation.class);
-        String returnObj = annotation.returnObject();
-        String serializedReturnObject="";
-        String defaultValue;
-        try {
-            //todo
-            /*defaultValue = (String) */LogOperation.class.getDeclaredMethod("returnObject").getDefaultValue();
-            defaultValue = "false";
-            if(!returnObj.equals(defaultValue)) {
-                serializedReturnObject = serializeObject(returnObject);
-            }
-
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-
-        System.out.println("getSerializedReturnObject serializedReturnObject = "+serializedReturnObject);
-        return serializedReturnObject;
-
-    }
-
-    /*
-        Check if the option value has the default value
-     */
-    private boolean defaultOption(Class<?> annotation, String optionName, Object option) {
-        Object defaultValue = null;
-        try {
-            defaultValue = annotation.getDeclaredMethod(optionName).getDefaultValue();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        return option.equals(defaultValue);
-    }
 
 
     @Around("@annotation(LogOperation)")
@@ -108,63 +32,44 @@ public class LogAspect {
         MethodSignature signature = (MethodSignature) jp.getSignature();
         LogOperation annotation = signature.getMethod().getAnnotation(LogOperation.class);
 
-        String methodName = getOperationName(signature);
-
         //get annotation options
         String[] inputArgsNames = annotation.inputArgs();
         String returnObjectName = annotation.returnObject();
+        String opName = annotation.opName();
+        String tag = annotation.tag();
 
         Record record;
         String serializedReturnObject = "";
 
-        if (!defaultOption(LogOperation.class, "returnObject", returnObjectName))
+        // check options and do related stuff
+        if (AspectUtils.defaultOption(LogOperation.class, "opName", opName))
+            opName = signature.getName();
+
+        if (!AspectUtils.defaultOption(LogOperation.class, "returnObject", returnObjectName))
             serializedReturnObject = serializeObject(returnObject);
-        //if serialized object is set true get it in json
-        //String serializedReturnObject = getSerializedReturnObject(signature, returnObject);
 
+        if (!AspectUtils.defaultOption(LogOperation.class, "inputArgs", inputArgsNames)) {
 
-        if (!optionInputArgsIsSet(signature)) {
-            // non voglio serializzare oggetti in input
-            record = new Record(methodName, null, serializedReturnObject);
-        }
-        else{
-            // voglio serializzare uno o più oggetti passato come parametri del metodo
-            // estraggo gli oggetti di interesse da serializzare
-
-            //itero per ogni elemento nella lista @inputArgsNames
-            Object[] targetObject = new Object[inputArgsNames.length];
+            Object[] inputArgs = new Object[inputArgsNames.length];
             String[] serializedObject = new String[inputArgsNames.length];
 
-            System.out.print("\n\n "+ inputArgsNames);
-
-            for (int i=0; i<inputArgsNames.length;++i){
-                targetObject[i] = ReflectUtils.getMethodParameter(inputArgsNames[i], signature, jp.getArgs());
-
-                // analizzo i parametri di interesse della classe dell'oggetto da serializzare
-                String[] params = ReflectUtils.getParameters(targetObject[i]);
-
-                if (params == null) {
-                    // serializza tutti i parametri dell oggetto
-                    serializedObject[i] = ObjSer.objToJson(targetObject[i]);
-                }else {
-                    // serializza solo alcuni attributi dell'oggetto
-                    System.out.print("\n tagetObj = "+targetObject+" \t params = "+params.toString());
-                    serializedObject[i] = ObjSer.buildJson(targetObject[i], params);
-                }
-
+            for (int i = 0; i < inputArgsNames.length; ++i) {
+                inputArgs[i] = ReflectUtils.getMethodParameter(inputArgsNames[i], signature, jp.getArgs());
+                serializedObject[i] = serializeObject(inputArgs[i]);
             }
 
             String mergedJson = ObjSer.objectsToJson(serializedObject,inputArgsNames);
-
-            record = new Record(methodName, null, targetObject.getClass().getSimpleName(), mergedJson, serializedReturnObject);
-
+            record = new Record(opName, null,
+                    inputArgs.getClass().getSimpleName(), mergedJson, serializedReturnObject);
         }
+        else
+            record = new Record(opName, null, serializedReturnObject);
+
 
         recordController.createRecord(record);
-
-
-
     }
+
+
 
 
 
@@ -177,17 +82,14 @@ public class LogAspect {
 
         String serializedObject;
 
-
-        if(params ==null){
+        if(params == null){
             // serializza tutti i parametri dell oggetto
             if(idParams==null){
                 objectId = "no id";
                 serializedObject = ObjSer.objToJson(object);
-
             }else{
                 objectId = ObjSer.buildIDJson(object, idParams);
                 serializedObject = ObjSer.objToJson(object);
-
             }
 
 
@@ -198,10 +100,7 @@ public class LogAspect {
         }
 
         return serializedObject;
-
     }
-
-
 
 
 }
