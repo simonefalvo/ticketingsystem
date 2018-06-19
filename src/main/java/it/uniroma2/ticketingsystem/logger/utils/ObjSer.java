@@ -99,6 +99,24 @@ public abstract class ObjSer {
         return st;
     }
 
+    public static String objectsToJson(String[] objs, String[] objName){
+        String mergedJson="";
+        for (int i=0; i<objName.length;++i){
+            if (i==0){
+                mergedJson+= "{  ";
+            }
+            String json_i = objs[i];
+            mergedJson += "\n \t '"+objName[i]+"' : "+ json_i ;
+            if (i<objName.length-1){
+                mergedJson+=",";
+            }else {
+                mergedJson += "\n }";
+            }
+
+        }
+        return mergedJson;
+    }
+
 
 
 }

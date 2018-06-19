@@ -32,21 +32,23 @@ public class Record {
 
     private String objectType; //
 
-    private String objectId; //
-
     @Column(columnDefinition="TEXT")
     private String payload;
 
+    @Column(columnDefinition="TEXT")
+    private String returnObj;
+
+
     private Timestamp recordTimeStamp;
 
-    public Record(@NotNull String typology, Integer userId, String objectType, String objectId, String payload){
+    public Record(@NotNull String typology, Integer userId, String objectType, String payload, String returnObj){
 
         this.typology = typology;
         this.userId = userId;
         this.payload = payload;
-        this.objectId = objectId;
         this.objectType = objectType;
         this.recordTimeStamp = new Timestamp(System.currentTimeMillis());
+        this.returnObj = returnObj;
 
     }
 
@@ -55,4 +57,12 @@ public class Record {
         this.userId = userId;
         this.recordTimeStamp = new Timestamp(System.currentTimeMillis());
     }
+
+    public Record(String typology, Integer userId, String returnObj){
+        this.typology = typology;
+        this.userId = userId;
+        this.returnObj = returnObj;
+    }
+
+
 }

@@ -5,6 +5,7 @@ import it.uniroma2.ticketingsystem.controller.TicketController;
 import it.uniroma2.ticketingsystem.entity.Ticket;
 import it.uniroma2.ticketingsystem.event.TicketEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
+import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;

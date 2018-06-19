@@ -9,4 +9,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LogOperation {
     String objName() default "";
+    String returnObject() default "false";
+
 }
