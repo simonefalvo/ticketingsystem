@@ -4,20 +4,14 @@ import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
 import it.uniroma2.ticketingsystem.logger.Record;
 import it.uniroma2.ticketingsystem.logger.RecordController;
 import it.uniroma2.ticketingsystem.logger.utils.ReflectUtils;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.swing.plaf.synth.SynthEditorPaneUI;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.Arrays;
 
 
 @Aspect
@@ -90,10 +84,13 @@ public class LogAspect {
 
     }
 
-    private boolean defaultOption(Annotation annotation, Object option, String optionName) {
+    /*
+        Check if the option value has the default value
+     */
+    private boolean defaultOption(Class<?> annotation, String optionName, Object option) {
         Object defaultValue = null;
         try {
-            defaultValue = annotation.getClass().getDeclaredMethod(optionName).getDefaultValue();
+            defaultValue = annotation.getDeclaredMethod(optionName).getDefaultValue();
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -118,14 +115,12 @@ public class LogAspect {
         String returnObjectName = annotation.returnObject();
 
         Record record;
+        String serializedReturnObject = "";
 
-        if (defaultOption(annotation, returnObjectName, "returnObject"))
-            System.err.println("opzione return object DEFAULT");
-        else
-            System.err.println("opzione return object NON DEFAULT");
-
+        if (!defaultOption(LogOperation.class, "returnObject", returnObjectName))
+            serializedReturnObject = serializeObject(returnObject);
         //if serialized object is set true get it in json
-        String serializedReturnObject = getSerializedReturnObject(signature, returnObject);
+        //String serializedReturnObject = getSerializedReturnObject(signature, returnObject);
 
 
         if (!optionInputArgsIsSet(signature)) {
