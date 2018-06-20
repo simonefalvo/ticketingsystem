@@ -27,21 +27,19 @@ public class Record {
     private Integer id;
 
     private String typology;
-
-    private Integer userId; // reflection? what if userId is a string? or smth else?
-
-    private String objectType; //
+    private String userId;
+    private String objectType;
+    private String tag;
 
     @Column(columnDefinition="TEXT")
     private String payload;
-
     @Column(columnDefinition="TEXT")
     private String returnObj;
 
 
     private Timestamp recordTimeStamp;
 
-    public Record(@NotNull String typology, Integer userId, String objectType, String payload, String returnObj){
+    public Record(@NotNull String typology, String userId, String objectType, String payload, String returnObj, String tag){
 
         this.typology = typology;
         this.userId = userId;
@@ -49,19 +47,22 @@ public class Record {
         this.objectType = objectType;
         this.recordTimeStamp = new Timestamp(System.currentTimeMillis());
         this.returnObj = returnObj;
+        this.tag = tag;
 
     }
 
-    public Record(String typology, Integer userId) {
+    public Record(String typology, String userId, String tag) {
         this.typology = typology;
         this.userId = userId;
+        this.tag = tag;
         this.recordTimeStamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public Record(String typology, Integer userId, String returnObj){
+    public Record(String typology, String userId, String returnObj, String tag){
         this.typology = typology;
         this.userId = userId;
         this.returnObj = returnObj;
+        this.tag = tag;
     }
 
 

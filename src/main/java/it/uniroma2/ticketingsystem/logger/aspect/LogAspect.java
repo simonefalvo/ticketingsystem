@@ -60,10 +60,10 @@ public class LogAspect {
 
             String mergedJson = ObjSer.objectsToJson(serializedObject,inputArgsNames);
             record = new Record(opName, null,
-                    inputArgs.getClass().getSimpleName(), mergedJson, serializedReturnObject);
+                    inputArgs.getClass().getSimpleName(), mergedJson, serializedReturnObject, tag);
         }
         else
-            record = new Record(opName, null, serializedReturnObject);
+            record = new Record(opName, null, serializedReturnObject, tag);
 
 
         recordController.createRecord(record);
@@ -91,7 +91,6 @@ public class LogAspect {
                 objectId = ObjSer.buildIDJson(object, idParams);
                 serializedObject = ObjSer.objToJson(object);
             }
-
 
         }else{
             // serializza solo alcuni attributi dell'oggetto

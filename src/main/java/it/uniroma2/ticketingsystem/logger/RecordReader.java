@@ -25,7 +25,7 @@ public class RecordReader {
     }
     */
 
-
+    //TODO: query per tag specifico
 
 
 
