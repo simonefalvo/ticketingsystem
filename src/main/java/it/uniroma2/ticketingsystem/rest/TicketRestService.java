@@ -32,7 +32,7 @@ public class TicketRestService {
 
         Ticket ticketCreato = ticketController.creaTicket(ticket);
 
-        //System.out.println("\n\n\n Crea Ticket: dato arrivato dal web: "+ticket.toString());
+        System.out.println("\n\n\n Crea Ticket: dato arrivato dal web: "+ticket.toString());
         //System.out.println("\n\n\n Crea Ticket: dato arrivato dal controller: "+ticketCreato.toString());
 
         TicketEvent ticketEvent = new TicketEvent(this,ticket,0);
