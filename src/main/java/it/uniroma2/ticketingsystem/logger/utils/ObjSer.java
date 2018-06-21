@@ -78,6 +78,11 @@ public abstract class ObjSer {
 
         String t, st = "";
 
+        if(attributes == null)
+        {
+            return "NA";
+        }
+
         int l = attributes.length;
         int i = 0;
 
