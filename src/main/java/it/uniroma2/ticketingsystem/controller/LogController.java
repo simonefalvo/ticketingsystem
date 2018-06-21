@@ -16,4 +16,10 @@ public class LogController {
     public List<Record> prelevaLog() {
         return recordReader.getAllRecords();
     }
+
+    public List<Record> cercaRecordPerTag(String tag) {return recordReader.getRecordsByTag(tag);}
+
+    public List<Record> cercaRecordPerAutore(String author) {
+        return recordReader.getRecordsByAuthor(author);
+    }
 }

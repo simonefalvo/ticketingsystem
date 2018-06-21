@@ -24,7 +24,7 @@ public class TicketController {
     }
 
     @Transactional
-    @LogOperation(inputArgs ={"id", "datiAggiornati"}, returnObject = "true")
+    @LogOperation(inputArgs ={"id", "datiAggiornati"}, tag = "myTag", opName = "modifica ticket")
     public @NotNull Ticket aggiornaTicket(@NotNull Integer id, @NotNull Ticket datiAggiornati) throws EntitaNonTrovataException {
         Ticket ticketDaAggiornare = ticketDao.getOne(id);
         if (ticketDaAggiornare == null)

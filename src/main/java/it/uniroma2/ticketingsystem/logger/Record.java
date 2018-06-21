@@ -27,7 +27,7 @@ public class Record {
     private Integer id;
 
     private String typology;
-    private String userId;
+    private String author;
     private String objectType;
     private String tag;
 
@@ -39,10 +39,10 @@ public class Record {
 
     private Timestamp recordTimeStamp;
 
-    public Record(@NotNull String typology, String userId, String objectType, String payload, String returnObj, String tag){
+    public Record(@NotNull String typology, String author, String objectType, String payload, String returnObj, String tag){
 
         this.typology = typology;
-        this.userId = userId;
+        this.author = author;
         this.payload = payload;
         this.objectType = objectType;
         this.recordTimeStamp = new Timestamp(System.currentTimeMillis());
@@ -51,16 +51,16 @@ public class Record {
 
     }
 
-    public Record(String typology, String userId, String tag) {
+    public Record(String typology, String author, String tag) {
         this.typology = typology;
-        this.userId = userId;
+        this.author = author;
         this.tag = tag;
         this.recordTimeStamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public Record(String typology, String userId, String returnObj, String tag){
+    public Record(String typology, String author, String returnObj, String tag){
         this.typology = typology;
-        this.userId = userId;
+        this.author = author;
         this.returnObj = returnObj;
         this.tag = tag;
     }

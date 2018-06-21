@@ -19,14 +19,10 @@ public class RecordReader {
         return  recordController.getAllRecords();
     }
 
-    /*
-    public List<Record> getAllRecordsByObjectId(@NotNull Integer id){
-        return recordController.getAllRecordsByObjectId(id);
-    }
-    */
+    public List<Record> getRecordsByTag(@NotNull String tag) {return recordController.getRecordsByTag(tag);}
+    public List<Record> getRecordsByAuthor(@NotNull String author) {return recordController.getRecordsByAuthor(author);}
 
-    //TODO: query per tag specifico
-
-
+    //TODO: query per oggetto specifico
+    //TODO: query combinazione delle precedenti
 
 }
