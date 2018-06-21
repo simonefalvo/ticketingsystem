@@ -1,5 +1,6 @@
 package it.uniroma2.ticketingsystem.logger;
 
+import it.uniroma2.ticketingsystem.logger.entity.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.List;

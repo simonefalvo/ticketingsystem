@@ -1,17 +1,21 @@
 package it.uniroma2.ticketingsystem.logger.aspect;
 
+import it.uniroma2.ticketingsystem.logger.entity.Payload;
 import it.uniroma2.ticketingsystem.logger.utils.AspectUtils;
 import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
-import it.uniroma2.ticketingsystem.logger.Record;
+import it.uniroma2.ticketingsystem.logger.entity.Record;
 import it.uniroma2.ticketingsystem.logger.RecordController;
 import it.uniroma2.ticketingsystem.logger.utils.ReflectUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.HashSet;
 
 
 @Aspect
@@ -34,20 +38,28 @@ public class LogAspect {
 
         //get annotation options
         String[] inputArgsNames = annotation.inputArgs();
-        String returnObjectName = annotation.returnObject();
+        boolean returnObjectName = annotation.returnObject();
         String opName = annotation.opName();
         String tag = annotation.tag();
 
         Record record;
+
+        Payload[] payloads = new Payload[inputArgsNames.length+1];
         String serializedReturnObject = "";
+        Payload returnPayload;
 
         // check options and do related stuff
         if (AspectUtils.defaultOption(LogOperation.class, "opName", opName))
             opName = signature.getName();
 
-        if (!AspectUtils.defaultOption(LogOperation.class, "returnObject", returnObjectName))
+        //create record object
+        record = new Record(opName,null, tag);
+
+
+        if (returnObjectName)
             serializedReturnObject = serializeObject(returnObject);
 
+        //voglio serializzare i parametri in input
         if (!AspectUtils.defaultOption(LogOperation.class, "inputArgs", inputArgsNames)) {
 
             Object[] inputArgs = new Object[inputArgsNames.length];
@@ -56,15 +68,11 @@ public class LogAspect {
             for (int i = 0; i < inputArgsNames.length; ++i) {
                 inputArgs[i] = ReflectUtils.getMethodParameter(inputArgsNames[i], signature, jp.getArgs());
                 serializedObject[i] = serializeObject(inputArgs[i]);
+                payloads[i] = new Payload(serializedObject[i],"tipo",record);
             }
-
-            String mergedJson = ObjSer.objectsToJson(serializedObject,inputArgsNames);
-            record = new Record(opName, null,
-                    inputArgs.getClass().getSimpleName(), mergedJson, serializedReturnObject, tag);
         }
-        else
-            record = new Record(opName, null, serializedReturnObject, tag);
 
+        record.setPayloads(new HashSet<>(Arrays.asList(payloads)));
 
         recordController.createRecord(record);
     }
