@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<header>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+
+<script type="text/javascript" src="../../src/angular-materialize.js"></script>
+</header>
+
+
+<div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav" data-sidenav="left" data-closeonclick="false"><i
+        class="mdi-navigation-menu"></i></a></div>
+<ul id="nav-mobile" class="side-nav fixed ">
+    <!--Maybe a logo?-->
+    <!--<li class="logo" style="margin-left: -15px;"><a id="logo-container" href="http://materializecss.com/"class="brand-logo"><h3></h3></a></li>-->
+
+    <li class="bold"><a>Benvenuto Admin</a></li>
+    <li class="bold"><a href="#" class="waves-effect waves-teal">Dashboard</a></li>
+
+    <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Ticket</a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a href="" ng-click="insertTicket()">Inserisci Ticket</a></li>
+                        <li><a href="" ng-click="visTickets()">Visualizza Ticket</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Utenti</a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a href="" ng-click="insertUser()">Inserisci Utente</a></li>
+                        <li><a href="" ng-click="visUsers()">Visualizza Utenti</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Oggetti</a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a href="" ng-click="insertObject()">Inserisci Oggetto</a></li>
+                        <li><a href="" ng-click="visObjects()">Visualizza Oggetti</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li class="bold"><a href="" ng-click="visGraphs()" class="waves-effect waves-teal">Grafici</a></li>
+
+</ul>
+
+</html>

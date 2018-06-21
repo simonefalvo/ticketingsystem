@@ -1,0 +1,39 @@
+<div class="container">
+
+    <div class="row">
+
+        <h2 class="header">Inserisci Nuovo Ticket</h2>
+
+        <label>Titolo</label>
+        <input type='text' ng-model='$ctrl.ticket.titolo' class='materialize-textarea' required>
+
+        <label>Categoria</label>
+        <input type='text' ng-model='$ctrl.ticket.categoria' class='materialize-textarea' required>
+
+        <label>Descrizione</label>
+        <input type='text' ng-model='$ctrl.ticket.descrizione' class='materialize-textarea' required>
+
+        <label>Priorità</label>
+        <div input-field>
+            <select class="" ng-model='$ctrl.ticket.prioritaAutore' material-select >
+                <option value=0> Critica </option>
+                <option value=1> Alta </option>
+                <option value=2> Bassa </option>
+                <option value=3> Minima </option>
+            </select>
+        </div>
+
+        <label>Oggetto</label>
+        <div input-field>
+            <select ng-model='$ctrl.ticket.oggetto.id' class="" id="oggetto" material-select>
+                <option ng-repeat="x in $ctrl.oggetti" value={{x.id}}>
+                    {{x.nome + " " + x.versione}}
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" ng-click="$ctrl.inserisci()" class="btn btn-primary"> Inserisci </button>
+        <button type="reset" ng-click="$ctrl.annulla()" class="btn btn-primary"> Annulla </button>
+
+    </div>
+</div>

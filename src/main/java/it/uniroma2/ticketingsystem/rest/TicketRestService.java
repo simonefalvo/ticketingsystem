@@ -5,6 +5,7 @@ import it.uniroma2.ticketingsystem.controller.TicketController;
 import it.uniroma2.ticketingsystem.entity.Ticket;
 import it.uniroma2.ticketingsystem.event.TicketEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
+import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class TicketRestService {
         Ticket ticketCreato = ticketController.creaTicket(ticket);
 
         System.out.println("\n\n\n Crea Ticket: dato arrivato dal web: "+ticket.toString());
-        System.out.println("\n\n\n Crea Ticket: dato arrivato dal controller: "+ticketCreato.toString());
+        //System.out.println("\n\n\n Crea Ticket: dato arrivato dal controller: "+ticketCreato.toString());
 
         TicketEvent ticketEvent = new TicketEvent(this,ticket,0);
         applicationEventPublisher.publishEvent(ticketEvent);
@@ -75,6 +76,7 @@ public class TicketRestService {
     }
 
     @RequestMapping(path = "{id}", method = RequestMethod.PUT)
+    @LogOperation(objName ={"id","ticket"})
     public ResponseEntity<Ticket> aggiornaTicket(@PathVariable Integer id, @RequestBody Ticket ticket) {
         Ticket ticketAggiornato;
         try {

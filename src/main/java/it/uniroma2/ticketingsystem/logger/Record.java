@@ -50,6 +50,17 @@ public class Record {
 
     }
 
+
+    public Record(@NotNull String typology, String userId, String objectType, String payload){
+
+        this.typology = typology;
+        this.userId = userId;
+        this.payload = payload;
+        this.objectId = null;
+        this.objectType = objectType;
+        this.recordTimeStamp = new Timestamp(System.currentTimeMillis());
+
+    }
     public Record(String typology, String userId) {
         this.typology = typology;
         this.userId = userId;
