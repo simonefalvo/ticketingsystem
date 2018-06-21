@@ -1,6 +1,7 @@
 package it.uniroma2.ticketingsystem.logger.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.json.JSONObject;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Payload {
 
     @Id
