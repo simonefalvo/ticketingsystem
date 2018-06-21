@@ -19,6 +19,9 @@ public interface RecordDao extends JpaRepository<Record,Integer> {
     @Query("select r from Record r where r.author = ?1")
     List<Record> getRecordsByAuthor(@NotNull String author);
 
+    @Query("select r,p from Record r, Payload p where r.id = p.record and p.objectId = ?1")
+    List<Record> getRecordsByObjectId(@NotNull String objectId);
 
+    List<Record> getRecordsByOperationName(@NotNull String opName);
 
 }

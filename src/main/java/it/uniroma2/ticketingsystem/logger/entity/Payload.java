@@ -20,7 +20,7 @@ public class Payload {
     @Column(columnDefinition="TEXT")
     private String json;
 
-    private String idObject;
+    private String objectId;
 
     @Column(columnDefinition="TEXT")
     private String type;
@@ -32,9 +32,9 @@ public class Payload {
     @ManyToOne
     private Record record;
 
-    public Payload(String json, String idObject, String type, String classType, Record record) {
+    public Payload(String json, String objectId, String type, String classType, Record record) {
         this.json = json;
-        this.idObject = idObject;
+        this.objectId = objectId;
         this.type = type;
         this.classType = classType;
         this.record = record;

@@ -3,7 +3,11 @@ package it.uniroma2.ticketingsystem.controller;
 import it.uniroma2.ticketingsystem.dao.TicketDao;
 import it.uniroma2.ticketingsystem.entity.Ticket;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
+import it.uniroma2.ticketingsystem.logger.RecordReader;
+import it.uniroma2.ticketingsystem.logger.aspect.KeyId;
 import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
+import it.uniroma2.ticketingsystem.logger.entity.Record;
+import it.uniroma2.ticketingsystem.logger.utils.AspectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +20,8 @@ public class TicketController {
 
     @Autowired
     private TicketDao ticketDao;
+    @Autowired
+    private RecordReader recordReader;
 
     @Transactional
     @LogOperation(inputArgs = "ticket")
@@ -55,5 +61,14 @@ public class TicketController {
 
     public Integer numberOfStatusTickets(String status) {
         return ticketDao.numberOfStatusTickets(status);
+    }
+
+    public List<Record> ottieniLogRecordsById(Integer id) {
+        Ticket ticket = ticketDao.getOne(id);
+        if (AspectUtils.hasAnnotation(Ticket.class, KeyId.class) != null)
+            System.err.println("HA L'ANNOTAZIONE @KEYID");
+        else
+            System.err.println("NON HA L'ANNOTAZIONE @KEYID");
+        return recordReader.getRecordsByObjectId(ticket);
     }
 }

@@ -36,4 +36,6 @@ public class LogRestService {
         List<Record> records = logController.cercaRecordPerAutore(author);
         return new ResponseEntity<>(records, HttpStatus.OK);
     }
+
+
 }

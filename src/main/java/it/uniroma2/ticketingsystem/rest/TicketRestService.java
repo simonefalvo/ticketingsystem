@@ -1,18 +1,16 @@
 package it.uniroma2.ticketingsystem.rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import it.uniroma2.ticketingsystem.controller.TicketController;
 import it.uniroma2.ticketingsystem.entity.Ticket;
 import it.uniroma2.ticketingsystem.event.TicketEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
-import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
+import it.uniroma2.ticketingsystem.logger.entity.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -97,4 +95,9 @@ public class TicketRestService {
         return new ResponseEntity<>(total, total == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
     }
 
+    @RequestMapping(path = "log/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Record>> prelevaRecordPerOggetto(@PathVariable Integer id) {
+        List<Record> records = ticketController.ottieniLogRecordsById(id);
+        return new ResponseEntity<>(records, HttpStatus.OK);
+    }
 }

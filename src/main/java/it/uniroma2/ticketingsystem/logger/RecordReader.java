@@ -24,6 +24,9 @@ public class RecordReader {
     public List<Record> getRecordsByAuthor(@NotNull String author) {return recordController.getRecordsByAuthor(author);}
 
     //TODO: query per oggetto specifico
+    public List<Record> getRecordsByObjectId(@NotNull Object object) {
+        return recordController.getRecordsByObjectId(object);
+    }
     //TODO: query combinazione delle precedenti
 
 }

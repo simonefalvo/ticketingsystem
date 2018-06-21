@@ -59,7 +59,7 @@ public class LogAspect {
         if (returnObjectName) {
             serializedReturnObject = serializeObject(returnObject);
             String idJSON = ObjSer.buildIDJson(returnObject, ReflectUtils.getIDParameters(returnObject));
-            payloads[payloads.length-1] = new Payload(serializedReturnObject, idJSON,"output",serializedReturnObject.getClass().getSimpleName(),record);
+            payloads[payloads.length-1] = new Payload(serializedReturnObject, idJSON,"output", returnObject.getClass().getSimpleName(),record);
         }
         //voglio serializzare i parametri in input
         if (!AspectUtils.defaultOption(LogOperation.class, "inputArgs", inputArgsNames)) {
