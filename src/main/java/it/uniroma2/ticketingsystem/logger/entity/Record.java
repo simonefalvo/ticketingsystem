@@ -25,30 +25,30 @@ public class Record {
     @GeneratedValue
     private Integer id;
 
-    private String typology;
+    private String operationName;
     private String author;
     private String tag;
-
+    private Timestamp timestamp;
 
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL)
     private Set<Payload> payloads;
 
-    private Timestamp recordTimeStamp;
 
-    public Record(@NotNull String typology, String author,  String tag){
 
-        this.typology = typology;
+    public Record(@NotNull String operationName, String author,  String tag){
+
+        this.operationName = operationName;
         this.author = author;
-        this.recordTimeStamp = new Timestamp(System.currentTimeMillis());
+        this.timestamp = new Timestamp(System.currentTimeMillis());
         this.tag = tag;
 
     }
 
-    public Record(String typology, String author, String tag, Set<Payload> payloads, Timestamp recordTimeStamp) {
-        this.typology = typology;
+    public Record(String operationName, String author, String tag, Set<Payload> payloads, Timestamp recordTimeStamp) {
+        this.operationName = operationName;
         this.author = author;
         this.tag = tag;
         this.payloads = payloads;
-        this.recordTimeStamp = recordTimeStamp;
+        this.timestamp = recordTimeStamp;
     }
 }

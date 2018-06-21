@@ -44,7 +44,7 @@ public class LogAspect {
 
         Record record;
 
-        Payload[] payloads = new Payload[inputArgsNames.length+1];
+        Payload[] payloads = new Payload[inputArgsNames.length+1];//dim = num argomenti +1 per eventuale return object
         String serializedReturnObject = "";
         Payload returnPayload;
 
@@ -56,9 +56,11 @@ public class LogAspect {
         record = new Record(opName,null, tag);
 
 
-        if (returnObjectName)
+        if (returnObjectName) {
             serializedReturnObject = serializeObject(returnObject);
-
+            String idJSON = ObjSer.buildIDJson(returnObject, ReflectUtils.getIDParameters(returnObject));
+            payloads[payloads.length-1] = new Payload(serializedReturnObject, idJSON,"output",serializedReturnObject.getClass().getSimpleName(),record);
+        }
         //voglio serializzare i parametri in input
         if (!AspectUtils.defaultOption(LogOperation.class, "inputArgs", inputArgsNames)) {
 
@@ -66,9 +68,14 @@ public class LogAspect {
             String[] serializedObject = new String[inputArgsNames.length];
 
             for (int i = 0; i < inputArgsNames.length; ++i) {
+                //inputArgs[i] = oggetto da serializzare
                 inputArgs[i] = ReflectUtils.getMethodParameter(inputArgsNames[i], signature, jp.getArgs());
+                //oggetto Serializzato
                 serializedObject[i] = serializeObject(inputArgs[i]);
-                payloads[i] = new Payload(serializedObject[i],"tipo",record);
+                //id dell'oggetto serializzato
+                String idJSON = ObjSer.buildIDJson(inputArgs[i], ReflectUtils.getIDParameters(inputArgs[i]));
+
+                payloads[i] = new Payload(serializedObject[i], idJSON,"input",inputArgs[i].getClass().getSimpleName(),record);
             }
         }
 
