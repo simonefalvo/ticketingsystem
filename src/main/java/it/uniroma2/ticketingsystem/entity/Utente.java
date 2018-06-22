@@ -16,8 +16,7 @@ import java.util.Set;
 
 @Entity
 @NoArgsConstructor
-@LogClass(logAttrs = {"nome", "cognome"})
-@KeyId(IdAttrs = {"id"})
+@LogClass(logAttrs = {"nome", "cognome"}, idAttrs = {"id"})
 @Getter
 @Setter
 @JsonIdentityInfo(

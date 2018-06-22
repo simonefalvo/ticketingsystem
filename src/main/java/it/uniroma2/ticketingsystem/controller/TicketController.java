@@ -65,10 +65,6 @@ public class TicketController {
 
     public List<Record> ottieniLogRecordsById(Integer id) {
         Ticket ticket = ticketDao.getOne(id);
-        if (AspectUtils.hasAnnotation(Ticket.class, KeyId.class) != null)
-            System.err.println("HA L'ANNOTAZIONE @KEYID");
-        else
-            System.err.println("NON HA L'ANNOTAZIONE @KEYID");
         return recordReader.getRecordsByObjectId(ticket);
     }
 }

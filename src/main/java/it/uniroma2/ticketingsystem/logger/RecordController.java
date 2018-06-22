@@ -50,22 +50,22 @@ public class RecordController {
     }
 
     public List<Record> getRecordsByObjectId(Object object) {
-        System.err.println(object.toString());
+        //System.err.println(object.toString());
         String[] idParams = ReflectUtils.getIDParameters(object);
-        System.err.println(idParams);
+        System.err.println("idParams " + idParams[0]);
         String objectId = null;
-        if (AspectUtils.hasAnnotation(object, KeyId.class) != null)
-            System.err.println("HA L'ANNOTAZIONE @KEYID");
-        else
-            System.err.println("NON HA L'ANNOTAZIONE @KEYID");
 
         try {
             objectId = ObjSer.buildIDJson(object, idParams);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-        System.err.println(objectId);
+        System.err.println("objectID " + objectId);
 
         return recordDao.getRecordsByObjectId(objectId);
+    }
+
+    public List<Record> getRecordsByOperation(String opName) {
+        return recordDao.getRecordsByOperationName(opName);
     }
 }

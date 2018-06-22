@@ -27,7 +27,11 @@ public class LogAspect {
     @Autowired
     private RecordController recordController;
 
-
+    /**
+     *
+     * @param jp
+     * @throws Throwable
+     */
     @Around("@annotation(LogOperation)")
     public Object logOperationAdvice(ProceedingJoinPoint jp) throws Throwable {
 
@@ -46,7 +50,7 @@ public class LogAspect {
 
         Record record;
 
-        Payload[] payloads = new Payload[inputArgsNames.length+1];//dim = num argomenti +1 per eventuale return object
+        Payload[] payloads = new Payload[inputArgsNames.length+1];//dim = argumens +1 (including return object)
         String serializedReturnObject = "";
 
         // check options and do related stuff
@@ -68,6 +72,7 @@ public class LogAspect {
             }
 
         }
+
         //voglio serializzare i parametri in input
         //if (!AspectUtils.defaultOption(LogOperation.class, "inputArgs", inputArgsNames)) {
         String[] test = (String[]) LogOperation.class.getDeclaredMethod("inputArgs").getDefaultValue();
