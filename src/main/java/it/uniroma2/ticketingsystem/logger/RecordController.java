@@ -1,6 +1,5 @@
 package it.uniroma2.ticketingsystem.logger;
 
-import it.uniroma2.ticketingsystem.logger.aspect.KeyId;
 import it.uniroma2.ticketingsystem.logger.entity.Record;
 import it.uniroma2.ticketingsystem.logger.utils.AspectUtils;
 import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
@@ -50,9 +49,7 @@ public class RecordController {
     }
 
     public List<Record> getRecordsByObjectId(Object object) {
-        //System.err.println(object.toString());
         String[] idParams = ReflectUtils.getIDParameters(object);
-        System.err.println("idParams " + idParams[0]);
         String objectId = null;
 
         try {
@@ -60,7 +57,6 @@ public class RecordController {
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-        System.err.println("objectID " + objectId);
 
         return recordDao.getRecordsByObjectId(objectId);
     }
