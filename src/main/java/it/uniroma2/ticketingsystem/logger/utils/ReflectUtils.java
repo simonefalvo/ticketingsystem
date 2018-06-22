@@ -1,6 +1,5 @@
 package it.uniroma2.ticketingsystem.logger.utils;
 
-import it.uniroma2.ticketingsystem.logger.aspect.KeyId;
 import it.uniroma2.ticketingsystem.logger.aspect.LogClass;
 import it.uniroma2.ticketingsystem.logger.exception.ObjNotFoundException;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -8,6 +7,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+
+import static org.hibernate.proxy.HibernateProxyHelper.getClassWithoutInitializingProxy;
 
 public abstract class ReflectUtils {
 
@@ -57,15 +58,14 @@ public abstract class ReflectUtils {
     // TODO: Non è una classe utils, perché si riferisce ad un'annotazione specifica -> renderla generica
     public static String[] getIDParameters(Object target){
 
+        Class objectClass = getClassWithoutInitializingProxy(target);
         String[] params = null;
-        System.err.println(target.getClass().toString());
 
-
-        for(Annotation annotation : target.getClass().getAnnotations()){
-            System.err.println("annotation: " + annotation.toString());
+        for(Annotation annotation : objectClass.getAnnotations()){
             if(annotation.annotationType().equals(LogClass.class)){
                 LogClass myAnn = (LogClass) annotation;
                 params = ((LogClass) annotation).idAttrs();
+
                 break;
             }
         }
@@ -77,9 +77,11 @@ public abstract class ReflectUtils {
     //se si, controllare se ha inserito dei parametri rilevanti
     //restituire i parametri rilevanti
     public static String[] getParameters(Object targetObject){
+        Class objectClass = getClassWithoutInitializingProxy(targetObject);
         String[]params = null;
+
         //analizzo tutte le annotazioni della classe dell'oggetto
-        for (Annotation annotation : targetObject.getClass().getAnnotations()){
+        for (Annotation annotation : objectClass.getAnnotations()){
 
             if (annotation.annotationType().equals(LogClass.class)) {
                 LogClass myAnnotation = (LogClass) annotation;

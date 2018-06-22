@@ -22,11 +22,11 @@ public class RecordReader {
 
     public List<Record> getRecordsByTag(@NotNull String tag) {return recordController.getRecordsByTag(tag);}
     public List<Record> getRecordsByAuthor(@NotNull String author) {return recordController.getRecordsByAuthor(author);}
+    public List<Record> getRecordsByOperation(@NotNull String opName) {return recordController.getRecordsByOperation(opName);}
 
-    //TODO: query per oggetto specifico
     public List<Record> getRecordsByObjectId(@NotNull Object object) {
         return recordController.getRecordsByObjectId(object);
     }
-    //TODO: query combinazione delle precedenti
 
+    //TODO: query combinazione delle precedenti
 }

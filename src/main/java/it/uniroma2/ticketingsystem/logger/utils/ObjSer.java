@@ -6,9 +6,10 @@ import java.text.SimpleDateFormat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.springframework.stereotype.Service;
+
+import static it.uniroma2.ticketingsystem.logger.utils.PersistenceUtils.initializeAndUnproxy;
+import static org.hibernate.proxy.HibernateProxyHelper.getClassWithoutInitializingProxy;
 
 public abstract class ObjSer {
 
@@ -79,25 +80,24 @@ public abstract class ObjSer {
         String t, st = "";
 
         if(attributes == null)
-        {
             return "NA";
-        }
 
         int l = attributes.length;
         int i = 0;
 
+        Class objectClass = getClassWithoutInitializingProxy(object);
+        Object obj = initializeAndUnproxy(object);
+
         while (i < l - 1) {
-            Field field = FieldUtils.getField(object.getClass(), attributes[i], true);
+            Field field = FieldUtils.getField(objectClass, attributes[i], true);
+            System.err.println("field: " + field.toString());
             // TODO: check su tipo dell'oggetto
-            t = "\"" + attributes[i] + "\": \"" + field.get(object) + "\",\n ";
+            t = "\"" + attributes[i] + "\": \"" + field.get(obj) + "\",\n ";
             st = st.concat(t);
             i++;
         }
-
-        Field field_attr = FieldUtils.getField(object.getClass(), attributes[i], true);
-        t = "\"" + attributes[i] + "\": \"" + field_attr.get(object) + "\"";
-
-        //System.out.print("\n\n\n ATTR:"+t+"\n\n\n");
+        Field field_attr = FieldUtils.getField(objectClass, attributes[i], true);
+        t = "\"" + attributes[i] + "\": \"" + field_attr.get(obj) + "\"";
 
         st = st.concat(t);
 
