@@ -60,11 +60,12 @@ public abstract class ReflectUtils {
         String[] params = null;
         System.err.println(target.getClass().toString());
 
+
         for(Annotation annotation : target.getClass().getAnnotations()){
             System.err.println("annotation: " + annotation.toString());
-            if(annotation.annotationType().equals(KeyId.class)){
-                KeyId myAnn = (KeyId) annotation;
-                params = ((KeyId) annotation).IdAttrs();
+            if(annotation.annotationType().equals(LogClass.class)){
+                LogClass myAnn = (LogClass) annotation;
+                params = ((LogClass) annotation).idAttrs();
                 break;
             }
         }
