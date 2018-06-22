@@ -76,7 +76,7 @@ public class LogAspect {
         //voglio serializzare i parametri in input
         //if (!AspectUtils.defaultOption(LogOperation.class, "inputArgs", inputArgsNames)) {
         String[] test = (String[]) LogOperation.class.getDeclaredMethod("inputArgs").getDefaultValue();
-        if (!test[0].equals("") ) {
+        if (!inputArgsNames[0].equals("") ) {
 
             Object[] inputArgs = new Object[inputArgsNames.length];
             String[] serializedObject = new String[inputArgsNames.length];
