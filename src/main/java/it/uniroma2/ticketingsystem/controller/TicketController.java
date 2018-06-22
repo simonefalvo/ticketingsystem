@@ -4,10 +4,8 @@ import it.uniroma2.ticketingsystem.dao.TicketDao;
 import it.uniroma2.ticketingsystem.entity.Ticket;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
 import it.uniroma2.ticketingsystem.logger.RecordReader;
-import it.uniroma2.ticketingsystem.logger.aspect.KeyId;
 import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
 import it.uniroma2.ticketingsystem.logger.entity.Record;
-import it.uniroma2.ticketingsystem.logger.utils.AspectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +37,6 @@ public class TicketController {
         ticketDaAggiornare.aggiorna(datiAggiornati);
 
         return ticketDao.save(ticketDaAggiornare);
-
     }
 
     public boolean eliminaTicket(@NotNull Integer id){

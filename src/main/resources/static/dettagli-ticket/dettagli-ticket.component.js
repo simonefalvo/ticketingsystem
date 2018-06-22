@@ -64,5 +64,9 @@ component('dettagliTicket', {
             $location.path('/tickethistory/' + self.ticket.id.toString());
         };
 
+        self.log = function () {
+            $location.path('/ticketlog/' + self.ticket.id.toString());
+        }
+
     }]
 });
