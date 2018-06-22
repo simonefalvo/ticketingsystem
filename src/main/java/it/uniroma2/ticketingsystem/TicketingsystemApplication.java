@@ -29,9 +29,9 @@ public class TicketingsystemApplication {
     @Autowired
     public void authenticationManager(AuthenticationManagerBuilder builder, UtenteDao repository, UtenteController service, RuoloController ruoloService) throws Exception {
         if (repository.count()==0) {
-            //Ruolo user = ruoloService.creaRuolo(new Ruolo("USER"));
-            //Ruolo admin = ruoloService.creaRuolo(new Ruolo("ADMIN"));
-            Ruolo admin= ruoloService.cercaPerNome("ADMIN");
+            Ruolo user = ruoloService.creaRuolo(new Ruolo("USER"));
+            Ruolo admin = ruoloService.creaRuolo(new Ruolo("ADMIN"));
+            //Ruolo admin= ruoloService.cercaPerNome("ADMIN");
             service.creaUtente(new Utente("Utente", "Di Prova", "admin","admin","mail@admin" ,admin,null,null));
         }
         builder.userDetailsService(userDetailsService(repository)).passwordEncoder(passwordEncoder);
