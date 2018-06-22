@@ -4,7 +4,7 @@
 angular.
 module('dettagliUtente').
 component('dettagliUtente', {
-    templateUrl: 'dettagli-utente/dettagli-utente.template.html',
+    templateUrl: 'components/dettagli-utente/dettagli-utente.html',
     controller: ['$http', '$routeParams', '$location', function dettagliUtenteController($http, $routeParams, $location) {
 
         var self = this;

@@ -8,5 +8,8 @@ angular.module('materializeApp',
         'inserisciOggetto',
         'listaOggetto',
         'listaTicket',
-        'listaUtente'
+        'listaUtente',
+        'dettagliTicket',
+        'dettagliUtente',
+        'dettagliOggetto'
     ]);

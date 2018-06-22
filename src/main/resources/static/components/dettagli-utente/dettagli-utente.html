@@ -1,11 +1,8 @@
-<div id="page-wrapper">
+<div class="container">
 
     <div class="row">
-        <div class="col-lg-12">
-            <h3 class="page-header">Dettagli Utente</h3>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
+
+        <h2 class="header">Dettagli Utente</h2>
 
     <p>ID : {{$ctrl.utente.id}}</p>
     <p>Nome :</p>
@@ -23,6 +20,8 @@
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
         <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.conferma()">Conferma</button>
         <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>
+    </div>
+
     </div>
 
 </div>

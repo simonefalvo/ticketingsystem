@@ -14,7 +14,7 @@
             </thead>
 
             <tbody>
-            <tr ng-controller="listaUtenteController as $ctrl" ng-repeat="x in $ctrl.utenti" ng-click="$ctrl.dettagli(x.id)">
+            <tr ng-repeat="x in $ctrl.utenti" ng-click="$ctrl.dettagli(x.id)">
                 <td>{{ x.id}}</td>
                 <td>{{ x.nome}}</td>
                 <td>{{ x.cognome}}</td>

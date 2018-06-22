@@ -4,7 +4,7 @@
 angular.
 module('dettagliTicket').
 component('dettagliTicket', {
-    templateUrl: 'dettagli-ticket/dettagli-ticket.template.html',
+    templateUrl: 'components/dettagli-ticket/dettagli-ticket.html',
     controller: ['$http', '$routeParams', '$location', function dettagliTicketController($http, $routeParams, $location) {
 
         var self = this;

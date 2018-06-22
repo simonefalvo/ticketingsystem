@@ -1,4 +1,4 @@
 'use strict';
 
 // Define the `listaUtente` module
-angular.module('listaUtente', []);
+angular.module('listaUtente', ['ngRoute']);
