@@ -1,6 +1,8 @@
 package it.uniroma2.ticketingsystem.logger.aspect;
 
+import com.sun.javafx.logging.Logger;
 import it.uniroma2.ticketingsystem.logger.entity.Payload;
+import it.uniroma2.ticketingsystem.logger.exception.ObjNotFoundException;
 import it.uniroma2.ticketingsystem.logger.utils.AspectUtils;
 import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
 import it.uniroma2.ticketingsystem.logger.entity.Record;
@@ -27,7 +29,7 @@ public class LogAspect {
 
 
     @Around("@annotation(LogOperation)")
-    public void logOperationAdvice(ProceedingJoinPoint jp) throws Throwable {
+    public Object logOperationAdvice(ProceedingJoinPoint jp) throws Throwable {
 
         // run annotated method
         Object returnObject = jp.proceed();
@@ -46,7 +48,6 @@ public class LogAspect {
 
         Payload[] payloads = new Payload[inputArgsNames.length+1];//dim = num argomenti +1 per eventuale return object
         String serializedReturnObject = "";
-        Payload returnPayload;
 
         // check options and do related stuff
         if (AspectUtils.defaultOption(LogOperation.class, "opName", opName))
@@ -55,43 +56,62 @@ public class LogAspect {
         //create record object
         record = new Record(opName,null, tag);
 
-
         if (returnObjectName) {
-            serializedReturnObject = serializeObject(returnObject);
-            String idJSON = ObjSer.buildIDJson(returnObject, ReflectUtils.getIDParameters(returnObject));
-            payloads[payloads.length-1] = new Payload(serializedReturnObject, idJSON,"output", returnObject.getClass().getSimpleName(),record);
+            try {
+                serializedReturnObject = serializeObject(returnObject);
+                String idJSON = ObjSer.buildIDJson(returnObject, ReflectUtils.getIDParameters(returnObject));
+                payloads[payloads.length-1] = new Payload(serializedReturnObject, idJSON,"output", returnObject.getClass().getSimpleName(),record);
+            }
+            catch (NullPointerException e){
+                System.out.println("Attention: Return Object is null!");
+                payloads[payloads.length-1] = new Payload(null, null,"output", null,record);
+            }
+
         }
         //voglio serializzare i parametri in input
-        if (!AspectUtils.defaultOption(LogOperation.class, "inputArgs", inputArgsNames)) {
+        //if (!AspectUtils.defaultOption(LogOperation.class, "inputArgs", inputArgsNames)) {
+        String[] test = (String[]) LogOperation.class.getDeclaredMethod("inputArgs").getDefaultValue();
+        if (!test[0].equals("") ) {
 
             Object[] inputArgs = new Object[inputArgsNames.length];
             String[] serializedObject = new String[inputArgsNames.length];
 
             for (int i = 0; i < inputArgsNames.length; ++i) {
                 //inputArgs[i] = oggetto da serializzare
-                inputArgs[i] = ReflectUtils.getMethodParameter(inputArgsNames[i], signature, jp.getArgs());
-                //oggetto Serializzato
-                serializedObject[i] = serializeObject(inputArgs[i]);
-                //id dell'oggetto serializzato
-                String idJSON = ObjSer.buildIDJson(inputArgs[i], ReflectUtils.getIDParameters(inputArgs[i]));
+                try {
+                    inputArgs[i] = ReflectUtils.getMethodParameter(inputArgsNames[i], signature, jp.getArgs());
+                    //oggetto Serializzato
+                    serializedObject[i] = serializeObject(inputArgs[i]);
+                    //id dell'oggetto serializzato
+                    String idJSON = ObjSer.buildIDJson(inputArgs[i], ReflectUtils.getIDParameters(inputArgs[i]));
 
-                payloads[i] = new Payload(serializedObject[i], idJSON,"input",inputArgs[i].getClass().getSimpleName(),record);
+                    payloads[i] = new Payload(serializedObject[i], idJSON,"input",inputArgs[i].getClass().getSimpleName(),record);
+                }
+                catch (ObjNotFoundException e){
+                    System.out.println("Object name may be incorrect "+inputArgsNames[i]);
+                }
+
             }
         }
 
         record.setPayloads(new HashSet<>(Arrays.asList(payloads)));
 
         recordController.createRecord(record);
+        return returnObject;
+
     }
 
 
 
 
 
-    private static String serializeObject(Object object) throws Throwable{
+    private static String serializeObject(Object object) throws Throwable {
+        String[] params= null;
+        String[] idParams=null;
 
-        String[] params = ReflectUtils.getParameters(object);
-        String[] idParams = ReflectUtils.getIDParameters(object);
+        params = ReflectUtils.getParameters(object);
+        idParams = ReflectUtils.getIDParameters(object);
+
 
         String objectId ="";
 
