@@ -19,7 +19,7 @@ public class UtenteController {
     @Autowired
     private UtenteDao utenteDao;
 
-    @LogOperation(inputArgs = "utente")
+    @LogOperation(returnObject = true)
     @Transactional
     public @NotNull Utente creaUtente(@NotNull Utente utente) {
        Utente utenteSalvato = utenteDao.save(utente);

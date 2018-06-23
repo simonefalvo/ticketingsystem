@@ -28,7 +28,7 @@ public class TicketController {
     }
 
     @Transactional
-    @LogOperation(inputArgs ={"id", "datiAggiornati"}, returnObject = true, tag = "prova")
+    @LogOperation(returnObject = true)
     public @NotNull Ticket aggiornaTicket(@NotNull Integer id, @NotNull Ticket datiAggiornati) throws EntitaNonTrovataException {
         Ticket ticketDaAggiornare = ticketDao.getOne(id);
         if (ticketDaAggiornare == null)
@@ -39,11 +39,11 @@ public class TicketController {
         return ticketDao.save(ticketDaAggiornare);
     }
 
+    @LogOperation(inputArgs = "id")
     public boolean eliminaTicket(@NotNull Integer id){
         if(!ticketDao.existsById(id)){
             return false;
         }
-
         ticketDao.deleteById(id);
         return true;
     }
