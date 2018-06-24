@@ -1,12 +1,18 @@
 package it.uniroma2.ticketingsystem.logger;
 
 import it.uniroma2.ticketingsystem.logger.entity.Record;
-import it.uniroma2.ticketingsystem.logger.utils.AspectUtils;
 import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
 import it.uniroma2.ticketingsystem.logger.utils.ReflectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 
@@ -61,7 +67,42 @@ public class RecordController {
         return recordDao.getRecordsByObjectId(objectId);
     }
 
+    public Integer countRecordsByOperationNameAndTimestampBetween(String opName, Timestamp startDate, Timestamp endDate ) {
+        return recordDao.countRecordsByOperationNameAndTimestampBetween(opName, startDate, endDate);
+    }
+
     public List<Record> getRecordsByOperation(String opName) {
         return recordDao.getRecordsByOperationName(opName);
     }
+
+    /*
+    public Map<Timestamp,Integer> getNumberOperationForEachDayBetween(Timestamp startDate, Timestamp endDate, String operationName){
+        Map<Timestamp,Integer> myMap = new HashMap<>();
+
+        //get all date beetween two timestamp
+        long numOfDaysBetween = ChronoUnit.DAYS.between(startDate.toLocalDateTime().toLocalDate(), endDate.toLocalDateTime().toLocalDate());
+        List<LocalDate> listDate =
+                IntStream.iterate(0, i -> i + 1)
+                .limit(numOfDaysBetween)
+                .mapToObj(i -> startDate.toLocalDateTime().toLocalDate().plusDays(i))
+                .collect(Collectors.toList());
+
+        for (LocalDate myDate: listDate) {
+            //calcolo il numero di operazioni di quel tipo in quel dato giorno
+            //converto l'oggetto LocalDate in Timestamp iniziale e finale del giorno
+            Timestamp start = Timestamp.valueOf(myDate.atTime(0,0,0,0));
+            Timestamp end = Timestamp.valueOf(myDate.atTime(23,59,59, 999999999));
+
+            //restituisce la lista degli oggetti, in futuro cambiare e fare una count direttamente
+            Integer count = countRecordsByOperationAndDate(operationName,start, end);
+
+            //salvo nella mappa la coppia: data - #operazioni
+            myMap.put(start, count);
+
+        }
+
+        return myMap;
+    }
+
+    */
 }
