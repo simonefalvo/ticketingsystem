@@ -7,6 +7,7 @@ import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
 import it.uniroma2.ticketingsystem.logger.entity.Record;
 import it.uniroma2.ticketingsystem.logger.RecordController;
 import it.uniroma2.ticketingsystem.logger.utils.ReflectUtils;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -41,7 +42,13 @@ public class LogAspect {
         boolean returnObjectName = annotation.returnObject();
         String opName = annotation.opName();
         String tag = annotation.tag();
-
+        String author = null;
+        //Get author name
+        /*
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth != null)
+            author = auth.getName();
+        */
         Record record;
 
         Payload[] payloads = new Payload[inputArgsNames.length + 1];//dim = argumens +1 (including return object)
@@ -52,7 +59,7 @@ public class LogAspect {
             opName = signature.getName();
 
         //create record object
-        record = new Record(opName,null, tag);
+        record = new Record(opName,author, tag);
 
         if (returnObjectName) {
             try {
@@ -111,23 +118,23 @@ public class LogAspect {
         idParams = ReflectUtils.getIDParameters(object);
 
 
-        String objectId ="";
+        //String objectId ="";
 
         String serializedObject;
 
         if(params == null){
             // serializza tutti i parametri dell oggetto
             if(idParams==null){
-                objectId = "no id";
+                //objectId = "no id";
                 serializedObject = ObjSer.objToJson(object);
             }else{
-                objectId = ObjSer.buildIDJson(object, idParams);
+                //objectId = ObjSer.buildIDJson(object, idParams);
                 serializedObject = ObjSer.objToJson(object);
             }
 
         }else{
             // serializza solo alcuni attributi dell'oggetto
-            objectId = ObjSer.buildIDJson(object, idParams);
+            //objectId = ObjSer.buildIDJson(object, idParams);
             serializedObject = ObjSer.buildJson(object, params);
         }
 
