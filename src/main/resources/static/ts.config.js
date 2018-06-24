@@ -42,7 +42,7 @@ angular.
             }).
             when('/grafico', {
                 templateUrl: "./visualizza-grafico/visualizza-grafico.html",
-                controller: "GraphController"
+                controller: "GraphCtrl"
             }).
             when('/auditing', {
                 template: '<auditing></auditing>'

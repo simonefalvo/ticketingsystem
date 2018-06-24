@@ -1,6 +1,5 @@
 package it.uniroma2.ticketingsystem.logger.aspect;
 
-import com.sun.javafx.logging.Logger;
 import it.uniroma2.ticketingsystem.logger.entity.Payload;
 import it.uniroma2.ticketingsystem.logger.exception.ObjNotFoundException;
 import it.uniroma2.ticketingsystem.logger.utils.AspectUtils;
@@ -27,11 +26,6 @@ public class LogAspect {
     @Autowired
     private RecordController recordController;
 
-    /**
-     *
-     * @param jp
-     * @throws Throwable
-     */
     @Around("@annotation(LogOperation)")
     public Object logOperationAdvice(ProceedingJoinPoint jp) throws Throwable {
 
@@ -50,7 +44,7 @@ public class LogAspect {
 
         Record record;
 
-        Payload[] payloads = new Payload[inputArgsNames.length+1];//dim = argumens +1 (including return object)
+        Payload[] payloads = new Payload[inputArgsNames.length + 1];//dim = argumens +1 (including return object)
         String serializedReturnObject = "";
 
         // check options and do related stuff
@@ -75,7 +69,6 @@ public class LogAspect {
 
         //voglio serializzare i parametri in input
         //if (!AspectUtils.defaultOption(LogOperation.class, "inputArgs", inputArgsNames)) {
-        String[] test = (String[]) LogOperation.class.getDeclaredMethod("inputArgs").getDefaultValue();
         if (!inputArgsNames[0].equals("") ) {
 
             Object[] inputArgs = new Object[inputArgsNames.length];
@@ -111,8 +104,8 @@ public class LogAspect {
 
 
     private static String serializeObject(Object object) throws Throwable {
-        String[] params= null;
-        String[] idParams=null;
+        String[] params = null;
+        String[] idParams = null;
 
         params = ReflectUtils.getParameters(object);
         idParams = ReflectUtils.getIDParameters(object);

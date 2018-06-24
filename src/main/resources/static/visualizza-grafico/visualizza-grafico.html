@@ -9,24 +9,22 @@
 
 -->
 
-<div id="page-wrapper">
-    <!--
+<div id="page-wrapper" ng-app="visualizzaGrafico" ng-controller="GraphCtrl">
     <div class="row">
-        <div class="col-xs-3">
-            <p>Data inizio</p><input type="date" class="form-control input-sm" ng-model="$ctrl.startDate">
-            <p>Data fine</p><input type="date" class="form-control input-sm" ng-model="$ctrl.endDate">
-        </div>
-        <div class="col-xs-2">
-            <button class="button" ng-click="$ctrl.render($ctrl.startDate, $ctrl.endDate)"> Render </button>
-        </div>
-    </div>
-    -->
-    <div class="row">
-        <div class="col-xs-6" ng-app="visualizzaGrafico" ng-controller="GraphController">
+        <div class="col-xs-6" >
             <div zingchart id="chart-1" zc-json="myBar" zc-width="500px" zc-height="368px"></div>
         </div>
-        <div class="col-xs-6" ng-app="visualizzaGrafico" ng-controller="GraphController">
+        <div class="col-xs-6">
             <div zingchart id="chart-2" zc-json="myPie" zc-width="500px" zc-height="368px"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <p>Data inizio</p><input type="date" class="form-control input-sm" ng-model="startDate">
+            <p>Data fine</p><input type="date" class="form-control input-sm" ng-model="endDate">
+        </div>
+        <div class="col-xs-6">
+            <button class="btn-primary" ng-click="logCalc(startDate, endDate)">Render</button>
         </div>
     </div>
 

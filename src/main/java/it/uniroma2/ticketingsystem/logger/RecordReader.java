@@ -3,6 +3,8 @@ package it.uniroma2.ticketingsystem.logger;
 import it.uniroma2.ticketingsystem.logger.entity.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.sql.Timestamp;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 
@@ -28,5 +30,19 @@ public class RecordReader {
         return recordController.getRecordsByObjectId(object);
     }
 
-    //TODO: query combinazione delle precedenti
+    public Integer getNumberOfOpNameEvents(@NotNull String opName) {
+        return recordController.getNumberOfOpNameEvents(opName);
+    }
+
+    public Integer getNumberOfTaggedEvents(@NotNull String tag) {
+        return recordController.getNumberOfTaggedEvents(tag);
+    }
+
+    public Integer getNumberOfOpNameEventsBetween(@NotNull String opName, @NotNull Timestamp start, @NotNull Timestamp end) {
+        return recordController.getNumberOfOpNameEventsBetween(opName, start, end);
+    }
+
+    public Integer getNumberOfTaggedEventsBetween(@NotNull String tag, @NotNull Timestamp start, @NotNull Timestamp end) {
+        return recordController.getNumberOfTaggedEventsBetween(tag, start, end);
+    }
 }

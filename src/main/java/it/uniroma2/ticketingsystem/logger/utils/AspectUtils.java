@@ -22,6 +22,11 @@ public abstract class AspectUtils {
         return option.equals(defaultValue);
     }
 
+    private static void printStringArray(String[] array) {
+        for (String s : array)
+            System.err.println(s);
+    }
+
     /**
      * Check if the object has the annotation
      *

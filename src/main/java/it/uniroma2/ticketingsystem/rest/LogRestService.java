@@ -3,6 +3,7 @@ package it.uniroma2.ticketingsystem.rest;
 import it.uniroma2.ticketingsystem.controller.LogController;
 import it.uniroma2.ticketingsystem.logger.entity.Record;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "log")
@@ -37,5 +42,12 @@ public class LogRestService {
         return new ResponseEntity<>(records, HttpStatus.OK);
     }
 
-
+    @RequestMapping(path = "{startDate}/{endDate}", method = RequestMethod.GET)
+    public ResponseEntity<Map<Timestamp, Integer>> TicketInIntervallo(@PathVariable Long startDate, @PathVariable Long endDate) {
+        Map<Timestamp, Integer> map = new HashMap<>();
+        map.put(new Timestamp(startDate), 3);
+        map.put(new Timestamp(1529704800000L), 6);
+        map.put(new Timestamp(endDate), 5);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
 }
