@@ -43,11 +43,8 @@ public class LogRestService {
     }
 
     @RequestMapping(path = "{startDate}/{endDate}", method = RequestMethod.GET)
-    public ResponseEntity<Map<Timestamp, Integer>> TicketInIntervallo(@PathVariable Long startDate, @PathVariable Long endDate) {
-        Map<Timestamp, Integer> map = new HashMap<>();
-        map.put(new Timestamp(startDate), 3);
-        map.put(new Timestamp(1529704800000L), 6);
-        map.put(new Timestamp(endDate), 5);
+    public ResponseEntity<Map<Long, Integer>> prelevaNumeroTicketInIntervallo(@PathVariable Long startDate, @PathVariable Long endDate) {
+        Map<Long, Integer> map = logController.getNumberOperationForEachDayBetween(startDate, endDate, "creaTicket");
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 }

@@ -12,12 +12,15 @@
 <div id="page-wrapper" ng-app="visualizzaGrafico" ng-controller="GraphCtrl">
     <div class="row">
         <div class="col-xs-6" >
+            <h2>Ticket nel sistema</h2>
             <div zingchart id="chart-1" zc-json="myBar" zc-width="500px" zc-height="368px"></div>
         </div>
         <div class="col-xs-6">
+            <h2>Percentuale ticket Rigettati/Risolti</h2>
             <div zingchart id="chart-2" zc-json="myPie" zc-width="500px" zc-height="368px"></div>
         </div>
     </div>
+    <h2>Aperture ticket giornaliere</h2>
     <div class="row">
         <div class="col-xs-6">
             <p>Data inizio</p><input type="date" class="form-control input-sm" ng-model="startDate">
@@ -26,6 +29,10 @@
         <div class="col-xs-6">
             <button class="btn-primary" ng-click="logCalc(startDate, endDate)">Render</button>
         </div>
+    </div>
+    <div class="row" zingchart id="chart-3" zc-json="logBar" zc-width="500px" zc-height="368px"></div>
+    <div class="row">
+        <h4>Frequenza di apertura: </h4><h5>{{media | number:2}} ticket al giorno</h5>
     </div>
 
 </div>

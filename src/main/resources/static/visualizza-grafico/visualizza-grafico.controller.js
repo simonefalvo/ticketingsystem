@@ -34,8 +34,7 @@ app.controller('GraphCtrl', function($scope, $http, $q){
         title:{
             adjustLayout: true,
             backgroundColor : "transparent",
-            fontColor :"black",
-            text : "Percentuale Ticket Rigettati e Risolti"
+            fontColor :"black"
         },
         legend: {
             backgroundColor : "transparent",
@@ -76,8 +75,7 @@ app.controller('GraphCtrl', function($scope, $http, $q){
         title:{
             adjustLayout: true,
             backgroundColor : "transparent",
-            fontColor :"black",
-            text : "Numero Ticket nel Sistema"
+            fontColor :"black"
         },
         legend: {
             adjustLayout: true,
@@ -131,25 +129,23 @@ app.controller('GraphCtrl', function($scope, $http, $q){
         title:{
             adjustLayout: true,
             backgroundColor : "transparent",
-            fontColor :"black",
-            text : "Aperture Ticket Giornaliere"
-        },
-        legend: {
-            adjustLayout: true,
-            backgroundColor : "transparent",
-            layout: "x5",
-            position: "50%",
-            borderColor: "transparent",
-            marker: {
-                borderRadius: 10,
-                borderColor: "transparent"
-            }
-        },
-        tooltip: {
-            text: "%v %t Tickets"
+            fontColor :"black"
         },
         backgroundColor : "transparent",
-        series : []
+        scaleX: {
+            transform: {
+                type: 'date',
+                all: "%d.%m.%Y"
+            },
+            zooming: true,
+            values: []
+        },
+        series : [
+            {
+                values : [],
+                backgroundColor : "#4DC0CF"
+            }
+        ]
     };
 
 
@@ -220,14 +216,27 @@ app.controller('GraphCtrl', function($scope, $http, $q){
 
     $scope.logCalc = function(start, end) {
         getLogTickets("log/", start.getTime().toString(), end.getTime().toString()).then(function (value) {
-        console.log(value);
+            buildSeries(value);
         }, function (reason) {
             alert(reason);
         });
     };
 
-    var buildSeries = function (series, map) {
-
+    var buildSeries = function (map) {
+        $scope.logBar.scaleX.values = [];
+        $scope.logBar.series[0].values = [];
+        var total = 0;
+        var sum = 0;
+        console.log("BUILDING");
+        for (key in map) {
+            console.log(new Date(parseInt(key, 10)));
+            console.log(map[key]);
+            $scope.logBar.scaleX.values.push(key);
+            $scope.logBar.series[0].values.push(map[key]);
+            sum += map[key];
+            total++;
+        }
+        $scope.media = sum / total;
     };
 
     init();

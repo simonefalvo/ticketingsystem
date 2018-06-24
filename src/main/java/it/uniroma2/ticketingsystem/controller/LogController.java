@@ -34,8 +34,10 @@ public class LogController {
         return recordReader.countRecordsByOperationNameAndTimestampBetween(opName, startDate, endDate);
     }
 
-    public Map<Timestamp,Integer> getNumberOperationForEachDayBetween(Timestamp startDate, Timestamp endDate, String operationName){
-        Map<Timestamp,Integer> myMap = new HashMap<>();
+    public Map<Long,Integer> getNumberOperationForEachDayBetween(Long fromMillis, Long toMillis, String operationName){
+        Map<Long,Integer> myMap = new HashMap<>();
+        Timestamp startDate = new Timestamp(fromMillis);
+        Timestamp endDate = new Timestamp(toMillis);
 
         //get all date beetween two timestamp
         List<LocalDate> listDate = getAllDayBeteen(startDate,endDate);
@@ -50,7 +52,7 @@ public class LogController {
             Integer count = countRecordsByOperationNameAndTimestampBetween(operationName,start, end);
 
             //salvo nella mappa la coppia: data - #operazioni
-            myMap.put(start, count);
+            myMap.put(start.getTime(), count);
 
         }
 
