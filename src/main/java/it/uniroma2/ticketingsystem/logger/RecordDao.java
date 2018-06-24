@@ -4,6 +4,7 @@ import it.uniroma2.ticketingsystem.logger.entity.Record;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
@@ -13,7 +14,7 @@ import java.util.List;
 @Repository
 public interface RecordDao extends JpaRepository<Record,Integer> {
 
-
+    @Query("select r from Record r where r.tag = ?1")
     List<Record> getRecordsByTag(@NotNull String tag);
 
     List<Record> getRecordsByAuthor(@NotNull String author);
@@ -34,5 +35,11 @@ public interface RecordDao extends JpaRepository<Record,Integer> {
 
     @Query("select count (distinct r.id) from Record r where r.tag = ?1 and r.timestamp between ?2 and ?3")
     Integer getNumberOfTaggedEventsBetween(@NotNull String tag, @NotNull Timestamp start, @NotNull Timestamp end);
+
+    @Query("select r from Record r where r.operationName = :opName AND r.timestamp BETWEEN :start AND :end ")
+    List<Record> getRecordsByOperationNameAndTimestampBetween(@NotNull @Param("opName") String opName, @NotNull @Param("start") Timestamp startDate, @NotNull @Param("end") Timestamp endDate);
+
+    @Query("select COUNT(r.id) from Record r where r.operationName = :opName AND r.timestamp BETWEEN :start AND :end ")
+    Integer countRecordsByOperationNameAndTimestampBetween(@NotNull @Param("opName") String opName, @NotNull @Param("start") Timestamp startDate, @NotNull @Param("end") Timestamp endDate);
 
 }

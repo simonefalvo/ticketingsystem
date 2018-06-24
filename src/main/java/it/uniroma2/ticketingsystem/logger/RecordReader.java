@@ -4,8 +4,11 @@ import it.uniroma2.ticketingsystem.logger.entity.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotNull;
 
 @Component
@@ -26,6 +29,9 @@ public class RecordReader {
     public List<Record> getRecordsByAuthor(@NotNull String author) {return recordController.getRecordsByAuthor(author);}
     public List<Record> getRecordsByOperation(@NotNull String opName) {return recordController.getRecordsByOperation(opName);}
 
+    public Integer countRecordsByOperationNameAndTimestampBetween(@NotNull String opName, @NotNull Timestamp startDate, @NotNull Timestamp endDate){
+        return recordController.countRecordsByOperationNameAndTimestampBetween(opName, startDate, endDate);
+    }
     public List<Record> getRecordsByObjectId(@NotNull Object object) {
         return recordController.getRecordsByObjectId(object);
     }
@@ -45,4 +51,6 @@ public class RecordReader {
     public Integer getNumberOfTaggedEventsBetween(@NotNull String tag, @NotNull Timestamp start, @NotNull Timestamp end) {
         return recordController.getNumberOfTaggedEventsBetween(tag, start, end);
     }
+
+    //TODO: query combinazione delle precedenti
 }
