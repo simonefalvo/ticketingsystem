@@ -56,6 +56,9 @@ angular.
             when('/log', {
                 template: '<log></log>'
             }).
+            when('/log/author/:username?', {
+                template: '<log-utente></log-utente>'
+            }).
             otherwise('/');
         }
     ]);

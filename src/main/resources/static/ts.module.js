@@ -19,5 +19,6 @@ angular.module('ticketingSystemApp', [
     'auditing',
     'ticketHistory',
     'log',
-    'logTicket'
+    'logTicket',
+    'logUtente'
 ]);

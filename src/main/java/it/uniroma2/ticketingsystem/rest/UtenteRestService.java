@@ -5,6 +5,7 @@ import it.uniroma2.ticketingsystem.entity.Utente;
 import it.uniroma2.ticketingsystem.event.UtenteEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
 import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
+import it.uniroma2.ticketingsystem.logger.entity.Record;
 import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -95,4 +96,5 @@ import java.util.List;
             return new ResponseEntity<>(utenteTrovato, utenteTrovato == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
         }
         */
+
     }
