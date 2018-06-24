@@ -23,8 +23,8 @@
     <h2>Aperture ticket giornaliere</h2>
     <div class="row">
         <div class="col-xs-6">
-            <p>Data inizio</p><input type="date" class="form-control input-sm" ng-model="startDate">
-            <p>Data fine</p><input type="date" class="form-control input-sm" ng-model="endDate">
+            <p>Data inizio</p><input type="date" class="form-control input-sm" ng-model="startDate" required>
+            <p>Data fine</p><input type="date" class="form-control input-sm" ng-model="endDate" required>
         </div>
         <div class="col-xs-6">
             <button class="btn-primary" ng-click="logCalc(startDate, endDate)">Render</button>
