@@ -35,4 +35,12 @@ module('navbar')
             $location.url('/visualizza_grafici');
         };
 
+        $scope.visLog = function () {
+            $location.url('/visualizza_log');
+        };
+
+        $scope.visTicketHistory = function () {
+            $location.url('/visualizza_storico_ticket');
+        };
+
     }]});

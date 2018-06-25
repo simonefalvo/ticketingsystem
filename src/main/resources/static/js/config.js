@@ -31,6 +31,14 @@ angular.module('materializeApp')
                 templateUrl: "components/visualizza-grafico/visualizza-grafico.html",
                 controller: "GraphCtrl"
             });
+        $routeProvider.when('/visualizza_log',
+            {
+                template:    '<log></log>'
+            });
+        $routeProvider.when('/visualizza_storico_ticket',
+            {
+                template:    '<ticket-history></ticket-history>'
+            });
         $routeProvider.when('/dettagli-utente/:utenteId?',
             {
                 template:    '<dettagli-utente></dettagli-utente>'
