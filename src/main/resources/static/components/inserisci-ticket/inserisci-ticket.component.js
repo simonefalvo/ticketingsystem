@@ -58,7 +58,7 @@ component('inserisciTicket', {
 
             $http.post('ticket/', self.ticket)
                 .then(function () {
-                    $location.path('/ticket');
+                    $location.path('/visualizza_ticket');
                     alert("ticket inserito con successo!")
                 }, function (reason) {
                     alert('Error: ' + JSON.stringify(reason));
@@ -66,7 +66,7 @@ component('inserisciTicket', {
         };
 
         self.annulla = function () {
-            $location.path('/ticket');
+            $location.path('/visualizza_ticket');
         };
     }]
 });

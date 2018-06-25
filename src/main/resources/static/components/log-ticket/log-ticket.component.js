@@ -4,7 +4,7 @@
 angular.
 module('logTicket').
 component('logTicket', {
-    templateUrl: 'log-ticket/log-ticket.template.html',
+    templateUrl: 'components/log-ticket/log-ticket.html',
     controller: ['$http', '$routeParams', '$location', function logController($http, $routeParams, $location) {
 
         var self = this;

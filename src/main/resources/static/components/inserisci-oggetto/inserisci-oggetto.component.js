@@ -13,7 +13,7 @@ component('inserisciOggetto', {
             console.log(self.oggetto);
             $http.post('oggetto/', self.oggetto)
                 .then(function () {
-                    $location.path('/oggetto');
+                    $location.path('/visualizza_oggetti');
                     alert("oggetto inserito con successo!")
                 }, function (reason) {
                     alert('Error: ' + JSON.stringify(reason));
@@ -21,7 +21,7 @@ component('inserisciOggetto', {
         };
 
         self.annulla = function () {
-            $location.path('/oggetto');
+            $location.path('/visualizza_oggetti');
         };
     }]
 });

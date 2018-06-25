@@ -4,7 +4,7 @@
 angular.
 module('log').
 component('log', {
-    templateUrl: 'log/log.template.html',
+    templateUrl: 'components/log/log.html',
     controller: ['$http', function logController($http) {
 
         var self = this;

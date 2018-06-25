@@ -25,7 +25,7 @@ component('inserisciUtente', {
             console.log(self.utente);
             $http.post('utente/', self.utente)
                 .then(function (response) {
-                    $location.path('/utente');
+                    $location.path('/visualizza_utenti');
                     alert("utente inserito con successo!");
                 }, function (reason) {
                     alert('Error: ' + JSON.stringify(reason));
@@ -33,7 +33,7 @@ component('inserisciUtente', {
         };
 
         self.annulla = function () {
-            $location.path('/utente');
+            $location.path('/visualizza_utenti');
         };
     }]
 });

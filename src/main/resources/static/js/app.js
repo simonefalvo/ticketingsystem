@@ -12,5 +12,8 @@ angular.module('materializeApp',
         'dettagliTicket',
         'dettagliUtente',
         'dettagliOggetto',
-        'visualizzaGrafico'
+        'visualizzaGrafico',
+        'log',
+        'logUtente',
+        'logTicket'
     ]);
