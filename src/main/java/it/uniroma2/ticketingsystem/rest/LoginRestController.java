@@ -40,9 +40,9 @@ public class LoginRestController {
         Utente user = utenteController.cercaPerUsername(auth.getName());
         Ruolo ruolo = user.getRuolo();
         if (ruolo.getName().equals("ADMIN")){
-            return new ModelAndView("redirect:index").addObject("userName",user.getUsername());
+            return new ModelAndView("redirect:index");
         }else if (ruolo.getName().equals("USER")){
-            return new ModelAndView("redirect:index").addObject("userName","USER");
+            return new ModelAndView("redirect:index");
         }
         return null;
     }

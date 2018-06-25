@@ -2,6 +2,10 @@ angular.module('materializeApp')
     .config(function ($routeProvider, $locationProvider, $httpProvider) {
         $locationProvider.hashPrefix('');
 
+        $routeProvider.when('/index',
+            {
+                template:    '<welcome></welcome>'
+            });
         $routeProvider.when('/nuovo_utente',
             {
                 template:    '<inserisci-utente></inserisci-utente>'
