@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class LogController {
     }
 
     public Map<Long,Integer> getNumberOperationForEachDayBetween(Long fromMillis, Long toMillis, String operationName){
-        Map<Long,Integer> myMap = new HashMap<>();
+        Map<Long,Integer> myMap = new LinkedHashMap<>();
         Timestamp startDate = new Timestamp(fromMillis);
         Timestamp endDate = new Timestamp(toMillis);
 
@@ -50,7 +51,6 @@ public class LogController {
 
             //restituisce la lista degli oggetti, in futuro cambiare e fare una count direttamente
             Integer count = countRecordsByOperationNameAndTimestampBetween(operationName,start, end);
-
             //salvo nella mappa la coppia: data - #operazioni
             myMap.put(start.getTime(), count);
 

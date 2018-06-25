@@ -7,4 +7,4 @@ module('ticketHistory').filter('operationFilter', function() {
         if(op_number===0)
             return 'inserimento';
     }
-})
+});

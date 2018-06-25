@@ -4,7 +4,7 @@
 angular.
 module('ticketHistory').
 component('ticketHistory', {
-    templateUrl: 'ticket-history/ticket-history.template.html',
+    templateUrl: 'components/ticket-history/ticket-history.html',
     controller: ['$http', '$routeParams', '$location', function ticketHistoryController($http, $routeParams, $location) {
 
         var self = this;

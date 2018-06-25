@@ -4,7 +4,6 @@
 
         <h2 class="header">Dettagli Ticket</h2>
 
-    <div class="row">
         <div class="col-xs-6">
             <p>ID : {{$ctrl.ticket.id}}</p>
             <p ng-if="!$ctrl.audit">Oggetto : <a ng-href="#!/dettagli-oggetto/{{$ctrl.ticket.oggetto.id}}">{{$ctrl.ticket.oggetto.nome + " " + $ctrl.ticket.oggetto.versione}}</a></p>
@@ -16,7 +15,7 @@
             <textarea ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.descrizione"></textarea>
             <p>Stato :</p>
             <div class="col-xs-6">
-                <select ng-disabled="!$ctrl.modifyMode" class="form-control" ng-model="$ctrl.ticket.stato">
+                <select ng-disabled="!$ctrl.modifyMode" class="form-control" ng-model="$ctrl.ticket.stato" material-select>
                         <option value="pending"> Pending </option>
                         <option value="open"> Open </option>
                         <option value="released"> Released </option>
@@ -29,7 +28,6 @@
             <button class="btn" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.history()">Storico</button>
             <button class="btn" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.log()">Log</button>
         </div>
-    </div>
 
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.modifica()">Modifica</button>
