@@ -28,7 +28,8 @@ angular.module('materializeApp')
             });
         $routeProvider.when('/visualizza_grafici',
             {
-                templateUrl:    ''
+                templateUrl: "components/visualizza-grafico/visualizza-grafico.html",
+                controller: "GraphCtrl"
             });
         $routeProvider.when('/dettagli-utente/:utenteId?',
             {

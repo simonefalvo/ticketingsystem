@@ -1,7 +1,7 @@
 var app = angular.module('visualizzaGrafico',['zingchart-angularjs']); //old visualizzaGrafico
 
 
-app.controller('GraphController', function($scope, $http, $q){
+app.controller('GraphCtrl', function($scope, $http, $q){
 
     var getNumber = function(path, status) {
         var deferred = $q.defer();

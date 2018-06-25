@@ -11,5 +11,6 @@ angular.module('materializeApp',
         'listaUtente',
         'dettagliTicket',
         'dettagliUtente',
-        'dettagliOggetto'
+        'dettagliOggetto',
+        'visualizzaGrafico'
     ]);

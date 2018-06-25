@@ -1,33 +1,19 @@
-<!--
-<body>
+<div class="container">
 
-<div id="page-wrapper" ng-controller="GraficoController">
-    <div zingchart id="chart-1" zc-json="myJson" zc-width="100%" zc-height="568px"></div>
-</div>
-
-</body>
-
--->
-
-<div id="page-wrapper">
-    <!--
     <div class="row">
-        <div class="col-xs-3">
-            <p>Data inizio</p><input type="date" class="form-control input-sm" ng-model="$ctrl.startDate">
-            <p>Data fine</p><input type="date" class="form-control input-sm" ng-model="$ctrl.endDate">
-        </div>
-        <div class="col-xs-2">
-            <button class="button" ng-click="$ctrl.render($ctrl.startDate, $ctrl.endDate)"> Render </button>
-        </div>
-    </div>
-    -->
+
+        <h2 class="header">Grafici</h2>
+
+
     <div class="row">
-        <div class="col-xs-6" ng-app="visualizzaGrafico" ng-controller="GraphController">
+        <div class="col-xs-6" ng-app="visualizzaGrafico" ng-controller="GraphCtrl">
             <div zingchart id="chart-1" zc-json="myBar" zc-width="500px" zc-height="368px"></div>
         </div>
-        <div class="col-xs-6" ng-app="visualizzaGrafico" ng-controller="GraphController">
+        <div class="col-xs-6" ng-app="visualizzaGrafico" ng-controller="GraphCtrl">
             <div zingchart id="chart-2" zc-json="myPie" zc-width="500px" zc-height="368px"></div>
         </div>
+    </div>
+
     </div>
 
 </div>
