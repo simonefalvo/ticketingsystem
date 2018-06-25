@@ -7,7 +7,6 @@ import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
 import it.uniroma2.ticketingsystem.logger.entity.Record;
 import it.uniroma2.ticketingsystem.logger.RecordController;
 import it.uniroma2.ticketingsystem.logger.utils.ReflectUtils;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
