@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
+import static it.uniroma2.ticketingsystem.logger.utils.PersistenceUtils.initializeAndUnproxy;
+import static org.hibernate.proxy.HibernateProxyHelper.getClassWithoutInitializingProxy;
 
 public abstract class ObjSer {
 
@@ -60,7 +62,6 @@ public abstract class ObjSer {
     }
 
 
-
     public static String buildIDJson(Object object, String[] attributes) throws Throwable{
 
         String st="{ ";
@@ -78,36 +79,49 @@ public abstract class ObjSer {
 
         String t, st = "";
 
+        if(attributes == null)
+            return "NA";
+
         int l = attributes.length;
         int i = 0;
 
+        Class objectClass = getClassWithoutInitializingProxy(object);
+        Object obj = initializeAndUnproxy(object);
+
         while (i < l - 1) {
-            Field field = FieldUtils.getField(object.getClass(), attributes[i], true);
-            // TODO: check su tipo dell'oggetto
-            t = "\"" + attributes[i] + "\": \"" + field.get(object) + "\",\n ";
-            st = st.concat(t);
+            try {
+                Field field = FieldUtils.getField(objectClass, attributes[i], true);
+                System.err.println("field: " + field.toString());
+                // TODO: check su tipo dell'oggetto
+                t = "\"" + attributes[i] + "\": \"" + field.get(obj) + "\",\n ";
+                st = st.concat(t);
+            }
+            catch (NullPointerException e){
+                System.err.println("Attenzione: Attributo \"" + attributes[i] + "\" non trovato nella classe \"" + objectClass.getClass().getName() + "\"");
+            }
             i++;
         }
+        try {
+            Field field_attr = FieldUtils.getField(objectClass, attributes[i], true);
+            t = "\"" + attributes[i] + "\": \"" + field_attr.get(obj) + "\"";
 
-        Field field_attr = FieldUtils.getField(object.getClass(), attributes[i], true);
-        t = "\"" + attributes[i] + "\": \"" + field_attr.get(object) + "\"";
-
-        //System.out.print("\n\n\n ATTR:"+t+"\n\n\n");
-
-        st = st.concat(t);
+            st = st.concat(t);
+        }catch (NullPointerException e){
+            System.err.println("Attenzione: Attributo \"" + attributes[i] + "\" non trovato nella classe \"" + objectClass.getClass().getName() + "\"");
+        }
 
         return st;
     }
 
-    public static String objectsToJson(String[] objs, String[] objName){
+    public static String objectsToJson(String[] objs, String[] inputArgs){
         String mergedJson="";
-        for (int i=0; i<objName.length;++i){
+        for (int i=0; i<inputArgs.length;++i){
             if (i==0){
-                mergedJson+= "{  ";
+                mergedJson+= "{";
             }
             String json_i = objs[i];
-            mergedJson += "\n \t '"+objName[i]+"' : "+ json_i ;
-            if (i<objName.length-1){
+            mergedJson += "\n \t '"+inputArgs[i]+"' : "+ json_i ;
+            if (i<inputArgs.length-1){
                 mergedJson+=",";
             }else {
                 mergedJson += "\n }";
@@ -116,4 +130,7 @@ public abstract class ObjSer {
         }
         return mergedJson;
     }
+
+
+
 }

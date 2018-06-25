@@ -55,5 +55,8 @@ component('dettagliUtente', {
             });
         };
 
+        self.opLog = function () {
+            $location.path('/log/author/' + self.utente.username);
+        }
     }]
 });

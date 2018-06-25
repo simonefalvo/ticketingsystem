@@ -9,6 +9,8 @@ import it.uniroma2.ticketingsystem.entity.Utente;
 import it.uniroma2.ticketingsystem.event.UtenteEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
 import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
+import it.uniroma2.ticketingsystem.logger.entity.Record;
+import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -54,6 +56,8 @@ import java.util.Map;
             return new ResponseEntity<>(utenteCreato, HttpStatus.CREATED);
         }
 
+
+
         @RequestMapping(path = "{id}", method = RequestMethod.PUT)
         public ResponseEntity<Utente> aggiornaUtente(@PathVariable Integer id, @RequestBody Utente utente) {
             Utente utenteAggiornato;
@@ -82,6 +86,8 @@ import java.util.Map;
 
             applicationEventPublisher.publishEvent(utenteEvent);
 
+         //   utenteController.daCancellare(10);
+
             boolean eliminata = utenteController.eliminaUtente(id);
             return new ResponseEntity<>(eliminata, eliminata ? HttpStatus.OK : HttpStatus.NOT_FOUND);
         }
@@ -99,4 +105,5 @@ import java.util.Map;
             return new ResponseEntity<>(utenteTrovato, utenteTrovato == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
         }
         */
+
     }

@@ -1,6 +1,5 @@
 package it.uniroma2.ticketingsystem.logger.utils;
 
-import it.uniroma2.ticketingsystem.logger.aspect.KeyId;
 import it.uniroma2.ticketingsystem.logger.aspect.LogClass;
 import it.uniroma2.ticketingsystem.logger.exception.ObjNotFoundException;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -8,6 +7,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+
+import static org.hibernate.proxy.HibernateProxyHelper.getClassWithoutInitializingProxy;
 
 public abstract class ReflectUtils {
 
@@ -20,8 +21,11 @@ public abstract class ReflectUtils {
         try {
             Field field = FieldUtils.getField(instance.getClass(), fieldName, true);
             result = (String) field.get(instance);
-        } catch (IllegalAccessException | NullPointerException e) {
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
+        }
+        catch (NullPointerException e){
+            System.err.println("Attenzione: Attributo \"" + fieldName + "\" non trovato nella classe \"" + instance.getClass().getName() + "\"");
         }
 
         if (result == null)
@@ -57,13 +61,14 @@ public abstract class ReflectUtils {
     // TODO: Non è una classe utils, perché si riferisce ad un'annotazione specifica -> renderla generica
     public static String[] getIDParameters(Object target){
 
+        Class objectClass = getClassWithoutInitializingProxy(target);
         String[] params = null;
 
-        for(Annotation annotation : target.getClass().getAnnotations()){
+        for(Annotation annotation : objectClass.getAnnotations()){
+            if(annotation.annotationType().equals(LogClass.class)){
+                LogClass myAnn = (LogClass) annotation;
+                params = ((LogClass) annotation).idAttrs();
 
-            if(annotation.annotationType().equals(KeyId.class)){
-                KeyId myAnn = (KeyId) annotation;
-                params = ((KeyId) annotation).idAttrs();
                 break;
             }
         }
@@ -75,9 +80,11 @@ public abstract class ReflectUtils {
     //se si, controllare se ha inserito dei parametri rilevanti
     //restituire i parametri rilevanti
     public static String[] getParameters(Object targetObject){
+        Class objectClass = getClassWithoutInitializingProxy(targetObject);
         String[]params = null;
+
         //analizzo tutte le annotazioni della classe dell'oggetto
-        for (Annotation annotation : targetObject.getClass().getAnnotations()){
+        for (Annotation annotation : objectClass.getAnnotations()){
 
             if (annotation.annotationType().equals(LogClass.class)) {
                 LogClass myAnnotation = (LogClass) annotation;
@@ -89,7 +96,6 @@ public abstract class ReflectUtils {
         }
         return params;
     }
-
 
 }
 

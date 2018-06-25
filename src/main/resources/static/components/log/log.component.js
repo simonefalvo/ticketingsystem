@@ -10,7 +10,7 @@ component('log', {
         var self = this;
 
         self.getAll = function () {
-            $http.get('log/').then(function(response) {
+            $http.get("log").then(function(response) {
                 self.log = response.data;
             }, function (reason) {
                 alert("Error: " + JSON.stringify(reason));

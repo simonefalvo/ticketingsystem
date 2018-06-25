@@ -3,7 +3,9 @@ package it.uniroma2.ticketingsystem.controller;
 import it.uniroma2.ticketingsystem.dao.TicketDao;
 import it.uniroma2.ticketingsystem.entity.Ticket;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
+import it.uniroma2.ticketingsystem.logger.RecordReader;
 import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
+import it.uniroma2.ticketingsystem.logger.entity.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +18,17 @@ public class TicketController {
 
     @Autowired
     private TicketDao ticketDao;
+    @Autowired
+    private RecordReader recordReader;
 
     @Transactional
+    @LogOperation(inputArgs = "ticket")
     public @NotNull Ticket creaTicket(@NotNull Ticket ticket){
         return ticketDao.save(ticket);
     }
 
     @Transactional
+    @LogOperation(returnObject = true)
     public @NotNull Ticket aggiornaTicket(@NotNull Integer id, @NotNull Ticket datiAggiornati) throws EntitaNonTrovataException {
         Ticket ticketDaAggiornare = ticketDao.getOne(id);
         if (ticketDaAggiornare == null)
@@ -31,14 +37,13 @@ public class TicketController {
         ticketDaAggiornare.aggiorna(datiAggiornati);
 
         return ticketDao.save(ticketDaAggiornare);
-
     }
 
+    @LogOperation(inputArgs = "id")
     public boolean eliminaTicket(@NotNull Integer id){
         if(!ticketDao.existsById(id)){
             return false;
         }
-
         ticketDao.deleteById(id);
         return true;
     }
@@ -53,5 +58,10 @@ public class TicketController {
 
     public Integer numberOfStatusTickets(String status) {
         return ticketDao.numberOfStatusTickets(status);
+    }
+
+    public List<Record> ottieniLogRecordsById(Integer id) {
+        Ticket ticket = ticketDao.getOne(id);
+        return recordReader.getRecordsByObjectId(ticket);
     }
 }

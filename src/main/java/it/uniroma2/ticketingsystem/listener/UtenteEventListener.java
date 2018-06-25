@@ -2,7 +2,10 @@ package it.uniroma2.ticketingsystem.listener;
 
 import it.uniroma2.ticketingsystem.aud.UtenteAudit;
 import it.uniroma2.ticketingsystem.controller.UtenteAuditController;
+import it.uniroma2.ticketingsystem.controller.UtenteController;
 import it.uniroma2.ticketingsystem.event.UtenteEvent;
+import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -14,6 +17,9 @@ public class UtenteEventListener {
 
     @Autowired
     UtenteAuditController utenteAuditController;
+
+    @Autowired
+    UtenteController utenteController;
 
     @EventListener
     public void handleUtenteEvent(UtenteEvent utenteEvent){

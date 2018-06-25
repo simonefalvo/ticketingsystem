@@ -13,6 +13,8 @@ app.controller('GraphCtrl', function($scope, $http, $q){
         return deferred.promise;
     };
 
+
+
     $scope.myPie = {
         type : "pie",
         plot: {
@@ -32,8 +34,7 @@ app.controller('GraphCtrl', function($scope, $http, $q){
         title:{
             adjustLayout: true,
             backgroundColor : "transparent",
-            fontColor :"black",
-            text : "Percentuale Ticket Rigettati e Risolti"
+            fontColor :"black"
         },
         legend: {
             backgroundColor : "transparent",
@@ -74,8 +75,7 @@ app.controller('GraphCtrl', function($scope, $http, $q){
         title:{
             adjustLayout: true,
             backgroundColor : "transparent",
-            fontColor :"black",
-            text : "Numero Ticket nel Sistema"
+            fontColor :"black"
         },
         legend: {
             adjustLayout: true,
@@ -122,6 +122,34 @@ app.controller('GraphCtrl', function($scope, $http, $q){
         ]
     };
 
+
+
+    $scope.logBar = {
+        type : "bar",
+        title:{
+            adjustLayout: true,
+            backgroundColor : "transparent",
+            fontColor :"black"
+        },
+        backgroundColor : "transparent",
+        scaleX: {
+            transform: {
+                type: 'date',
+                all: "%d.%m.%Y"
+            },
+            zooming: true,
+            values: []
+        },
+        series : [
+            {
+                values : [],
+                backgroundColor : "#4DC0CF"
+            }
+        ]
+    };
+
+
+
     var init = function() {
 
         getNumber("ticket/status/", "pending").then(function (value) {
@@ -158,26 +186,58 @@ app.controller('GraphCtrl', function($scope, $http, $q){
 
         getNumber("ticketaudit/status/", "closed").then(function (value) {
             $scope.myPie.series[1].values[0]= value;
-            console.log("closed");
         }, function (reason) {
             alert(reason);
         });
 
         getNumber("ticketaudit/status/", "rejected").then(function (value) {
             $scope.myPie.series[2].values[0]= value;
-            console.log("rejected");
         }, function (reason) {
             alert(reason);
         });
 
         getNumber("ticketaudit/status/", "others").then(function (value) {
             $scope.myPie.series[0].values[0] = value;
-            console.log("others");
         }, function (reason) {
             alert(reason);
         });
     };
 
+
+    var getLogTickets = function(path, start, end) {
+        var deferred = $q.defer();
+        $http.get(path + start + "/" + end).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (reason) {
+            alert(reason);
+        });
+        return deferred.promise;
+    };
+
+    $scope.logCalc = function(start, end) {
+        getLogTickets("log/", start.getTime().toString(), end.getTime().toString()).then(function (value) {
+            buildSeries(value);
+        }, function (reason) {
+            alert(reason);
+        });
+    };
+
+    var buildSeries = function (map) {
+        $scope.logBar.scaleX.values = [];
+        $scope.logBar.series[0].values = [];
+        var total = 0;
+        var sum = 0;
+        console.log("BUILDING");
+        for (key in map) {
+            console.log(new Date(parseInt(key, 10)));
+            console.log(map[key]);
+            $scope.logBar.scaleX.values.push(key);
+            $scope.logBar.series[0].values.push(map[key]);
+            sum += map[key];
+            total++;
+        }
+        $scope.media = sum / total;
+    };
 
     init();
 

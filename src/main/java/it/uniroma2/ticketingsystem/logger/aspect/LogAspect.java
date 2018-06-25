@@ -1,19 +1,23 @@
 package it.uniroma2.ticketingsystem.logger.aspect;
 
+import it.uniroma2.ticketingsystem.logger.entity.Payload;
+import it.uniroma2.ticketingsystem.logger.exception.ObjNotFoundException;
+import it.uniroma2.ticketingsystem.logger.utils.AspectUtils;
 import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
-import it.uniroma2.ticketingsystem.logger.Record;
+import it.uniroma2.ticketingsystem.logger.entity.Record;
 import it.uniroma2.ticketingsystem.logger.RecordController;
 import it.uniroma2.ticketingsystem.logger.utils.ReflectUtils;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashSet;
 
 
 @Aspect
@@ -23,58 +27,119 @@ public class LogAspect {
     @Autowired
     private RecordController recordController;
 
-    @After("@annotation(LogOperation)")
-    public void logOperationFlow(JoinPoint jp) throws Throwable {
+    @Around("@annotation(LogOperation)")
+    public Object logOperationAdvice(ProceedingJoinPoint jp) throws Throwable {
 
-        // prendo firma del metodo annotato
+        // run annotated method
+        Object returnObject = jp.proceed();
+
+        // get method annotation
         MethodSignature signature = (MethodSignature) jp.getSignature();
-        Method method = signature.getMethod();
-        LogOperation annotation = method.getAnnotation(LogOperation.class);
-        //acquisisco l'elenco delle variabili da serializzare
-        String[] objectName = annotation.objName();
+        LogOperation annotation = signature.getMethod().getAnnotation(LogOperation.class);
+
+        //get annotation options
+        String[] inputArgsNames = annotation.inputArgs();
+        boolean returnObjectName = annotation.returnObject();
+        String opName = annotation.opName();
+        String tag = annotation.tag();
+        String author = null;
+        //Get author name
+        /*
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String author = auth.getName();
+        if(auth != null)
+            author = auth.getName();
+        */
+        Record record;
 
+        Payload[] payloads = new Payload[inputArgsNames.length + 1];//dim = argumens +1 (including return object)
+        String serializedReturnObject = "";
 
-        // controllo che il parametro sia stato valorizzato
-        if (objectName[0].equals("")) { // voglio serializzare solo il nome del metodo senza parametri
-            String methodName = signature.getName();
-            Record record = new Record(methodName, null);
-            recordController.createRecord(record);
-        }
-        else{ // voglio serializzare un oggetto specifico passato come parametro del metodo
-            // estraggo l'oggetto di interesse da serializzare
-            String methodName = signature.getName();
-            //itero per ogni elemento nella lista @objectName
-            Object[] targetObject = new Object[objectName.length];
-            String[] objectId = new String[objectName.length];
-            String[] serializedObject = new String[objectName.length];
+        // check options and do related stuff
+        if (AspectUtils.defaultOption(LogOperation.class, "opName", opName))
+            opName = signature.getName();
 
-            for (int i=0; i<objectName.length;++i){
-                targetObject[i] = ReflectUtils.getMethodParameter(objectName[i], signature, jp.getArgs());
+        //create record object
+        record = new Record(opName,author, tag);
 
-                // analizzo i parametri di interesse della classe dell'oggetto da serializzare
-                String[] params = ReflectUtils.getParameters(targetObject[i]);
-                String[] idParams = ReflectUtils.getIDParameters(targetObject[i]);
-                objectId[i] = ObjSer.buildIDJson(targetObject, idParams);
-
-                if (params == null)
-                    // serializza tutti i parametri dell oggetto
-                    serializedObject[i] = ObjSer.objToJson(targetObject);
-                else
-                    // serializza solo alcuni attributi dell'oggetto
-                    serializedObject[i] = ObjSer.buildJson(targetObject, params);
-
+        if (returnObjectName) {
+            try {
+                serializedReturnObject = serializeObject(returnObject);
+                String idJSON = ObjSer.buildIDJson(returnObject, ReflectUtils.getIDParameters(returnObject));
+                payloads[payloads.length-1] = new Payload(serializedReturnObject, idJSON,"output", returnObject.getClass().getSimpleName(),record);
+            }
+            catch (NullPointerException e){
+                System.out.println("Attention: Return Object is null!");
+                payloads[payloads.length-1] = new Payload(null, null,"output", null,record);
             }
 
-            String mergedJson = ObjSer.objectsToJson(serializedObject,objectName);
-
-            System.out.println("*************************\n" + mergedJson + "\n ***************************");
-
-            Record record = new Record(methodName, author, targetObject.getClass().getSimpleName(), mergedJson);
-            recordController.createRecord(record);
         }
-        
+
+        //voglio serializzare i parametri in input
+        //if (!AspectUtils.defaultOption(LogOperation.class, "inputArgs", inputArgsNames)) {
+        if (!inputArgsNames[0].equals("") ) {
+
+            Object[] inputArgs = new Object[inputArgsNames.length];
+            String[] serializedObject = new String[inputArgsNames.length];
+
+            for (int i = 0; i < inputArgsNames.length; ++i) {
+                //inputArgs[i] = oggetto da serializzare
+                try {
+                    inputArgs[i] = ReflectUtils.getMethodParameter(inputArgsNames[i], signature, jp.getArgs());
+                    //oggetto Serializzato
+                    serializedObject[i] = serializeObject(inputArgs[i]);
+                    //id dell'oggetto serializzato
+                    String idJSON = ObjSer.buildIDJson(inputArgs[i], ReflectUtils.getIDParameters(inputArgs[i]));
+
+                    payloads[i] = new Payload(serializedObject[i], idJSON,"input",inputArgs[i].getClass().getSimpleName(),record);
+                }
+                catch (ObjNotFoundException e){
+                    System.out.println("Object name may be incorrect "+inputArgsNames[i]);
+                }
+
+            }
+        }
+
+        record.setPayloads(new HashSet<>(Arrays.asList(payloads)));
+
+        recordController.createRecord(record);
+        return returnObject;
+
     }
+
+
+
+
+
+    private static String serializeObject(Object object) throws Throwable {
+        String[] params = null;
+        String[] idParams = null;
+
+        params = ReflectUtils.getParameters(object);
+        idParams = ReflectUtils.getIDParameters(object);
+
+
+        //String objectId ="";
+
+        String serializedObject;
+
+        if(params == null){
+            // serializza tutti i parametri dell oggetto
+            if(idParams==null){
+                //objectId = "no id";
+                serializedObject = ObjSer.objToJson(object);
+            }else{
+                //objectId = ObjSer.buildIDJson(object, idParams);
+                serializedObject = ObjSer.objToJson(object);
+            }
+
+        }else{
+            // serializza solo alcuni attributi dell'oggetto
+            //objectId = ObjSer.buildIDJson(object, idParams);
+            serializedObject = ObjSer.buildJson(object, params);
+        }
+
+        return serializedObject;
+    }
+
 
 }

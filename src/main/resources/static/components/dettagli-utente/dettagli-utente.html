@@ -4,15 +4,24 @@
 
         <h2 class="header">Dettagli Utente</h2>
 
-    <p>ID : {{$ctrl.utente.id}}</p>
-    <p>Nome :</p>
-    <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.nome">
-    <p>Cognome :</p>
-    <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.cognome">
-    <p>Ruolo :</p>
-    <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.tipo">
-    <p>E-mail :</p>
-    <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.email">
+    <div class="row">
+        <div class="col-xs-6">
+            <p>ID : {{$ctrl.utente.id}}</p>
+            <p>Nome :</p>
+            <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.nome">
+            <p>Cognome :</p>
+            <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.cognome">
+            <p>Ruolo :</p>
+            <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.tipo">
+            <p>Username :</p>
+            <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.username">
+            <p>E-mail :</p>
+            <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.email">
+        </div>
+        <div class="col-xs-6">
+            <button class="btn" type="button" ng-click="$ctrl.opLog()">Operazioni</button>
+        </div>
+    </div>
 
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>

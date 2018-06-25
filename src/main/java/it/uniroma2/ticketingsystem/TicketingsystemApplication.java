@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Arrays;
 
 @SpringBootApplication
+
 public class TicketingsystemApplication {
 
     @Autowired
