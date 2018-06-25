@@ -5,7 +5,17 @@ var app = angular.
 module('navbar')
     .component('navbar', {
     templateUrl: 'components/navbar/navbar.html',
-    controller: ['$scope','$location',function navbarController($scope, $location) {
+    controller: ['$scope','$location','$http',function navbarController($scope, $location,$http) {
+
+        var self = this;
+
+        function get_role() {
+            $http.get('utente/isAdmin').then(function (response) {
+                self.isAdmin = response.data;
+            });
+        }
+
+        get_role();
 
         $scope.insertUser = function () {
             $location.url('/nuovo_utente');

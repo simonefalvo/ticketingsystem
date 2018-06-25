@@ -2,6 +2,7 @@ package it.uniroma2.ticketingsystem.rest;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import it.uniroma2.ticketingsystem.controller.RuoloController;
 import it.uniroma2.ticketingsystem.controller.UtenteController;
 import it.uniroma2.ticketingsystem.entity.Ruolo;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -58,6 +61,8 @@ import java.util.Map;
 
 
 
+
+
         @RequestMapping(path = "{id}", method = RequestMethod.PUT)
         public ResponseEntity<Utente> aggiornaUtente(@PathVariable Integer id, @RequestBody Utente utente) {
             Utente utenteAggiornato;
@@ -96,6 +101,16 @@ import java.util.Map;
         public ResponseEntity<List<Utente>> prelevaUtenti() {
             List<Utente> utenti = utenteController.prelevaUtenti();
             return new ResponseEntity<>(utenti, HttpStatus.OK);
+        }
+
+        @RequestMapping(path = "isAdmin", method = RequestMethod.GET)
+        public ResponseEntity<Boolean> isAdmin() {
+            Boolean isAdmin = false;
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Utente user = utenteController.cercaPerUsername(auth.getName());
+            if (user.getRuolo().getName().equals("ADMIN"))
+                isAdmin = true;
+            return new ResponseEntity<>(isAdmin, HttpStatus.OK);
         }
 
         /*

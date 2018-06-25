@@ -18,7 +18,9 @@
     <!--Maybe a logo?-->
     <!--<li class="logo" style="margin-left: -15px;"><a id="logo-container" href="http://materializecss.com/"class="brand-logo"><h3></h3></a></li>-->
 
-    <li class="bold"><a>Benvenuto Admin</a></li>
+    <li class="bold" ng-if="$ctrl.isAdmin"><a>Benvenuto Admin</a></li>
+    <li class="bold" ng-if="! $ctrl.isAdmin"><a>Benvenuto Utente</a></li>
+
     <li class="bold"><a href="#" class="waves-effect waves-teal">Dashboard</a></li>
 
     <li class="no-padding">
@@ -34,7 +36,7 @@
         </ul>
     </li>
 
-    <li class="no-padding">
+    <li class="no-padding" ng-if="$ctrl.isAdmin">
         <ul class="collapsible collapsible-accordion">
             <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Utenti</a>
                 <div class="collapsible-body">
@@ -60,7 +62,7 @@
         </ul>
     </li>
 
-    <li class="no-padding">
+    <li class="no-padding" ng-if="$ctrl.isAdmin">
         <ul class="collapsible collapsible-accordion">
             <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Log</a>
                 <div class="collapsible-body">
@@ -72,7 +74,7 @@
         </ul>
     </li>
 
-    <li class="no-padding">
+    <li class="no-padding" ng-if="$ctrl.isAdmin">
         <ul class="collapsible collapsible-accordion">
             <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Storico Ticket</a>
                 <div class="collapsible-body">
@@ -84,9 +86,9 @@
         </ul>
     </li>
 
-    <li class="no-padding">
+    <li class="no-padding" ng-if="$ctrl.isAdmin">
         <ul class="collapsible collapsible-accordion">
-            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Graifici</a>
+            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Grafici</a>
                 <div class="collapsible-body">
                     <ul>
                         <li><a href="" ng-click="visGraphs()">Visualizza Grafici</a></li>
