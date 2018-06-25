@@ -15,11 +15,11 @@
     <h3>Aperture ticket giornaliere</h3>
     <div class="row">
         <div class="col-xs-6">
-            <p>Data inizio</p><input type="date" class="form-control input-sm" ng-model="startDate" required>
-            <p>Data fine</p><input type="date" class="form-control input-sm" ng-model="endDate" required>
+            <p>Data inizio</p><input input-date type="text" format="dd/mm/yyyy" ng-model="startDate" required>
+            <p>Data fine</p><input input-date type="text" format="dd/mm/yyyy" ng-model="endDate" required>
         </div>
         <div class="col-xs-6">
-            <button class="btn-primary" ng-click="logCalc(startDate, endDate)">Render</button>
+            <button class="btn-primary" ng-click="logCalc()">Render</button>
         </div>
     </div>
     <div class="row" zingchart id="chart-3" zc-json="logBar" zc-width="500px" zc-height="368px"></div>

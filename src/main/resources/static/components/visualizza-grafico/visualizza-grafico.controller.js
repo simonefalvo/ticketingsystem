@@ -3,6 +3,11 @@ var app = angular.module('visualizzaGrafico',['zingchart-angularjs']); //old vis
 
 app.controller('GraphCtrl', function($scope, $http, $q){
 
+    var startDate = new Date();
+    var endDate = new Date();
+    $scope.startDate = startDate;
+    $scope.endDate = endDate;
+
     var getNumber = function(path, status) {
         var deferred = $q.defer();
         $http.get(path + status).then(function (response) {
@@ -12,8 +17,6 @@ app.controller('GraphCtrl', function($scope, $http, $q){
         });
         return deferred.promise;
     };
-
-
 
     $scope.myPie = {
         type : "pie",
@@ -214,7 +217,19 @@ app.controller('GraphCtrl', function($scope, $http, $q){
         return deferred.promise;
     };
 
-    $scope.logCalc = function(start, end) {
+    $scope.logCalc = function() {
+        var start_parts = $scope.startDate.split("/");
+        var end_parts = $scope.endDate.split("/");
+        var start = new Date(start_parts[2], (start_parts[1] - 1), start_parts[0]);
+        var end = new Date(end_parts[2], (end_parts[1] - 1), end_parts[0]);
+        if (start == null){
+            alert("Non hai inserito una data di inizio!");
+            return;
+        }
+        if (end==null){
+            alert("Non hai inserito una data di fine!");
+            return;
+        }
         getLogTickets("log/", start.getTime().toString(), end.getTime().toString()).then(function (value) {
             buildSeries(value);
         }, function (reason) {
