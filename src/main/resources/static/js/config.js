@@ -35,7 +35,7 @@ angular.module('materializeApp')
             {
                 template:    '<log></log>'
             });
-        $routeProvider.when('/visualizza_storico_ticket',
+        $routeProvider.when('/tickethistory/:ticketId',
             {
                 template:    '<ticket-history></ticket-history>'
             });

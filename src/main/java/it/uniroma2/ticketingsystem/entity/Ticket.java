@@ -15,7 +15,6 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @LogClass (logAttrs = {"stato"}, idAttrs = {"id"})
-//@KeyId(IdAttrs = {"id"})
 @Setter
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -40,7 +39,6 @@ public class Ticket {
     private Oggetto oggetto;
 
     //private Integer teamid;  //attributo opzionale
-
 
     public Ticket(@NotNull String categoria, @NotNull String descrizione, @NotNull Integer prioritaAutore,
                   @NotNull Integer prioritaTeam, @NotNull String titolo, @NotNull String stato,

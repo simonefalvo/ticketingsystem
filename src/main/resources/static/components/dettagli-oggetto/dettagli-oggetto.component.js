@@ -22,14 +22,14 @@ component('dettagliOggetto', {
         self.get();
 
         self.indietro = function () {
-            $location.path('/oggetto');
+            $location.path('/visualizza_oggetti');
         };
 
         self.elimina = function (oggettoId) {
 
             if (confirm("Procedere con l'eliminazione?")) {
                 $http.delete('oggetto/' + oggettoId.toString()).then(function () {
-                    $location.path('/oggetto');
+                    $location.path('/visualizza-oggetti');
                     alert("Oggetto eliminato con successo!");
                 }, function (reason) {
                     alert(reason.toLocaleString());
