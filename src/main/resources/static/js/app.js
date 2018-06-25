@@ -16,5 +16,6 @@ angular.module('materializeApp',
         'log',
         'logUtente',
         'logTicket',
-        'ticketHistory'
+        'ticketHistory',
+        'welcome'
     ]);
