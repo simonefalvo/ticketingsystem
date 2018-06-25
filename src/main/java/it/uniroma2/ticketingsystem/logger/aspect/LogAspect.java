@@ -13,7 +13,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -43,10 +42,10 @@ public class LogAspect {
         boolean returnObjectName = annotation.returnObject();
         String opName = annotation.opName();
         String tag = annotation.tag();
-        String author = null;
 
         //Get author name
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String author = null;
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth != null)
             author = auth.getName();
 

@@ -46,16 +46,27 @@ public abstract class ObjSer {
         String[] idParams = ReflectUtils.getIDParameters(object);
         String id = getIDJsonString(object, idParams);
 
-        String t, st = "{ " + id + " ,\n ";
+        String t, st = "{ ";
+
+        if(!id.equals(null)){
+            st.concat(id + " ,\n ");
+        }
 
         int i , l = attributes.length;
 
         for (i = 0; i < l - 1; i++) {
-            t = "\"" + attributes[i] + "\": \"" + ReflectUtils.fieldToString(object, attributes[i]) + "\",\n ";
+            String value = ReflectUtils.fieldToString(object, attributes[i]);
+            if(value!= null) {
+                t = "\"" + attributes[i] + "\": \"" + ReflectUtils.fieldToString(object, attributes[i]) + "\",\n ";
+                st = st.concat(t);
+            }
+        }
+        String value = ReflectUtils.fieldToString(object, attributes[i]);
+        if(value!= null) {
+            t = "\"" + attributes[i] + "\": \"" + ReflectUtils.fieldToString(object, attributes[i]) + "\" ";
             st = st.concat(t);
         }
-        t = "\"" + attributes[i] + "\": \"" + ReflectUtils.fieldToString(object, attributes[i]) + "\" }";
-        st = st.concat(t);
+        st=st.concat(" } ");
         // System.out.println("\n\n*******" + st + "*******");
 
         return st;
@@ -82,11 +93,16 @@ public abstract class ObjSer {
         if(attributes == null)
             return "NA";
 
+
         int l = attributes.length;
         int i = 0;
 
         Class objectClass = getClassWithoutInitializingProxy(object);
         Object obj = initializeAndUnproxy(object);
+
+        if(attributes[0].equals("")){
+            return "NA";
+        }
 
         while (i < l - 1) {
             try {

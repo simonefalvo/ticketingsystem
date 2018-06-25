@@ -31,6 +31,7 @@ public class UtenteController {
     }
 
     @Transactional
+    @LogOperation
     public @NotNull Utente creaUtente(@NotNull Utente utente) {
         utente.setPassword(getPasswordEncoder().encode(utente.getPassword()));
         Utente utenteSalvato = utenteDao.save(utente);

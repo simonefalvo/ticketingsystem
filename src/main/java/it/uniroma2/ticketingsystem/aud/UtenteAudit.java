@@ -90,7 +90,6 @@ public class UtenteAudit {
 
     public UtenteAudit(Utente utente, Timestamp timestamp, int operazione){
 
-
         this.idUtente = utente.getId();
         this.nome = utente.getNome();
         //test funzionamento reflection
