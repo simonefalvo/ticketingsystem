@@ -22,14 +22,14 @@ component('dettagliUtente', {
         self.get();
 
         self.indietro = function () {
-            $location.path('/utente');
+            $location.path('/visualizza_utenti');
         };
 
         self.elimina = function (utenteId) {
 
             if (confirm("Procedere con l'eliminazione?")) {
                 $http.delete('utente/' + utenteId.toString()).then(function () {
-                    $location.path('/utente');
+                    $location.path('/visualizza_utenti');
                     alert("Utente eliminato con successo!");
                 }, function (reason) {
                     alert(reason.toLocaleString());

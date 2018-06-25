@@ -25,7 +25,7 @@ component('dettagliTicket', {
         self.get();
 
         self.indietro = function () {
-            var path = self.audit ? '/tickethistory/' + self.ticket.id.toString() : '/ticket';
+            var path = self.audit ? '/tickethistory/' + self.ticket.id.toString() : '/visualizza_ticket';
             $location.path(path);
         };
 
@@ -33,7 +33,7 @@ component('dettagliTicket', {
 
             if (confirm("Procedere con l'eliminazione?")) {
                 $http.delete('ticket/' + ticketId.toString()).then(function () {
-                    $location.path('/ticket');
+                    $location.path('/visualizza_ticket');
                     alert("Ticket eliminato con successo!");
                 }, function (reason) {
                     alert(reason.toLocaleString());
@@ -66,7 +66,7 @@ component('dettagliTicket', {
 
         self.log = function () {
             $location.path('/ticketlog/' + self.ticket.id.toString());
-        }
+        };
 
     }]
 });

@@ -24,27 +24,6 @@ component('inserisciTicket', {
         self.inserisci = function () {
             self.ticket.stato = "pending";
             self.ticket.timestamp = new Date();
-            /*
-            //dato che si perdono alcuni dati dalla visualizzazione a quando mi tornano
-            // dall'inserimento faccio una query per ri ottenerli
-            self.ticket.oggetto.nome = "inizializzato da fuori";
-            $http.get('oggetto/' + self.ticket.oggetto.id.toString()).
-            then(function(response) {
-                console.log("response.data= "+JSON.stringify(response.data, null, 4));
-
-                self.ticket.oggetto.nome = response.data.nome;
-                self.ticket.oggetto.versione = response.data.versione;
-
-            }, function (reason) {
-                alert(reason.toLocaleString());
-            });
-            */
-
-
-            console.log("self.oggetti : "+JSON.stringify(self.oggetti, null, 4));
-
-            console.log("self.ticket.oggetto= "+JSON.stringify(self.ticket.oggetto, null, 4));
-
 
             for(var i=0; i< self.oggetti.length; i++){
 
