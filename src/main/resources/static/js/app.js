@@ -15,5 +15,6 @@ angular.module('materializeApp',
         'visualizzaGrafico',
         'log',
         'logUtente',
-        'logTicket'
+        'logTicket',
+        'ticketHistory'
     ]);
