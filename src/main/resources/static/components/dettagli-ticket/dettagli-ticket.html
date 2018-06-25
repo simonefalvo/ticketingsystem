@@ -1,8 +1,8 @@
 <div class="container">
 
-    <div class="row">
+    <h2 class="header">Dettagli Ticket</h2>
 
-        <h2 class="header">Dettagli Ticket</h2>
+    <div class="row">
 
         <div class="col-xs-6">
             <p>ID : {{$ctrl.ticket.id}}</p>
@@ -24,12 +24,15 @@
                 </select>
             </div>
         </div>
+
         <div class="col-xs-6">
             <button class="btn" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.history()">Storico</button>
             <button class="btn" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.log()">Log</button>
         </div>
 
-    <div class="modal-footer">
+    </div>
+
+    <div class="row">
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.modifica()">Modifica</button>
         <button class="btn btn-danger" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.elimina($ctrl.ticket.id)">Elimina</button>
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
@@ -37,5 +40,4 @@
         <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>
     </div>
 
-    </div>
 </div>

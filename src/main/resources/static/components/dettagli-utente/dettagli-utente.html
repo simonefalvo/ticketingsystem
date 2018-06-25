@@ -1,8 +1,6 @@
 <div class="container">
 
-    <div class="row">
-
-        <h2 class="header">Dettagli Utente</h2>
+    <h2 class="header">Dettagli Utente</h2>
 
     <div class="row">
         <div class="col-xs-6">
@@ -23,14 +21,12 @@
         </div>
     </div>
 
-    <div class="modal-footer">
+    <div class="row">
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>
         <button class="btn btn-danger" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.elimina($ctrl.utente.id)">Elimina</button>
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
         <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.conferma()">Conferma</button>
         <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>
-    </div>
-
     </div>
 
 </div>
