@@ -6,7 +6,14 @@
     <div class="row">
         <div class="col-xs-6">
             <form name="userForm" novalidate>
-                <p>ID : {{$ctrl.utente.id}}</p>
+                <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" name="name" ng-disabled="true" ng-model="$ctrl.utente.id">
+                </div>
+                <div class="form-group">
+                    <label>Ruolo</label>
+                    <input type="text" name="name" ng-disabled="true" ng-model="$ctrl.utente.ruolo.name">
+                </div>
                 <div class="form-group">
                     <label>Nome*</label>
                     <input type="text" name="name" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.nome">
