@@ -26,7 +26,9 @@ public class Oggetto {
     @GeneratedValue
     private Integer id;
 
+    @NotNull
     private String nome;
+    @NotNull
     private String versione;
 
     @JsonIgnore

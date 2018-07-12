@@ -54,7 +54,7 @@
             <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Oggetti</a>
                 <div class="collapsible-body">
                     <ul>
-                        <li><a href="" ng-click="insertObject()">Inserisci Oggetto</a></li>
+                        <li><a href="" ng-if="$ctrl.isAdmin" ng-click="insertObject()">Inserisci Oggetto</a></li>
                         <li><a href="" ng-click="visObjects()">Visualizza Oggetti</a></li>
                     </ul>
                 </div>

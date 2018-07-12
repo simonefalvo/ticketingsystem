@@ -23,10 +23,14 @@ public class Ticket {
     @Id
     @GeneratedValue
     private Integer id;
+    @NotNull
     private String titolo;
+    @NotNull
     private String categoria;
     private String descrizione;
+    @NotNull
     private String stato;
+    @NotNull
     private Timestamp timestamp;
     private Integer prioritaAutore;
     private Integer prioritaTeam;

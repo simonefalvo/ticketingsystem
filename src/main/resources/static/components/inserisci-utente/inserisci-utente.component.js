@@ -5,7 +5,7 @@ angular.
 module('inserisciUtente').
 component('inserisciUtente', {
     templateUrl: 'components/inserisci-utente/inserisci-utente.html',
-    controller: ['$http', '$location', function inserisciUtenteController($http, $location) {
+    controller: ['$http', '$location','$scope', function inserisciUtenteController($http, $location,$scope) {
 
         var self = this;
 
@@ -26,9 +26,16 @@ component('inserisciUtente', {
             $http.post('utente/', self.utente)
                 .then(function (response) {
                     $location.path('/visualizza_utenti');
-                    alert("utente inserito con successo!");
                 }, function (reason) {
-                    alert('Error: ' + JSON.stringify(reason));
+                    //self.respData = reason.data;
+                    if (reason.data == 1){
+                        //username già presente
+                        self.errData = "Username già presente!";
+                    }
+                    if ( reason.data == 2){
+                        self.errData = "Email già presente";
+                    }
+                    console.log(reason.data);
             });
         };
 

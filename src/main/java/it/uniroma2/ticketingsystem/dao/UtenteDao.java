@@ -11,4 +11,6 @@ public interface UtenteDao extends JpaRepository<Utente,Integer>  {
     Utente findByEmailAddress(String emailAddress);
     */
     Utente findByUsername(String username);
+
+    Utente findByEmail(String email);
 }

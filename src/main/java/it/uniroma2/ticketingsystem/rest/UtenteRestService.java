@@ -12,10 +12,13 @@ import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
 import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
 import it.uniroma2.ticketingsystem.logger.entity.Record;
 import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.hibernate5.HibernateJdbcException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -49,14 +52,29 @@ import java.util.Map;
         @JsonIgnore
         @JsonProperty(value = "utente")
         @RequestMapping(path = "", method = RequestMethod.POST)
-        public ResponseEntity<Utente> creaUtente(@RequestBody Utente utente) {
+        public ResponseEntity<Integer> creaUtente(@RequestBody Utente utente) {
+            /*
+            * 0 = inserimento avvenuto con successo
+            * 1 = username già presente
+            * 2 = email già presente
+            * */
+
+            if (utenteController.cercaPerUsername(utente.getUsername())!= null){
+                System.out.println("TROVATO USERNAME DUPLICATO");
+                return new ResponseEntity<>(1, HttpStatus.BAD_REQUEST);
+            }
+
+            if (utenteController.cercaPerEmail(utente.getEmail()) != null){
+                System.out.println("TROVATA EMAIL DUPLICATA");
+                return new ResponseEntity<>(2, HttpStatus.BAD_REQUEST);
+            }
 
             Utente utenteCreato = utenteController.creaUtente(utente);
 
             UtenteEvent utenteEvent =  new UtenteEvent(this,utente,0);
             applicationEventPublisher.publishEvent(utenteEvent);
+            return new ResponseEntity<>(0, HttpStatus.OK);
 
-            return new ResponseEntity<>(utenteCreato, HttpStatus.CREATED);
         }
 
 

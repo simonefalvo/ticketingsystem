@@ -9,7 +9,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import java.util.List;
 import java.util.Set;
 
 
@@ -27,10 +26,17 @@ public class Utente {
     @GeneratedValue // Autoincrement
     private Integer id;
 
+    @NotNull
     private String nome;
+    @NotNull
     private String cognome;
+    @NotNull
+    @Column(unique = true)
     private String username;
+    @NotNull
     private String password;
+    @NotNull
+    @Column(unique = true)
     private String email;
 
     @ManyToOne
