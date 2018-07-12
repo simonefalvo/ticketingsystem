@@ -36,6 +36,9 @@
             border-bottom: 2px solid #e91e63;
             box-shadow: none;
         }
+        .header {
+            color: #ee6e73;
+            font-weight: 300; }
     </style>
 </head>
 
@@ -46,6 +49,9 @@
         <div class="section"></div>
         <h3 class="indigo-text"> TICKETING SYSTEM</h3>
         <h5 class="indigo-text">Please, login into your account</h5>
+        <h5 class="header" th:if="${param.error}">Username e/o Password errati!</h5>
+
+
         <div class="section"></div>
 
         <div class="container">

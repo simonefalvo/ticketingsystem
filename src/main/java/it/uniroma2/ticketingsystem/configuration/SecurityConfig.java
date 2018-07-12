@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/components/inserisci-oggetto/inserisci-oggetto.html").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and().csrf().disable().formLogin()
-                .loginPage("/login").failureUrl("/login?error=true")
+                .loginPage("/login").failureUrl("/login?error")
                 .defaultSuccessUrl("/redirect_login")
                 .usernameParameter("username")
                 .passwordParameter("password")
