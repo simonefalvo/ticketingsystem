@@ -82,18 +82,36 @@ import java.util.Map;
 
 
         @RequestMapping(path = "{id}", method = RequestMethod.PUT)
-        public ResponseEntity<Utente> aggiornaUtente(@PathVariable Integer id, @RequestBody Utente utente) {
+        public ResponseEntity<Integer> aggiornaUtente(@PathVariable Integer id, @RequestBody Utente utente) {
+            /*
+            * -1 = errore generico
+            * 0 = modifica avvenuta con successo
+            * 1 = username già presente
+            * 2 = email già presente
+            * */
             Utente utenteAggiornato;
             try {
+                Utente usr = utenteController.cercaPerUsername(utente.getUsername());
+
+                if (usr != null &&  usr.getId()!=id.intValue()){
+                    System.out.println("*********************** TROVATO USERNAME DUPLICATO *****************************");
+                    return new ResponseEntity<>(1, HttpStatus.BAD_REQUEST);
+                }
+                usr = utenteController.cercaPerEmail(utente.getEmail());
+                if (usr != null && usr.getId()!=id.intValue()){
+                    System.out.println("*********************** TROVATA EMAIL DUPLICATA *****************************");
+                    return new ResponseEntity<>(2, HttpStatus.BAD_REQUEST);
+                }
+
                 utenteAggiornato = utenteController.aggiornaUtente(id, utente);
 
                 UtenteEvent utenteEvent = new UtenteEvent(this,utente,1);
                 applicationEventPublisher.publishEvent(utenteEvent);
 
             } catch (EntitaNonTrovataException e) {
-                return new ResponseEntity<>(utente, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(-1, HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<>(utenteAggiornato, HttpStatus.OK);
+            return new ResponseEntity<>(0, HttpStatus.OK);
         }
 
         @RequestMapping(path = "{id}", method = RequestMethod.GET)

@@ -51,7 +51,15 @@ component('dettagliUtente', {
                 alert("Utente modificato con successo!");
                 self.modifyMode = false;
             }, function (reason) {
-                alert(reason.toLocaleString());
+                if (reason.data == -1){
+                    self.errData = "Si è verificato un errore";
+                }
+                if (reason.data == 1){
+                    self.errData = "Username già presente!";
+                }
+                if (reason.data == 2){
+                    self.errData = "Email già presente!";
+                }
             });
         };
 
