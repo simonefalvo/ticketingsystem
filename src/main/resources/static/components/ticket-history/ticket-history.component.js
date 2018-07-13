@@ -26,11 +26,13 @@ component('ticketHistory', {
         };
 
         self.get();
+
         self.getAll();
 
         self.dettagli = function (ticketId) {
             $location.path('/dettagli-ticket/audit/' + ticketId);
         };
+
         self.indietro = function () {
             $location.path('/dettagli-ticket/' + self.ticket.id);
         };

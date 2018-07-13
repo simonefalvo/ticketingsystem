@@ -18,6 +18,5 @@ component('logTicket', {
         };
 
         self.getAll();
-
     }]
 });

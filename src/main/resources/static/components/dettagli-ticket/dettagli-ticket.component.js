@@ -63,10 +63,13 @@ component('dettagliTicket', {
         self.history = function () {
             $location.path('/tickethistory/' + self.ticket.id.toString());
         };
-
+/*
         self.log = function () {
             $location.path('/ticketlog/' + self.ticket.id.toString());
         };
-
+*/
+        self.log = function () {
+            $location.path('/ticket/log/' + self.ticket.id.toString());
+        };
     }]
 });

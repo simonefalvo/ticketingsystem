@@ -59,7 +59,13 @@ angular.module('materializeApp')
             {
                 template:    '<log-utente></log-utente>'
             });
+        /*
         $routeProvider.when('/ticketlog/:tickedId?',
+            {
+                template:    '<log-ticket></log-ticket>'
+            });
+        */
+        $routeProvider.when('/ticket/log/:ticketId?',
             {
                 template:    '<log-ticket></log-ticket>'
             });
