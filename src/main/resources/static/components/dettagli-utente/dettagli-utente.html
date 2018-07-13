@@ -8,26 +8,27 @@
             <form name="userForm" novalidate>
                 <div class="form-group">
                     <label>ID</label>
-                    <input type="text" name="name" ng-disabled="true" ng-model="$ctrl.utente.id">
+                    <input type="text" name="id" ng-disabled="true" ng-model="$ctrl.utente.id">
                 </div>
                 <div class="form-group">
                     <label>Ruolo</label>
-                    <input type="text" name="name" ng-disabled="true" ng-model="$ctrl.utente.ruolo.name">
+                    <input type="text" name="ruolo" ng-disabled="true" ng-model="$ctrl.utente.ruolo.name">
                 </div>
                 <div class="form-group">
                     <label>Nome*</label>
-                    <input type="text" name="name" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.nome">
                     <p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="header">Il campo nome è obbligatorio!</p>
+                    <input type="text" name="name" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.nome" required>
                 </div>
                 <div class="form-group">
                     <label>Cognome*</label>
-                    <input type="text" name="cognome" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.cognome">
                     <p ng-show="userForm.cognome.$invalid && !userForm.cognome.$pristine" class="header">Il campo cognome è obbligatorio!</p>
+                    <input type="text" name="cognome" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.cognome" required>
                 </div>
                 <div class="form-group">
                     <label>Username*</label>
-                    <input type="text" name="username" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.username">
                     <p ng-show="userForm.username.$invalid && !userForm.username.$pristine" class="header">Il campo username è obbligatorio!</p>
+
+                    <input type="text" name="username" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.username" required>
                 </div>
                 <div class="form-group">
                     <label>Email*</label>
@@ -45,7 +46,7 @@
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>
         <button class="btn btn-danger" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.elimina($ctrl.utente.id)">Elimina</button>
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
-        <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.conferma()">Conferma</button>
+        <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-disabled="userForm.$invalid" ng-click="$ctrl.conferma()">Conferma</button>
         <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>
     </div>
 

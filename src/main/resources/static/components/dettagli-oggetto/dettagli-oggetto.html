@@ -4,17 +4,33 @@
 
         <h2 class="header">Dettagli Oggetto</h2>
 
-    <p>ID : {{$ctrl.oggetto.id}}</p>
-    <p>Nome :</p>
-    <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.oggetto.nome">
-    <p>Versione :</p>
-    <input ng-disabled="true" ng-model="$ctrl.oggetto.versione">
+        <form name="objForm" novalidate>
+
+            <div class="form-group">
+                <label>ID*</label>
+                <input type="text" name="id" ng-disabled="true" ng-model="$ctrl.oggetto.id">
+            </div>
+
+            <div class="form-group">
+                <label>Nome*</label>
+                <p ng-show="objForm.name.$invalid && !objForm.name.$pristine" class="header">Il campo nome è obbligatorio!</p>
+                <input type="text" name="name" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.oggetto.nome" required>
+            </div>
+
+            <div class="form-group">
+                <label>Versione*</label>
+                <p ng-show="objForm.versione.$invalid && !objForm.versione.$pristine" class="header">Il campo Versione è obbligatorio!</p>
+                <input type="text" name="versione" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.oggetto.versione" required>
+            </div>
+
+        </form>
+
 
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>
         <button class="btn btn-danger" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.elimina($ctrl.oggetto.id)">Elimina</button>
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
-        <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.conferma()">Conferma</button>
+        <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-disabled="objForm.$invalid" ng-click="$ctrl.conferma()">Conferma</button>
         <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>
     </div>
 
