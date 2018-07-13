@@ -1,5 +1,5 @@
 <div class="container">
-
+<!--
     <div class="row">
 
         <h2 class="header">Dettagli Oggetto</h2>
@@ -9,7 +9,28 @@
     <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.oggetto.nome">
     <p>Versione :</p>
     <input ng-disabled="true" ng-model="$ctrl.oggetto.versione">
+-->
 
+    <h2 class="header">Dettagli Oggetto</h2>
+    <h5 class="header">{{$ctrl.errData}}</h5>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <form name="userForm" novalidate>
+                <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" name="name" ng-disabled="true" ng-model="$ctrl.oggetto.id">
+                </div>
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" name="name" ng-disabled="true" ng-model="$ctrl.oggetto.nome">
+                </div>
+                <div class="form-group">
+                    <label>Versione</label>
+                    <input type="text" name="name" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.oggetto.versione">
+                </div>
+            </form>
+        </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>
         <button class="btn btn-danger" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.elimina($ctrl.oggetto.id)">Elimina</button>
