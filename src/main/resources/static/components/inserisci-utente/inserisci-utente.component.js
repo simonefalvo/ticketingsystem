@@ -5,7 +5,7 @@ angular.
 module('inserisciUtente').
 component('inserisciUtente', {
     templateUrl: 'components/inserisci-utente/inserisci-utente.html',
-    controller: ['$http', '$location','$scope', function inserisciUtenteController($http, $location,$scope) {
+    controller: ['$http', '$location','$scope', function inserisciUtenteController($http, $location,scope) {
 
         var self = this;
 
@@ -25,7 +25,8 @@ component('inserisciUtente', {
             console.log(self.utente);
             $http.post('utente/', self.utente)
                 .then(function (response) {
-                    $location.path('/visualizza_utenti');
+                    self.modalText = "Inserimento avventuo con successo!";
+                    scope.openModal = true;
                 }, function (reason) {
                     //self.respData = reason.data;
                     if (reason.data == 1){
@@ -34,6 +35,9 @@ component('inserisciUtente', {
                     }
                     if ( reason.data == 2){
                         self.errData = "Email già presente";
+                    }else {
+                        self.modalText = "Si è verificato un Errore!";
+                        scope.openModal = true;
                     }
                     console.log(reason.data);
             });

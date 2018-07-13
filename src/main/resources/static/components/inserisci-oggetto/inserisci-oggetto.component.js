@@ -13,14 +13,11 @@ component('inserisciOggetto', {
             console.log(self.oggetto);
             $http.post('oggetto/', self.oggetto)
                 .then(function () {
-                    //$location.path('/visualizza_oggetti');
                     self.modalText = "Inserimento avventuo con successo!";
                     scope.openModal = true;
-                    //alert("oggetto inserito con successo!")
                 }, function (reason) {
                     self.modalText = "Si è verificato un Errore!";
                     scope.openModal = true;
-                    //alert('Error: ' + JSON.stringify(reason));
             });
         };
 

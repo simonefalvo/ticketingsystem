@@ -6,7 +6,7 @@ module('inserisciTicket').
 component('inserisciTicket', {
 
     templateUrl: 'components/inserisci-ticket/inserisci-ticket.html',
-    controller: ['$http', '$location', function inserisciTicketController($http, $location) {
+    controller: ['$http', '$location','$scope', function inserisciTicketController($http, $location,scope) {
 
         var self = this;
 
@@ -37,10 +37,11 @@ component('inserisciTicket', {
 
             $http.post('ticket/', self.ticket)
                 .then(function () {
-                    $location.path('/visualizza_ticket');
-                    alert("ticket inserito con successo!")
+                    self.modalText = "Inserimento avventuo con successo!";
+                    scope.openModal = true;
                 }, function (reason) {
-                    alert('Error: ' + JSON.stringify(reason));
+                    self.modalText = "Si è verificato un Errore!";
+                    scope.openModal = true;
                 });
         };
 
