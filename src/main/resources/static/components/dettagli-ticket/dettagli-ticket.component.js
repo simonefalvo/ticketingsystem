@@ -5,7 +5,7 @@ angular.
 module('dettagliTicket').
 component('dettagliTicket', {
     templateUrl: 'components/dettagli-ticket/dettagli-ticket.html',
-    controller: ['$http', '$routeParams', '$location', function dettagliTicketController($http, $routeParams, $location) {
+    controller: ['$http', '$routeParams', '$location','$scope', function dettagliTicketController($http, $routeParams, $location,scope) {
 
         var self = this;
         self.modifyMode = false;
@@ -33,10 +33,12 @@ component('dettagliTicket', {
 
             if (confirm("Procedere con l'eliminazione?")) {
                 $http.delete('ticket/' + ticketId.toString()).then(function () {
-                    $location.path('/visualizza_ticket');
-                    alert("Ticket eliminato con successo!");
+                    self.modalText = "Ticket eliminato con successo!";
+                    scope.openModal = true;
                 }, function (reason) {
-                    alert(reason.toLocaleString());
+                    //alert(reason.toLocaleString());
+                    self.modalText = "Si è verificato un Errore!";
+                    scope.openModal = true;
                 });
             }
         };
@@ -53,10 +55,13 @@ component('dettagliTicket', {
             console.log(self.ticket);
             $http.put('ticket/' + self.ticket.id.toString(), self.ticket).
             then(function () {
-                alert("Ticket modificato con successo!");
+                self.modalText = "Ticket modificato con successo!";
+                scope.openModal = true;
                 self.modifyMode = false;
             }, function (reason) {
-                alert(reason.toLocaleString());
+                //alert(reason.toLocaleString());
+                self.modalText = "Si è verificato un Errore!";
+                scope.openModal = true;
             });
         };
 

@@ -5,7 +5,7 @@ angular.
 module('dettagliOggetto').
 component('dettagliOggetto', {
     templateUrl: 'components/dettagli-oggetto/dettagli-oggetto.html',
-    controller: ['$http', '$routeParams', '$location', function dettagliOggettoController($http, $routeParams, $location) {
+    controller: ['$http', '$routeParams', '$location', '$scope',function dettagliOggettoController($http, $routeParams, $location,scope) {
 
         var self = this;
         var modifyMode = false;
@@ -29,10 +29,12 @@ component('dettagliOggetto', {
 
             if (confirm("Procedere con l'eliminazione?")) {
                 $http.delete('oggetto/' + oggettoId.toString()).then(function () {
-                    $location.path('/visualizza-oggetti');
-                    alert("Oggetto eliminato con successo!");
+                    self.modalText = "Oggetto eliminato con successo!";
+                    scope.openModal = true;
                 }, function (reason) {
-                    alert(reason.toLocaleString());
+                    //alert(reason.toLocaleString());
+                    self.modalText = "Si è verificato un Errore!";
+                    scope.openModal = true;
                 });
             }
         };
@@ -48,10 +50,14 @@ component('dettagliOggetto', {
         self.conferma = function () {
             $http.put('oggetto/' + self.oggetto.id.toString(), self.oggetto).
                 then(function () {
-                    alert("Oggetto modificato con successo!");
+                    //alert("Oggetto modificato con successo!");
+                    self.modalText = "Oggetto modificato con successo!";
+                    scope.openModal = true;
                     self.modifyMode = false;
             }, function (reason) {
-                    alert(reason.toLocaleString());
+                    //alert(reason.toLocaleString());
+                    self.modalText = "Si è verificato un Errore!";
+                    scope.openModal = true;
             });
         };
 

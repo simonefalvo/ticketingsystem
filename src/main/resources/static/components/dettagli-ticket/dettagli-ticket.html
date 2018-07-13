@@ -2,6 +2,16 @@
 
     <h2 class="header">Dettagli Ticket</h2>
 
+    <!-- Modal Structure -->
+    <div id="demoModal" class="modal">
+        <div class="modal-content">
+            <h5 class="header">{{$ctrl.modalText}}</h5>
+        </div>
+        <div class="modal-footer">
+            <a href="index#/visualizza_ticket" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+        </div>
+    </div>
+
     <div class="row">
 
         <div class="col-xs-6">
@@ -38,6 +48,7 @@
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
         <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.conferma()">Conferma</button>
         <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>
+        <a class='btn' data-target='demoModal' modal open="openModal" ng-show="false"></a>
     </div>
 
 </div>
