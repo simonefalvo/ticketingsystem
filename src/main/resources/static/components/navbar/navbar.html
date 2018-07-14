@@ -20,6 +20,7 @@
     <li class="bold" ng-if="$ctrl.isAdmin"><a>Benvenuto Admin</a></li>
     <li class="bold" ng-if="! $ctrl.isAdmin"><a>Benvenuto Utente</a></li>
 
+
     <li class="bold"><a href="#" class="waves-effect waves-teal">Dashboard</a></li>
 
     <li class="no-padding">
@@ -84,6 +85,19 @@
             </li>
         </ul>
     </li>
+
+    <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Account</a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a href="" ng-click="visAccount()">Dettagli account</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
 
     <li class="bold"><a href="logout" class="waves-effect waves-teal">Logout</a></li>
 

@@ -51,6 +51,20 @@ public class UtenteController {
         return utenteAggiornato;
     }
 
+    @LogOperation(inputArgs = "datiAggiornati")
+    @Transactional
+    public @NotNull Utente aggiornaAccount(@NotNull Integer id, @NotNull Utente datiAggiornati) throws EntitaNonTrovataException {
+        Utente utenteDaAggiornare = utenteDao.getOne(id);
+        if (utenteDaAggiornare == null)
+            throw new EntitaNonTrovataException();
+
+        utenteDaAggiornare.aggiorna(datiAggiornati);
+        utenteDaAggiornare.setPassword(getPasswordEncoder().encode(datiAggiornati.getPassword()));
+
+        Utente utenteAggiornato = utenteDao.save(utenteDaAggiornare);
+        return utenteAggiornato;
+    }
+
     public Utente cercaUtentePerId(@NotNull Integer id) {
         Utente utenteTrovato = utenteDao.getOne(id);
         return utenteTrovato;

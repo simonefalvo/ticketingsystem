@@ -59,16 +59,17 @@ angular.module('materializeApp')
             {
                 template:    '<log-utente></log-utente>'
             });
-        /*
+
         $routeProvider.when('/ticketlog/:tickedId?',
             {
                 template:    '<log-ticket></log-ticket>'
             });
-        */
-        $routeProvider.when('/ticket/log/:ticketId?',
+
+        $routeProvider.when('/dettagli-account',
             {
-                template:    '<log-ticket></log-ticket>'
+                template:    '<dettagli-account></dettagli-account>'
             });
+
         $routeProvider.otherwise(
             {
                 redirectTo:     '/index'
