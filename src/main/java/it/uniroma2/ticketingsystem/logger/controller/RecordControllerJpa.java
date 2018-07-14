@@ -1,29 +1,27 @@
-package it.uniroma2.ticketingsystem.logger;
+package it.uniroma2.ticketingsystem.logger.controller;
 
-import it.uniroma2.ticketingsystem.logger.entity.Record;
+import it.uniroma2.ticketingsystem.logger.dao.JpaRecordDao;
+import it.uniroma2.ticketingsystem.logger.entity.jpa.Record;
 import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
 import it.uniroma2.ticketingsystem.logger.utils.ReflectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import javax.persistence.criteria.CriteriaBuilder;
-
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 
 @Service
-public class RecordController {
+@Configuration
+@Profile("jpa")
+public class RecordControllerJpa {
 
     @Autowired
-    private RecordDao recordDao;
+    private JpaRecordDao recordDao;
 
     @Transactional
     public @NotNull Record createRecord(@NotNull Record record) {
