@@ -4,32 +4,41 @@
 
         <h2 class="header">Storico Ticket</h2>
 
-        <div class="col-xs-3"><p>Id: {{$ctrl.ticket.id}}</p></div>
-        <div class="col-xs-3"><p>Titolo: {{$ctrl.ticket.titolo}}</p></div>
-        <div class="col-xs-3"><p>Oggetto: {{$ctrl.ticket.oggetto.nome + " " + $ctrl.ticket.oggetto.versione}}</p></div>
+        <div class="col-xs-3">
+            <label>ID</label>
+            <input type="text" name="id" ng-disabled="true" ng-model="$ctrl.ticket.id">
+        </div>
+        <div class="col-xs-3">
+            <label>Titolo</label>
+            <input type="text" name="id" ng-disabled="true" ng-model="$ctrl.ticket.titolo">
+        </div>
+        <div class="col-xs-3">
+            <label>Oggetto</label>
+            <input value="{{$ctrl.ticket.oggetto.nome + ' ' + $ctrl.ticket.oggetto.versione}}" ng-disabled="true">
+        </div>
 
-    <table class="highlight">
-        <thead>
-        <tr>
-            <th>Data Modifica</th>
-            <th>Tipo Modifica</th>
-            <th>Autore Modifica</th>
-        </tr>
-        </thead>
+        <h4 class="header"> Storico </h4>
 
-        <tbody>
-        <tr ng-repeat="x in $ctrl.tickets " ng-click="$ctrl.dettagli(x.id)">
-            <td>{{ x.timestamp | date: 'dd/MM/yyyy'}}</td>
+        <table class="highlight">
+            <thead>
+            <tr>
+                <th>Data Modifica</th>
+                <th>Tipo Modifica</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="x in $ctrl.tickets ">
+                <td>{{ x.timestamp | date: 'dd/MM/yyyy'}}</td>
 
 
-            <td>{{ x.operazione | operationFilter}}</td>
-            <td>{{ x.autore_id}}</td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="modal-footer">
-        <button class="btn" type="button" ng-click="$ctrl.indietro()">Indietro</button>
-    </div>
+                <td>{{ x.operazione | operationFilter}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="modal-footer">
+            <button class="btn" type="button" ng-click="$ctrl.indietro()">Indietro</button>
+        </div>
 
     </div>
 </div>
