@@ -1,14 +1,13 @@
 package it.uniroma2.ticketingsystem.controller;
 
-import it.uniroma2.ticketingsystem.logger.entity.Record;
-import it.uniroma2.ticketingsystem.logger.RecordReader;
+import it.uniroma2.ticketingsystem.logger.entity.jpa.Record;
+import it.uniroma2.ticketingsystem.logger.reader.RecordReaderJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,7 @@ import java.util.stream.IntStream;
 public class LogController {
 
     @Autowired
-    private RecordReader recordReader;
+    private RecordReaderJpa recordReader;
 
     public List<Record> prelevaLog() {
         return recordReader.getAllRecords();

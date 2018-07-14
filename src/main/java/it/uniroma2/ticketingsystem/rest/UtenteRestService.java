@@ -2,30 +2,19 @@ package it.uniroma2.ticketingsystem.rest;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import it.uniroma2.ticketingsystem.controller.RuoloController;
 import it.uniroma2.ticketingsystem.controller.UtenteController;
-import it.uniroma2.ticketingsystem.entity.Ruolo;
 import it.uniroma2.ticketingsystem.entity.Utente;
 import it.uniroma2.ticketingsystem.event.UtenteEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
-import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
-import it.uniroma2.ticketingsystem.logger.entity.Record;
-import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
-import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.orm.hibernate5.HibernateJdbcException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 // @RestController e @Controller identificano uno Spring Bean che nell'architettura MVC è l'anello di congiunzione tra

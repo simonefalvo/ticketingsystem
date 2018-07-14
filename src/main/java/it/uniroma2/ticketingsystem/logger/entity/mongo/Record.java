@@ -1,40 +1,32 @@
-package it.uniroma2.ticketingsystem.logger.entity;
+package it.uniroma2.ticketingsystem.logger.entity.mongo;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Set;
 
-@Entity
+@Document
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class Record {
 
     @Id
-    @GeneratedValue
-    private Integer id;
+    private String id;
 
     private String operationName;
     private String author;
     private String tag;
     private Timestamp timestamp;
 
-    @OneToMany(mappedBy = "record", cascade = CascadeType.ALL)
     private Set<Payload> payloads;
 
-
-
-    public Record(@NotNull String operationName, String author,  String tag){
+    public Record(@NotNull String operationName, String author, String tag){
 
         this.operationName = operationName;
         this.author = author;
@@ -43,11 +35,15 @@ public class Record {
 
     }
 
-    public Record(String operationName, String author, String tag, Set<Payload> payloads, Timestamp recordTimeStamp) {
+    public Record(String operationName, String author, String tag, Set<Payload> payloads) {
         this.operationName = operationName;
         this.author = author;
         this.tag = tag;
         this.payloads = payloads;
-        this.timestamp = recordTimeStamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
+    }
+
+    public void addPayload(Payload payload){
+        this.payloads.add(payload);
     }
 }

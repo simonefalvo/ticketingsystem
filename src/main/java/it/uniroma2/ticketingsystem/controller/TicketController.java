@@ -3,9 +3,9 @@ package it.uniroma2.ticketingsystem.controller;
 import it.uniroma2.ticketingsystem.dao.TicketDao;
 import it.uniroma2.ticketingsystem.entity.Ticket;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
-import it.uniroma2.ticketingsystem.logger.RecordReader;
-import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
-import it.uniroma2.ticketingsystem.logger.entity.Record;
+import it.uniroma2.ticketingsystem.logger.reader.RecordReaderJpa;
+import it.uniroma2.ticketingsystem.logger.annotation.LogOperation;
+import it.uniroma2.ticketingsystem.logger.entity.jpa.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class TicketController {
     @Autowired
     private TicketDao ticketDao;
     @Autowired
-    private RecordReader recordReader;
+    private RecordReaderJpa recordReader;
 
     @Transactional
     @LogOperation(inputArgs = "ticket")

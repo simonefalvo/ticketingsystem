@@ -2,13 +2,9 @@ package it.uniroma2.ticketingsystem.controller;
 
 import it.uniroma2.ticketingsystem.dao.UtenteDao;
 import it.uniroma2.ticketingsystem.entity.Utente;
-import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
-import it.uniroma2.ticketingsystem.logger.entity.Record;
-import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
+import it.uniroma2.ticketingsystem.logger.annotation.LogOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.BeanIds;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

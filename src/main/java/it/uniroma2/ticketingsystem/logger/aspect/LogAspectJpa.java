@@ -1,11 +1,12 @@
 package it.uniroma2.ticketingsystem.logger.aspect;
 
-import it.uniroma2.ticketingsystem.logger.entity.Payload;
+import it.uniroma2.ticketingsystem.logger.annotation.LogOperation;
+import it.uniroma2.ticketingsystem.logger.controller.RecordControllerJpa;
+import it.uniroma2.ticketingsystem.logger.entity.jpa.Payload;
 import it.uniroma2.ticketingsystem.logger.exception.ObjNotFoundException;
 import it.uniroma2.ticketingsystem.logger.utils.AspectUtils;
 import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
-import it.uniroma2.ticketingsystem.logger.entity.Record;
-import it.uniroma2.ticketingsystem.logger.RecordController;
+import it.uniroma2.ticketingsystem.logger.entity.jpa.Record;
 import it.uniroma2.ticketingsystem.logger.utils.ReflectUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -13,6 +14,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -22,13 +25,17 @@ import java.util.HashSet;
 
 @Aspect
 @Component
-public class LogAspect {
+
+@Configuration
+@Profile("jpa")
+public class LogAspectJpa {
 
     @Autowired
-    private RecordController recordController;
+    private RecordControllerJpa recordController;
 
-    @Around("@annotation(LogOperation)")
+    @Around("@annotation(it.uniroma2.ticketingsystem.logger.annotation.LogOperation)")
     public Object logOperationAdvice(ProceedingJoinPoint jp) throws Throwable {
+
 
         // run annotated method
         Object returnObject = jp.proceed();
