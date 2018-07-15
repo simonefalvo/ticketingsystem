@@ -5,9 +5,13 @@ angular.
 module('listaTicket').
 component('listaTicket', {
     templateUrl: 'components/lista-ticket/lista-ticket.html',
-    controller: ['$http', '$location', function listaTicketController($http, $location) {
+    controller: ['$http', '$location','$scope', function listaTicketController($http, $location,$scope) {
 
         var self = this;
+
+        $scope.sortType     = 'id'; // set the default sort type
+        $scope.sortReverse  = false;  // set the default sort order
+        $scope.searchFilter   = '';
 
         function get_role() {
             $http.get('utente/isAdmin').then(function (response) {

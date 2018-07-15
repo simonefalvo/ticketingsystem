@@ -5,9 +5,13 @@ angular.
 module('listaUtente').
 component('listaUtente', {
     templateUrl: 'components/lista-utente/lista-utente.html',
-    controller: ['$http', '$location', function listaUtenteController($http, $location) {
+    controller: ['$http', '$location', '$scope', function listaUtenteController($http, $location,$scope) {
 
         var self = this;
+
+        $scope.sortType     = 'id'; // set the default sort type
+        $scope.sortReverse  = false;  // set the default sort order
+        $scope.searchFilter   = '';
 
         self.getAll = function () {
             $http.get('utente/').then(function (response) {
