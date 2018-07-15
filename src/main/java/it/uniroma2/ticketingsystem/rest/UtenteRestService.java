@@ -60,9 +60,12 @@ import java.util.List;
 
             Utente utenteCreato = utenteController.creaUtente(utente);
 
+            /*
             UtenteEvent utenteEvent =  new UtenteEvent(this,utente,0);
             applicationEventPublisher.publishEvent(utenteEvent);
+*/
             return new ResponseEntity<>(0, HttpStatus.OK);
+
 
         }
 

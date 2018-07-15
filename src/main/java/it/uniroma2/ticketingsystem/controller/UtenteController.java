@@ -2,9 +2,13 @@ package it.uniroma2.ticketingsystem.controller;
 
 import it.uniroma2.ticketingsystem.dao.UtenteDao;
 import it.uniroma2.ticketingsystem.entity.Utente;
+import it.uniroma2.ticketingsystem.event.UtenteEvent;
 import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +25,9 @@ public class UtenteController {
     @Autowired
     private UtenteDao utenteDao;
 
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
+
     @Bean
     public PasswordEncoder getPasswordEncoder(){
         return new BCryptPasswordEncoder();
@@ -31,7 +38,13 @@ public class UtenteController {
     public @NotNull Utente creaUtente(@NotNull Utente utente) {
         utente.setPassword(getPasswordEncoder().encode(utente.getPassword()));
         Utente utenteSalvato = utenteDao.save(utente);
+
+        UtenteEvent utenteEvent =  new UtenteEvent(this,utenteSalvato,0);
+        applicationEventPublisher.publishEvent(utenteEvent);
+        System.out.print("aiuto");
+
         return utenteSalvato;
+
     }
 
     @LogOperation(inputArgs = "datiAggiornati")
