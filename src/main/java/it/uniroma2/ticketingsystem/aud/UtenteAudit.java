@@ -1,6 +1,7 @@
 package it.uniroma2.ticketingsystem.aud;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import it.uniroma2.ticketingsystem.controller.ReflectionController;
 import it.uniroma2.ticketingsystem.entity.Ruolo;
@@ -22,9 +23,11 @@ import it.uniroma2.ticketingsystem.entity.Utente;
 @NoArgsConstructor
 @Getter
 @Setter
+/*
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
+*/
 public class UtenteAudit {
     @Id
     @GeneratedValue
@@ -46,9 +49,11 @@ public class UtenteAudit {
     private int operazione;
 
     @OneToMany(mappedBy = "autore", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<TicketAudit> ticketAperti;
 
     @OneToMany(mappedBy = "teamMember", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<TicketAudit> ticketAssegnati;
 
 

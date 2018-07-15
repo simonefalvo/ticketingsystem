@@ -50,6 +50,7 @@ public class OggettoAudit {
         this.operazione = operazione;
         this.tickets = tickets;
     }
+
     public OggettoAudit(Oggetto oggetto, Timestamp timestamp, int operazione) {
         this.idOggetto = oggetto.getId();
         this.nome = oggetto.getNome();
@@ -69,4 +70,5 @@ public class OggettoAudit {
                 ", operazione=" + operazione +
                 '}';
     }
+
 }
