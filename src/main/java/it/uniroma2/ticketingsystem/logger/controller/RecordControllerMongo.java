@@ -13,21 +13,30 @@ import java.util.List;
 
 
 @Service
-
 @Configuration
 @Profile("mongo")
 public class RecordControllerMongo {
 
     @Autowired
-    private MongoRecordDao RecordDao;
+    private MongoRecordDao recordDao;
 
-//    @Transactional
     public @NotNull Record createRecord(@NotNull Record record) {
-        return RecordDao.save(record);
+        return recordDao.save(record);
     }
 
     public List<Record> getAllRecords() {
-        return RecordDao.findAll();
+        return recordDao.findAll();
     }
 
+    public List<Record> getRecordsByTag(@NotNull String tag) {
+        return recordDao.getRecordsByTag(tag);
+    }
+
+    public List<Record> getRecordsByAuthor(@NotNull String author) {
+        return recordDao.getRecordsByAuthor(author);
+    }
+
+    public List<Record> getRecordsByOperationName(@NotNull String opname) {
+        return recordDao.getRecordsByOperationName(opname);
+    }
 }

@@ -1,18 +1,16 @@
 package it.uniroma2.ticketingsystem.logger.aspect;
 
-import it.uniroma2.ticketingsystem.logger.annotation.LogOperation;
 import it.uniroma2.ticketingsystem.logger.controller.RecordControllerJpa;
 import it.uniroma2.ticketingsystem.logger.entity.jpa.Payload;
+import it.uniroma2.ticketingsystem.logger.entity.jpa.Record;
 import it.uniroma2.ticketingsystem.logger.exception.ObjNotFoundException;
 import it.uniroma2.ticketingsystem.logger.utils.AspectUtils;
 import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
-import it.uniroma2.ticketingsystem.logger.entity.jpa.Record;
 import it.uniroma2.ticketingsystem.logger.utils.ReflectUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -33,7 +31,7 @@ public class LogAspectJpa {
     @Autowired
     private RecordControllerJpa recordController;
 
-    @Around("@annotation(it.uniroma2.ticketingsystem.logger.annotation.LogOperation)")
+    @Around("@annotation(LogOperation)")
     public Object logOperationAdvice(ProceedingJoinPoint jp) throws Throwable {
 
 

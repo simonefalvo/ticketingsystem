@@ -5,7 +5,7 @@ import it.uniroma2.ticketingsystem.entity.Ticket;
 import it.uniroma2.ticketingsystem.entity.Utente;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
 import it.uniroma2.ticketingsystem.logger.reader.RecordReaderJpa;
-import it.uniroma2.ticketingsystem.logger.annotation.LogOperation;
+import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
 import it.uniroma2.ticketingsystem.logger.entity.jpa.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

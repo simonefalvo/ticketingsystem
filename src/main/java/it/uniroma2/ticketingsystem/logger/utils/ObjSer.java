@@ -1,12 +1,12 @@
 package it.uniroma2.ticketingsystem.logger.utils;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.lang3.reflect.FieldUtils;
+
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 
 import static it.uniroma2.ticketingsystem.logger.utils.PersistenceUtils.initializeAndUnproxy;
 import static org.hibernate.proxy.HibernateProxyHelper.getClassWithoutInitializingProxy;
