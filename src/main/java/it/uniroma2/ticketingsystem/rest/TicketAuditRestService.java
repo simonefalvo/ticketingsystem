@@ -38,16 +38,14 @@ public class TicketAuditRestService {
     @RequestMapping(path = "status/{status}", method = RequestMethod.GET)
     public ResponseEntity<Integer> numberOfTicketsActualyWithThisStatus(@PathVariable String status) {
         Integer total;
-        //if (!status.equals("others"))
+        if (!status.equals("other"))
             total = ticketAuditController.numberOfTicketsActualyWithThisStatus(status);
-        /*else {
-            Integer pending = ticketAuditController.numberOfTicketsActualyWithThisStatus("pending");
-            Integer rejected = ticketAuditController.numberOfTicketsActualyWithThisStatus("rejected");
+        else {
+            Integer open = ticketAuditController.numberOfTicketsActualyWithThisStatus("open");
+            Integer relased = ticketAuditController.numberOfTicketsActualyWithThisStatus("released");
             Integer closed = ticketAuditController.numberOfTicketsActualyWithThisStatus("closed");
-            System.out.println("************** pendind = "+ pending+" rejected = "+rejected+" closed = "+closed);
-            total = pending - rejected - closed;
-        }*/
-
+            total = open +relased +closed;
+        }
         return new ResponseEntity<>(total, total == null ? HttpStatus.NOT_FOUND : HttpStatus.CREATED);
     }
 

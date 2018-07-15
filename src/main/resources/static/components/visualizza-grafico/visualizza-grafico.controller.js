@@ -57,24 +57,7 @@ app.controller('GraphCtrl', function($scope, $http, $q){
             {
                 values : [],
                 backgroundColor : "#b0a513",
-                text: "Pending ",
-                detached: true
-            },
-            {
-                values : [],
-                backgroundColor : "#16b0af",
-                text: "Open ",
-                detached: true
-            }, {
-                values : [],
-                backgroundColor : "#202db0",
-                text: "Relased ",
-                detached: true
-            },
-            {
-                values : [],
-                backgroundColor : "#07b006",
-                text: "Closed ",
+                text: "Accepted ",
                 detached: true
             }, {
                 values : [],
@@ -199,32 +182,15 @@ app.controller('GraphCtrl', function($scope, $http, $q){
 
 
 
-        getNumber("ticketaudit/status/", "pending").then(function (value) {
+        getNumber("ticketaudit/status/", "other").then(function (value) {
             $scope.myPie.series[0].values[0]= value;
         }, function (reason) {
             alert(reason);
         });
 
-        getNumber("ticketaudit/status/", "open").then(function (value) {
-            $scope.myPie.series[1].values[0]= value;
-        }, function (reason) {
-            alert(reason);
-        });
-
-        getNumber("ticketaudit/status/", "relased").then(function (value) {
-            $scope.myPie.series[2].values[0]= value;
-        }, function (reason) {
-            alert(reason);
-        });
-
-        getNumber("ticketaudit/status/", "closed").then(function (value) {
-            $scope.myPie.series[3].values[0]= value;
-        }, function (reason) {
-            alert(reason);
-        });
 
         getNumber("ticketaudit/status/", "rejected").then(function (value) {
-            $scope.myPie.series[4].values[0] = value;
+            $scope.myPie.series[1].values[0] = value;
         }, function (reason) {
             alert(reason);
         });
