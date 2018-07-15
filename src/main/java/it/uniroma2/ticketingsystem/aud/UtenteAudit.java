@@ -101,7 +101,6 @@ public class UtenteAudit {
         this.ruolo = utente.getRuolo();
         this.timestamp = timestamp;
         this.operazione = operazione;
-
     }
 
 

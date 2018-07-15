@@ -48,7 +48,7 @@ public class TicketAudit {
 
     //private Integer teamid;  //attributo opzionale
 
-    public TicketAudit(@NotNull Ticket ticket,  @NotNull Date timestamp, @NotNull OggettoAudit oggettoAudit, @NotNull int operation){
+    public TicketAudit(@NotNull Ticket ticket,  @NotNull Date timestamp, @NotNull OggettoAudit oggettoAudit,@NotNull UtenteAudit utenteAudit ,@NotNull int operation){
         this.idTicket = ticket.getId();
         this.titolo = ticket.getTitolo();
         this.categoria = ticket.getCategoria();
@@ -59,6 +59,7 @@ public class TicketAudit {
         this.oggetto = oggettoAudit;
         System.out.println("\n\n\n Oggetto inserito= "+this.oggetto.toString());
         this.timestamp = timestamp;
+        this.autore = utenteAudit;
         this.operazione = operation;
         //todo aggiungere autore e team member
     }
