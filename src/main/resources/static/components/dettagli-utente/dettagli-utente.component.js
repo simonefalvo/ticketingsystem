@@ -27,7 +27,6 @@ component('dettagliUtente', {
 
         self.elimina = function (utenteId) {
 
-            if (confirm("Procedere con l'eliminazione?")) {
                 $http.delete('utente/' + utenteId.toString()).then(function () {
                     self.modalText = "Utente eliminato con successo!";
                     scope.openModal = true;
@@ -36,7 +35,6 @@ component('dettagliUtente', {
                     self.modalText = "Si è verificato un Errore!";
                     scope.openModal = true;
                 });
-            }
         };
 
         self.modifica = function () {

@@ -14,6 +14,17 @@
             </div>
         </div>
 
+        <!-- Modal Structure -->
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <h5 class="header">Procedere con l'eliminazione?</h5>
+            </div>
+            <div class="modal-footer">
+                <a ng-click="index#/visualizza_oggetti" class=" modal-action modal-close waves-effect waves-green btn-flat" >Annulla</a>
+                <a ng-click="$ctrl.elimina($ctrl.oggetto.id)" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+            </div>
+        </div>
+
         <form name="objForm" novalidate>
 
             <div class="form-group">
@@ -38,7 +49,7 @@
 
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-if="$ctrl.isAdmin" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>
-        <button class="btn btn-danger" type="button" ng-if="$ctrl.isAdmin" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.elimina($ctrl.oggetto.id)">Elimina</button>
+        <button class="btn btn-danger" type="button" ng-if="$ctrl.isAdmin" ng-show="!$ctrl.modifyMode" data-target="deleteModal" ng-click="openModal" modal>Elimina</button>
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
         <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-disabled="objForm.$invalid" ng-click="$ctrl.conferma()">Conferma</button>
         <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>

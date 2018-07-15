@@ -35,7 +35,7 @@ component('dettagliOggetto', {
 
         self.elimina = function (oggettoId) {
 
-            if (confirm("Procedere con l'eliminazione?")) {
+            //if (confirm("Procedere con l'eliminazione?")) {
                 $http.delete('oggetto/' + oggettoId.toString()).then(function () {
                     self.modalText = "Oggetto eliminato con successo!";
                     scope.openModal = true;
@@ -44,7 +44,7 @@ component('dettagliOggetto', {
                     self.modalText = "Si è verificato un Errore!";
                     scope.openModal = true;
                 });
-            }
+           // }
         };
 
         self.modifica = function () {

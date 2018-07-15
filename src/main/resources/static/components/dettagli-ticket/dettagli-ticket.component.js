@@ -31,7 +31,7 @@ component('dettagliTicket', {
 
         self.elimina = function (ticketId) {
 
-            if (confirm("Procedere con l'eliminazione?")) {
+            //if (confirm("Procedere con l'eliminazione?")) {
                 $http.delete('ticket/' + ticketId.toString()).then(function () {
                     self.modalText = "Ticket eliminato con successo!";
                     scope.openModal = true;
@@ -40,7 +40,7 @@ component('dettagliTicket', {
                     self.modalText = "Si è verificato un Errore!";
                     scope.openModal = true;
                 });
-            }
+            //}
         };
 
         self.modifica = function () {
