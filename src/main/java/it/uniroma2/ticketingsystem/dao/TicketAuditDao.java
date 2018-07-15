@@ -10,6 +10,22 @@ import java.util.List;
 
 public interface TicketAuditDao extends JpaRepository<TicketAudit,Integer> {
 
+
+    /*@Query(value = "SELECT count(*)" +
+            "FROM public.ticket_audit  ta" +
+            "INNER JOIN" +
+            "    (SELECT id_ticket, MAX(timestamp)  timestamp_max" +
+            "    FROM ticket_audit" +
+            "    GROUP BY id_ticket) groupedtt " +
+            "ON ta.id_ticket = groupedtt.id_ticket " +
+            "AND ta.timestamp = groupedtt.timestamp_max" +
+            "where ta.stato = ?1",
+            nativeQuery = true)
+            */
+    @Query(value = "SELECT count(*) FROM public.ticket_audit  ta INNER JOIN (SELECT id_ticket, MAX(timestamp)  timestamp_max FROM ticket_audit GROUP BY id_ticket) groupedtt ON ta.id_ticket = groupedtt.id_ticket AND ta.timestamp = groupedtt.timestamp_max where ta.stato = ?1",
+    nativeQuery = true)
+    Integer numberOfTicketsActualyWithThisStatus(String status);
+
     @Query("select count (distinct t.idTicket) from TicketAudit t where t.stato = ?1")
     Integer numberOfStatusTickets(String status);
 
