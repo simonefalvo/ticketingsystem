@@ -28,11 +28,11 @@
             </thead>
 
             <tbody>
-            <tr ng-repeat="x in $ctrl.tickets ">
+            <tr ng-repeat="x in $ctrl.tickets " ng-click="$ctrl.dettagli(x.id)">
+
                 <td>{{ x.timestamp | date: 'dd/MM/yyyy'}}</td>
-
-
                 <td>{{ x.operazione | operationFilter}}</td>
+
             </tr>
             </tbody>
         </table>

@@ -17,5 +17,6 @@ angular.module('materializeApp',
         'logUtente',
         'logTicket',
         'ticketHistory',
-        'welcome'
+        'welcome',
+        'dettagliTicketAudit'
     ]);

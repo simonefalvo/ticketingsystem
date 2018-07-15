@@ -51,6 +51,10 @@ angular.module('materializeApp')
             {
                 template:    '<dettagli-ticket></dettagli-ticket>'
             });
+        $routeProvider.when('/dettagli-ticket/audit/:ticketId?',
+            {
+                template:    '<dettagli-ticket-audit></dettagli-ticket-audit>'
+            });
         $routeProvider.when('/dettagli-oggetto/:oggettoId?',
             {
                 template:    '<dettagli-oggetto></dettagli-oggetto>'
