@@ -19,6 +19,14 @@ component('dettagliOggetto', {
             });
         };
 
+        function get_role() {
+            $http.get('utente/isAdmin').then(function (response) {
+                self.isAdmin = response.data;
+            });
+        }
+
+       get_role();
+
         self.get();
 
         self.indietro = function () {

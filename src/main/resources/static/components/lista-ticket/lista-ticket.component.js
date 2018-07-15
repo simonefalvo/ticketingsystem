@@ -9,6 +9,13 @@ component('listaTicket', {
 
         var self = this;
 
+        function get_role() {
+            $http.get('utente/isAdmin').then(function (response) {
+                return response.data;
+            });
+        }
+
+
         self.getAll = function () {
             $http.get('ticket/').then(function(response) {
                 self.tickets = response.data;

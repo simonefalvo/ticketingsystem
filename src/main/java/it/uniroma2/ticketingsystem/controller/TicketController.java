@@ -2,6 +2,7 @@ package it.uniroma2.ticketingsystem.controller;
 
 import it.uniroma2.ticketingsystem.dao.TicketDao;
 import it.uniroma2.ticketingsystem.entity.Ticket;
+import it.uniroma2.ticketingsystem.entity.Utente;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
 import it.uniroma2.ticketingsystem.logger.reader.RecordReaderJpa;
 import it.uniroma2.ticketingsystem.logger.annotation.LogOperation;
@@ -54,6 +55,10 @@ public class TicketController {
 
     public List<Ticket> prelevaTickets() {
         return ticketDao.findAll();
+    }
+
+    public List<Ticket> prelevaTicketsByUser(Utente user){
+        return ticketDao.getTicketsByUserID(user);
     }
 
     public Integer numberOfStatusTickets(String status) {

@@ -1,7 +1,10 @@
 package it.uniroma2.ticketingsystem.rest;
 
 import it.uniroma2.ticketingsystem.controller.TicketController;
+import it.uniroma2.ticketingsystem.controller.UtenteController;
+import it.uniroma2.ticketingsystem.entity.Ruolo;
 import it.uniroma2.ticketingsystem.entity.Ticket;
+import it.uniroma2.ticketingsystem.entity.Utente;
 import it.uniroma2.ticketingsystem.event.TicketEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
 import it.uniroma2.ticketingsystem.logger.entity.jpa.Record;
@@ -9,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,13 +26,17 @@ public class TicketRestService {
     private ApplicationEventPublisher applicationEventPublisher;
     @Autowired
     private TicketController ticketController;
+    @Autowired
+    private UtenteController utenteController;
 
 
     @RequestMapping(path = "", method = RequestMethod.POST)
     public ResponseEntity<Ticket> creaTicket(@RequestBody Ticket ticket) {
 
 //        ticket.setTimestamp(new Timestamp(System.currentTimeMillis()));
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Utente user = utenteController.cercaPerUsername(auth.getName());
+        ticket.setAutore(user);
         Ticket ticketCreato = ticketController.creaTicket(ticket);
 
         System.out.println("\n\n\n Crea Ticket: dato arrivato dal web: "+ticket.toString());
@@ -68,10 +77,22 @@ public class TicketRestService {
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     public ResponseEntity<List<Ticket>> prelevaTickets() {
-        List<Ticket> ticket = ticketController.prelevaTickets();
-        System.out.println("\n\n\n TicketRestService prelevaTicket = "+ticket.toString());
+        List<Ticket> ticket;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Utente user = utenteController.cercaPerUsername(auth.getName());
+        if (user.getRuolo().getName().equals("ADMIN")){
+            //get all tickets
+            ticket = ticketController.prelevaTickets();
+            System.out.println("\n\n\n TicketRestService prelevaTicket = "+ticket.toString());
+        }else{
+            //get only user tickets
+            ticket = ticketController.prelevaTicketsByUser(user);
+            System.out.println("\n\n\n TicketRestService prelevaTicket = "+ticket.toString());
+        }
+
         return new ResponseEntity<>(ticket, HttpStatus.OK);
     }
+
 
     @RequestMapping(path = "{id}", method = RequestMethod.PUT)
     public ResponseEntity<Ticket> aggiornaTicket(@PathVariable Integer id, @RequestBody Ticket ticket) {
