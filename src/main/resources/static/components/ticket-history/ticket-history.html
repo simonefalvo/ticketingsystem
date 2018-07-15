@@ -24,6 +24,7 @@
             <tr>
                 <th>Data Modifica</th>
                 <th>Tipo Modifica</th>
+                <th>Autore</th>
             </tr>
             </thead>
 
@@ -32,6 +33,7 @@
 
                 <td>{{ x.timestamp | date: 'dd/MM/yyyy'}}</td>
                 <td>{{ x.operazione | operationFilter}}</td>
+                <td>{{x.autore.username}}</td>
 
             </tr>
             </tbody>
