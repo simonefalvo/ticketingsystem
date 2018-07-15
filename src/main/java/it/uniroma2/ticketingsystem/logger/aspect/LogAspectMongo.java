@@ -1,6 +1,5 @@
 package it.uniroma2.ticketingsystem.logger.aspect;
 
-import it.uniroma2.ticketingsystem.logger.annotation.LogOperation;
 import it.uniroma2.ticketingsystem.logger.controller.RecordControllerMongo;
 import it.uniroma2.ticketingsystem.logger.entity.mongo.Payload;
 import it.uniroma2.ticketingsystem.logger.entity.mongo.Record;
@@ -31,7 +30,7 @@ public class LogAspectMongo {
     @Autowired
     private RecordControllerMongo recordController;
 
-    @Around("@annotation(it.uniroma2.ticketingsystem.logger.annotation.LogOperation)")
+    @Around("@annotation(LogOperation)")
     public Object logOperationAdvice(ProceedingJoinPoint jp) throws Throwable {
 
         // run annotated method

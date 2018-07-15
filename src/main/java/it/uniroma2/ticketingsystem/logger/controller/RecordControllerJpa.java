@@ -9,11 +9,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.List;
-
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 @Configuration
