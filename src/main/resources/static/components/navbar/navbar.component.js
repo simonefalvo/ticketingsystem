@@ -15,7 +15,14 @@ module('navbar')
             });
         }
 
+        function get_logged() {
+            $http.get('utente/logged').then(function (response) {
+                $scope.logged = response.data;
+            });
+        }
+
         get_role();
+        get_logged();
 
         $scope.insertUser = function () {
             $location.url('/nuovo_utente');

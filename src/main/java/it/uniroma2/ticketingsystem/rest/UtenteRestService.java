@@ -138,6 +138,13 @@ import java.util.List;
             return new ResponseEntity<>(isAdmin, HttpStatus.OK);
         }
 
+        @RequestMapping(path = "logged", method = RequestMethod.GET)
+        public ResponseEntity<Utente> getLogged() {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Utente user = utenteController.cercaPerUsername(auth.getName());
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+
         /*
         @RequestMapping(method = RequestMethod.GET)
         public ResponseEntity<Utente> cercaUtentePerEmail(@RequestParam(value = "email") String email) {
