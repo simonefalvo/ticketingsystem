@@ -40,7 +40,7 @@ public class LogController {
         Timestamp endDate = new Timestamp(toMillis);
 
         //get all date beetween two timestamp
-        List<LocalDate> listDate = getAllDayBeteen(startDate,endDate);
+        List<LocalDate> listDate = getAllDayBetween(startDate,endDate);
 
         //calcolo il numero di operazioni di quel tipo in quel dato giorno
         for (LocalDate myDate: listDate) {
@@ -58,12 +58,12 @@ public class LogController {
         return myMap;
     }
 
-    private List<LocalDate> getAllDayBeteen(Timestamp startDate, Timestamp endDate){
+    private List<LocalDate> getAllDayBetween(Timestamp startDate, Timestamp endDate){
         //get all date beetween two timestamp
-        long numOfDaysBetween = ChronoUnit.DAYS.between(startDate.toLocalDateTime().toLocalDate(), endDate.toLocalDateTime().toLocalDate());
+        long numOfDays = (ChronoUnit.DAYS.between(startDate.toLocalDateTime().toLocalDate(), endDate.toLocalDateTime().toLocalDate()))+1;
         List<LocalDate> listDate =
                 IntStream.iterate(0, i -> i + 1)
-                        .limit(numOfDaysBetween)
+                        .limit(numOfDays)
                         .mapToObj(i -> startDate.toLocalDateTime().toLocalDate().plusDays(i))
                         .collect(Collectors.toList());
         return listDate;

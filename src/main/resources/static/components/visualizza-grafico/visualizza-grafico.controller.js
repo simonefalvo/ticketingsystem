@@ -56,10 +56,22 @@ app.controller('GraphCtrl', function($scope, $http, $q){
         series : [
             {
                 values : [],
-                backgroundColor : "#616cb0",
-                text: "Others ",
+                backgroundColor : "#b0a513",
+                text: "Pending ",
+                detached: true
+            },
+            {
+                values : [],
+                backgroundColor : "#16b0af",
+                text: "Open ",
                 detached: true
             }, {
+                values : [],
+                backgroundColor : "#202db0",
+                text: "Relased ",
+                detached: true
+            },
+            {
                 values : [],
                 backgroundColor : "#07b006",
                 text: "Closed ",
@@ -187,20 +199,32 @@ app.controller('GraphCtrl', function($scope, $http, $q){
 
 
 
-        getNumber("ticketaudit/status/", "closed").then(function (value) {
+        getNumber("ticketaudit/status/", "pending").then(function (value) {
+            $scope.myPie.series[0].values[0]= value;
+        }, function (reason) {
+            alert(reason);
+        });
+
+        getNumber("ticketaudit/status/", "open").then(function (value) {
             $scope.myPie.series[1].values[0]= value;
         }, function (reason) {
             alert(reason);
         });
 
-        getNumber("ticketaudit/status/", "rejected").then(function (value) {
+        getNumber("ticketaudit/status/", "relased").then(function (value) {
             $scope.myPie.series[2].values[0]= value;
         }, function (reason) {
             alert(reason);
         });
 
-        getNumber("ticketaudit/status/", "others").then(function (value) {
-            $scope.myPie.series[0].values[0] = value;
+        getNumber("ticketaudit/status/", "closed").then(function (value) {
+            $scope.myPie.series[3].values[0]= value;
+        }, function (reason) {
+            alert(reason);
+        });
+
+        getNumber("ticketaudit/status/", "rejected").then(function (value) {
+            $scope.myPie.series[4].values[0] = value;
         }, function (reason) {
             alert(reason);
         });
@@ -230,6 +254,10 @@ app.controller('GraphCtrl', function($scope, $http, $q){
             alert("Non hai inserito una data di fine!");
             return;
         }
+        if(start.getTime() > end.getTime()){
+            alert("Controlla le date da te inserite!");
+            return;
+        }
         getLogTickets("log/", start.getTime().toString(), end.getTime().toString()).then(function (value) {
             buildSeries(value);
         }, function (reason) {
@@ -243,6 +271,8 @@ app.controller('GraphCtrl', function($scope, $http, $q){
         var total = 0;
         var sum = 0;
         console.log("BUILDING");
+
+
         for (key in map) {
             console.log(new Date(parseInt(key, 10)));
             console.log(map[key]);
