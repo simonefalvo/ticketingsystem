@@ -46,7 +46,7 @@
         </ul>
     </li>
 
-    <li class="no-padding" ng-if="$ctrl.isAdmin">
+    <li class="no-padding" ng-if="$ctrl.role == 0">
         <ul class="collapsible collapsible-accordion">
             <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Utenti <i class="material-icons left">people</i></a>
                 <div class="collapsible-body" >
@@ -64,7 +64,7 @@
             <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Oggetti <i class="material-icons left">extension</i></a>
                 <div class="collapsible-body">
                     <ul>
-                        <li><a href="" ng-if="$ctrl.isAdmin" ng-click="insertObject()">Inserisci Oggetto</a></li>
+                        <li><a href="" ng-if="$ctrl.role != 2" ng-click="insertObject()">Inserisci Oggetto</a></li>
                         <li><a href="" ng-click="visObjects()">Visualizza Oggetti</a></li>
                     </ul>
                 </div>
@@ -72,7 +72,7 @@
         </ul>
     </li>
 
-    <li class="no-padding" ng-if="$ctrl.isAdmin">
+    <li class="no-padding" ng-if="$ctrl.role == 0">
         <ul class="collapsible collapsible-accordion">
             <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Log<i class="material-icons left">find_in_page</i></a>
                 <div class="collapsible-body">
@@ -84,7 +84,7 @@
         </ul>
     </li>
 
-    <li class="no-padding" ng-if="$ctrl.isAdmin">
+    <li class="no-padding" ng-if="$ctrl.role == 0">
         <ul class="collapsible collapsible-accordion">
             <li class="bold"><a class="collapsible-header waves-effect waves-teal active ">Grafici <i class="material-icons left">multiline_chart</i></a>
                 <div class="collapsible-body">

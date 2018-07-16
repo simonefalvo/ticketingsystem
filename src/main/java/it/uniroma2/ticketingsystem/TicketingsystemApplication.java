@@ -42,6 +42,7 @@ public class TicketingsystemApplication {
         if (repository.count()==0) {
             Ruolo user = ruoloService.creaRuolo(new Ruolo("USER"));
             Ruolo admin = ruoloService.creaRuolo(new Ruolo("ADMIN"));
+            Ruolo operator = ruoloService.creaRuolo(new Ruolo("OPERATOR"));
             //Ruolo admin= ruoloService.cercaPerNome("ADMIN");
             Utente ad = new Utente("Utente", "Di Prova", "admin","admin","mail@admin" ,admin,null,null);
             service.creaUtente(ad);

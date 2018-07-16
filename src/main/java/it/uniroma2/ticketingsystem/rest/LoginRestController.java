@@ -40,6 +40,8 @@ public class LoginRestController {
             return new ModelAndView("redirect:index");
         }else if (ruolo.getName().equals("USER")){
             return new ModelAndView("redirect:index");
+        }else if (ruolo.getName().equals("OPERATOR")){
+            return new ModelAndView("redirect:index");
         }
         return null;
     }

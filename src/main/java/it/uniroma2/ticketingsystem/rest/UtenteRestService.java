@@ -141,6 +141,20 @@ import java.util.List;
             return new ResponseEntity<>(isAdmin, HttpStatus.OK);
         }
 
+        @RequestMapping(path = "getRole", method = RequestMethod.GET)
+        public ResponseEntity<Integer> getRole() {
+            Integer role = -1;
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Utente user = utenteController.cercaPerUsername(auth.getName());
+            if (user.getRuolo().getName().equals("ADMIN"))
+                role = 0;
+            if (user.getRuolo().getName().equals("OPERATOR"))
+                role = 1;
+            if (user.getRuolo().getName().equals("USER"))
+                role = 2;
+            return new ResponseEntity<>(role, HttpStatus.OK);
+        }
+
         @RequestMapping(path = "logged", method = RequestMethod.GET)
         public ResponseEntity<Utente> getLogged() {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();

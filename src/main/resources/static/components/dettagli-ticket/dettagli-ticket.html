@@ -53,7 +53,7 @@
                 <div class="form-group">
                     <label>Stato*</label>
                     <p ng-show="ticketForm.name.$invalid && !ticketForm.name.$pristine" class="header">Il campo stato è obbligatorio!</p>
-                    <select ng-disabled="!$ctrl.modifyMode" class="form-control" ng-model="$ctrl.ticket.stato" material-select>
+                    <select ng-disabled="!$ctrl.modifyMode || $ctrl.role == 2" class="form-control" ng-model="$ctrl.ticket.stato" material-select>
                         <option value="pending"> Pending </option>
                         <option value="open"> Open </option>
                         <option value="released"> Released </option>
@@ -70,7 +70,7 @@
 
     <div class="row">
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.modifica()">Modifica</button>
-        <button class="btn btn-danger" data-target="deleteModal" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="openModal" modal>Elimina</button>
+        <button class="btn btn-danger" data-target="deleteModal" ng-if="$ctrl.role != 2" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="openModal" modal>Elimina</button>
         <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-disabled="ticketForm.$invalid" ng-click="$ctrl.conferma()">Conferma</button>
         <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.history()">Storico</button>

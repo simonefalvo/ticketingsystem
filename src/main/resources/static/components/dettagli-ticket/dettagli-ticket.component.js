@@ -22,6 +22,13 @@ component('dettagliTicket', {
             });
         };
 
+        self.getRole= function () {
+            $http.get('utente/getRole').then(function (response) {
+                self.role = response.data;
+            });
+        };
+
+        self.getRole();
         self.get();
 
         self.indietro = function () {
