@@ -80,7 +80,7 @@ public class TicketRestService {
         List<Ticket> ticket;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Utente user = utenteController.cercaPerUsername(auth.getName());
-        if (user.getRuolo().getName().equals("ADMIN")){
+        if (user.getRuolo().getName().equals("ADMIN") || user.getRuolo().getName().equals("OPERATOR")){
             //get all tickets
             ticket = ticketController.prelevaTickets();
             System.out.println("\n\n\n TicketRestService prelevaTicket = "+ticket.toString());

@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/components/lista-utente/lista-utente.html").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/components/dettagli-utente/dettagli-utente.html").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/components/visualizza-grafico/visualizza-grafico.html").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/components/inserisci-oggetto/inserisci-oggetto.html").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/components/inserisci-oggetto/inserisci-oggetto.html").hasAnyAuthority("ROLE_ADMIN", "ROLE_OPERATOR")
                 .anyRequest().authenticated()
                 .and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error")

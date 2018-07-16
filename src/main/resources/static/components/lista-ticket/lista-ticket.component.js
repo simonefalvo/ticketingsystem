@@ -13,12 +13,6 @@ component('listaTicket', {
         $scope.sortReverse  = false;  // set the default sort order
         $scope.searchFilter   = '';
 
-        function get_role() {
-            $http.get('utente/isAdmin').then(function (response) {
-                return response.data;
-            });
-        }
-
 
         self.getAll = function () {
             $http.get('ticket/').then(function(response) {
