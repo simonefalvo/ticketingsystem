@@ -14,6 +14,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -47,12 +49,11 @@ public class LogAspectMongo {
 
         //Get author name
         String author = null;
-        /*
-        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth != null)
             author = auth.getName();
-*/
-        Record record;
+
 
         Payload[] payloads;// = new Payload[inputArgsNames.length + 1];//dim = argumens +1 (including return object)
         if(returnObjectName)
@@ -67,8 +68,7 @@ public class LogAspectMongo {
         if (AspectUtils.defaultOption(LogOperation.class, "opName", opName))
             opName = signature.getName();
 
-        //create record object
-        record = new Record(opName,author, tag);
+
 
         if (returnObjectName) {
             try {
@@ -108,7 +108,8 @@ public class LogAspectMongo {
             }
         }
 
-        record.setPayloads(new HashSet<>(Arrays.asList(payloads)));
+        //create record object
+        Record record = new Record(opName, author, tag, new HashSet<>(Arrays.asList(payloads)));
 
         recordController.createRecord(record);
         return returnObject;

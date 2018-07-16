@@ -14,6 +14,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -50,7 +51,7 @@ public class LogAspectJpa {
 
         //Get author name
         String author = null;
-        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth != null)
             author = auth.getName();
 
@@ -104,7 +105,7 @@ public class LogAspectJpa {
             }
         }
 
-        record.setPayloads(new HashSet<>(Arrays.asList(payloads)));
+        record.bindPayloads(new HashSet<>(Arrays.asList(payloads)));
 
         recordController.createRecord(record);
         return returnObject;
