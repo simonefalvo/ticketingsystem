@@ -1,20 +1,15 @@
 package it.uniroma2.ticketingsystem.aud;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import it.uniroma2.ticketingsystem.controller.ReflectionController;
 import it.uniroma2.ticketingsystem.entity.Ruolo;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.lang.reflect.Field;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Set;
 import it.uniroma2.ticketingsystem.entity.Utente;
 
@@ -39,14 +34,13 @@ public class UtenteAudit {
     private String username;
     private String password;
     private String email;
+    private Timestamp timestamp;
+    private int operazione;
 
     @ManyToOne
     private Ruolo ruolo;
 
-    //@Column(name = "edit_time")
-    private Timestamp timestamp;
 
-    private int operazione;
 
     @OneToMany(mappedBy = "autore", cascade = CascadeType.ALL)
     @JsonIgnore

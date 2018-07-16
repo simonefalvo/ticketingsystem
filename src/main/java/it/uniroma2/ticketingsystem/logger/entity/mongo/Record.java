@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Document
@@ -20,14 +20,14 @@ public class Record {
     private String operationName;
     private String author;
     private String tag;
-    private LocalDate timestamp;
+    private LocalDateTime timestamp;
     private Set<Payload> payloads;
 
 
     public Record(@NotNull String operationName, String author, String tag){
         this.operationName = operationName;
         this.author = author;
-        this.timestamp = LocalDate.now();
+        this.timestamp = LocalDateTime.now();
         this.tag = tag;
     }
 
@@ -36,7 +36,7 @@ public class Record {
         this.author = author;
         this.tag = tag;
         this.payloads = payloads;
-        this.timestamp = LocalDate.now();
+        this.timestamp = LocalDateTime.now();
     }
 
 }

@@ -96,10 +96,4 @@ public class Ticket {
                 '}';
     }
 
-    //get espliciti servono ad elisa
-    /*
-    public Oggetto getOggetto() {
-        return oggetto;
-    }
-    */
 }
