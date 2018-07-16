@@ -22,7 +22,7 @@ public class UtenteAuditController {
         return utenteAuditSalvato;
 
     }
-
+    @Transactional
     public boolean eliminaUtenteAudit(@NotNull Integer id){
         if(!utenteAuditDao.existsById(id)){
             return false;

@@ -30,7 +30,7 @@ public class RecordControllerJpa {
     public List<Record> getAllRecords() {
         return recordDao.findAll();
     }
-
+    @Transactional
     public boolean deleteRecord(@NotNull Integer id) {
         if (!recordDao.existsById(id)) {
             return false;

@@ -35,7 +35,7 @@ public class OggettoController {
         Oggetto oggettoAggiornato = oggettoDao.save(oggettoDaAggiornare);
         return oggettoAggiornato;
     }
-
+    @Transactional
     public boolean eliminaOggetto(@NotNull Integer id){
         if(!oggettoDao.existsById(id)){
             return false;

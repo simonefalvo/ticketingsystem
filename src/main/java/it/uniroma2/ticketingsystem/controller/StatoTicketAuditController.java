@@ -19,7 +19,7 @@ public class StatoTicketAuditController {
         StatoTicketAudit staSalvato = stDao.save(sta);
         return staSalvato;
     }
-
+    @Transactional
     public boolean eliminaStatoTicketAudit(@NotNull Integer id){
         if(!stDao.existsById(id)){
             return false;

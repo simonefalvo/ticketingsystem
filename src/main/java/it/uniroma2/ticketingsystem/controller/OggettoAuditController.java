@@ -39,7 +39,7 @@ public class OggettoAuditController {
         //OggettoAudit oggettoAuditMostRecent = oggettoAuditDao.getMostRecentOggettoAudit(oggetto.getId());
         return oggettoAuditMostRecent;
     }
-
+    @Transactional
     public boolean eliminaOggettoAudit(@NotNull Integer id){
         if(!oggettoAuditDao.existsById(id)){
             return false;

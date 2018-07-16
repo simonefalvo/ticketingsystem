@@ -13,7 +13,6 @@ import static org.hibernate.proxy.HibernateProxyHelper.getClassWithoutInitializi
 public abstract class ReflectUtils {
 
 
-    // TODO: da cancellare perché se l'id non è string non riesce a fare il cast
     public static String fieldToString(Object instance, String fieldName) {
 
         String result = null;
@@ -58,7 +57,6 @@ public abstract class ReflectUtils {
     }
 
 
-    // TODO: Non è una classe utils, perché si riferisce ad un'annotazione specifica -> renderla generica
     public static String[] getIDParameters(Object target){
 
         Class objectClass = getClassWithoutInitializingProxy(target);
@@ -75,7 +73,6 @@ public abstract class ReflectUtils {
         return params;
     }
 
-    // TODO: Non è una classe utils, perché si riferisce ad un'annotazione specifica -> renderla generica
     //controllare se la classe dell'oggetto è annotata
     //se si, controllare se ha inserito dei parametri rilevanti
     //restituire i parametri rilevanti
