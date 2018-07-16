@@ -14,7 +14,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -48,13 +47,20 @@ public class LogAspectMongo {
 
         //Get author name
         String author = null;
+        /*
         org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth != null)
             author = auth.getName();
-
+*/
         Record record;
 
-        Payload[] payloads = new Payload[inputArgsNames.length + 1];//dim = argumens +1 (including return object)
+        Payload[] payloads;// = new Payload[inputArgsNames.length + 1];//dim = argumens +1 (including return object)
+        if(returnObjectName)
+            payloads = new Payload[inputArgsNames.length + 1];//dim = argumens +1 (including return object)
+        else
+            payloads = new Payload[inputArgsNames.length];//dim = argumens +1 (including return object)
+
+
         String serializedReturnObject = "";
 
         // check options and do related stuff
@@ -72,7 +78,7 @@ public class LogAspectMongo {
             }
             catch (NullPointerException e){
                 System.out.println("Attention: Return Object is null!");
-                payloads[payloads.length-1] = new Payload(null, null,"output", null);
+                payloads[payloads.length-1] = new Payload("null", "null","output", "null");
             }
 
         }

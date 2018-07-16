@@ -32,7 +32,6 @@ public class CustomUserDetails implements UserDetails {
      * @param ruolo the input list of roles.
      * @return a list of granted authorities
      */
-
     private Collection<? extends GrantedAuthority> translate(Ruolo ruolo) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         String name = ruolo.getName().toUpperCase();
