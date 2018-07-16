@@ -63,7 +63,7 @@
     <div class="row">
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>
         <button class="btn btn-danger" data-target="deleteModal" type="button" ng-show="!$ctrl.modifyMode" ng-click="openModal" modal>Elimina</button>
-        <button class="btn" type="button" ng-click="$ctrl.opLog()">Operazioni</button>
+        <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.opLog()">Operazioni</button>
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
         <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-disabled="userForm.$invalid" ng-click="$ctrl.conferma()">Conferma</button>
         <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>
