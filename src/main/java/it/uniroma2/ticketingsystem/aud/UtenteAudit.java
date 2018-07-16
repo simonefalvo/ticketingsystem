@@ -48,8 +48,8 @@ public class UtenteAudit {
 
     private int operazione;
 
-    @OneToMany(mappedBy = "autore", cascade = CascadeType.ALL)
     @JsonIgnore
+    @OneToMany(mappedBy = "autore", cascade = CascadeType.ALL)
     private Set<TicketAudit> ticketAperti;
 
     @OneToMany(mappedBy = "teamMember", cascade = CascadeType.ALL)
