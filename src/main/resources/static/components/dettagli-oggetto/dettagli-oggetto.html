@@ -48,8 +48,8 @@
 
 
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-if="$ctrl.isAdmin" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>
-        <button class="btn btn-danger" type="button" ng-if="$ctrl.isAdmin" ng-show="!$ctrl.modifyMode" data-target="deleteModal" ng-click="openModal" modal>Elimina</button>
+        <button class="btn btn-primary" type="button" ng-if="$ctrl.role !=2" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>
+        <button class="btn btn-danger" type="button" ng-if="$ctrl.role !=2" ng-show="!$ctrl.modifyMode" data-target="deleteModal" ng-click="openModal" modal>Elimina</button>
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
         <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-disabled="objForm.$invalid" ng-click="$ctrl.conferma()">Conferma</button>
         <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>

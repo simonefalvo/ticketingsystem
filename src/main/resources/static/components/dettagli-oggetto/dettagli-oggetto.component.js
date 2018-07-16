@@ -20,8 +20,8 @@ component('dettagliOggetto', {
         };
 
         function get_role() {
-            $http.get('utente/isAdmin').then(function (response) {
-                self.isAdmin = response.data;
+            $http.get('utente/getRole').then(function (response) {
+                self.role = response.data;
             });
         }
 
