@@ -72,7 +72,7 @@ public class LogAspectMongo {
 
         if (returnObjectName) {
             try {
-                serializedReturnObject = serializeObject(returnObject);
+                serializedReturnObject = ObjSer.serializeObject(returnObject);
                 String idJSON = ObjSer.buildIDJson(returnObject, ReflectUtils.getIDParameters(returnObject));
                 payloads[payloads.length-1] = new Payload(serializedReturnObject, idJSON,"output", returnObject.getClass().getSimpleName());
             }
@@ -95,7 +95,7 @@ public class LogAspectMongo {
                 try {
                     inputArgs[i] = ReflectUtils.getMethodParameter(inputArgsNames[i], signature, jp.getArgs());
                     //oggetto Serializzato
-                    serializedObject[i] = serializeObject(inputArgs[i]);
+                    serializedObject[i] = ObjSer.serializeObject(inputArgs[i]);
                     //id dell'oggetto serializzato
                     String idJSON = ObjSer.buildIDJson(inputArgs[i], ReflectUtils.getIDParameters(inputArgs[i]));
 
@@ -114,41 +114,6 @@ public class LogAspectMongo {
         recordController.createRecord(record);
         return returnObject;
 
-    }
-
-
-
-
-
-    private static String serializeObject(Object object) throws Throwable {
-        String[] params = null;
-        String[] idParams = null;
-
-        params = ReflectUtils.getParameters(object);
-        idParams = ReflectUtils.getIDParameters(object);
-
-
-        //String objectId ="";
-
-        String serializedObject;
-
-        if(params == null){
-            // serializza tutti i parametri dell oggetto
-            if(idParams==null){
-                //objectId = "no id";
-                serializedObject = ObjSer.objToJson(object);
-            }else{
-                //objectId = ObjSer.buildIDJson(object, idParams);
-                serializedObject = ObjSer.objToJson(object);
-            }
-
-        }else{
-            // serializza solo alcuni attributi dell'oggetto
-            //objectId = ObjSer.buildIDJson(object, idParams);
-            serializedObject = ObjSer.buildJson(object, params);
-        }
-
-        return serializedObject;
     }
 
 
