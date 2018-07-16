@@ -33,7 +33,7 @@ component('inserisciUtente', {
                         //username già presente
                         self.errData = "Username già presente!";
                     }
-                    if ( reason.data == 2){
+                    else if ( reason.data == 2){
                         self.errData = "Email già presente";
                     }else {
                         self.modalText = "Si è verificato un Errore!";
