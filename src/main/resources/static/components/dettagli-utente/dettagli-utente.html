@@ -61,6 +61,7 @@
     </div>
 
     <div class="row">
+        <button class="btn" type="button" ng-click="$ctrl.opLog()">Operazioni</button>
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>
         <button class="btn btn-danger" data-target="deleteModal" type="button" ng-show="!$ctrl.modifyMode" ng-click="openModal" modal>Elimina</button>
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.opLog()">Operazioni</button>

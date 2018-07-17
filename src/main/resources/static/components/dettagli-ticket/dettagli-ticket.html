@@ -1,5 +1,5 @@
 <div class="container">
-
+<!--
     <h2 class="header">Dettagli Ticket</h2>
 
     <!-- Modal Structure -->
@@ -69,6 +69,8 @@
     </div>
 
     <div class="row">
+        <button class="btn" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.history()">Storico</button>
+        <button class="btn" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.log()">Log</button>
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.modifica()">Modifica</button>
         <button class="btn btn-danger" data-target="deleteModal" ng-if="$ctrl.role != 2" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="openModal" modal>Elimina</button>
         <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-disabled="ticketForm.$invalid" ng-click="$ctrl.conferma()">Conferma</button>
@@ -78,5 +80,56 @@
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
         <a class='btn' data-target='demoModal' modal open="openModal" ng-show="false"></a>
     </div>
+-->
+    <h2 class="header">Dettagli Ticket</h2>
+    <h5 class="header">{{$ctrl.errData}}</h5>
 
+    <div class="row">
+        <div class="col-xs-6">
+            <form name="userForm" novalidate>
+                <div class="form-group">
+                    <label>ID*</label>
+                    <input type="text" name="name" ng-disabled="true" ng-model="$ctrl.ticket.id">
+                </div>
+                <div class="form-group">
+                    <label>Titolo*</label>
+                    <input type="text" name="name" ng-disabled="true" ng-model="$ctrl.ticket.titolo">
+                </div>
+                <div class="form-group">
+                    <label>Categoria*</label>
+                    <input type="text" name="name" ng-disabled="true" ng-model="$ctrl.ticket.categoria">
+                </div>
+                <div class="form-group">
+                    <label>Descrizione</label>
+                    <textarea type="text" name="name" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.descrizione"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Stato*</label>
+                    <!--<select type="text" name="name" ng-disabled="true" ng-model="$ctrl.ticket.stato">-->
+                    <select ng-disabled="!$ctrl.modifyMode" class="form-control" ng-model="$ctrl.ticket.stato" material-select>
+                        <option value="pending"> Pending </option>
+                        <option value="open"> Open </option>
+                        <option value="released"> Released </option>
+                        <option value="closed"> Closed </option>
+                        <option value="rejected"> Rejected </option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <button class="btn" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.history()">Storico</button>
+        <button class="btn" type="button" ng-click="$ctrl.log()">Operazioni</button>
+        <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>
+        <button class="btn btn-danger" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.elimina($ctrl.utente.id)">Elimina</button>
+        <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
+        <!--
+        <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.conferma()">Conferma</button>
+        -->
+        <button class="btn btn-primary" type="submit" ng-show="$ctrl.modifyMode" ng-click="$ctrl.conferma()" ng-disabled="ticketForm.$invalid"> Conferma </button>
+        <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>
+    </div>
+
+</div>
 </div>

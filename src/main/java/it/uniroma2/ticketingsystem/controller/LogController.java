@@ -61,6 +61,7 @@ public class LogController {
     private List<LocalDate> getAllDayBetween(Timestamp startDate, Timestamp endDate){
         //get all date beetween two timestamp
         long numOfDays = (ChronoUnit.DAYS.between(startDate.toLocalDateTime().toLocalDate(), endDate.toLocalDateTime().toLocalDate()))+1;
+
         List<LocalDate> listDate =
                 IntStream.iterate(0, i -> i + 1)
                         .limit(numOfDays)

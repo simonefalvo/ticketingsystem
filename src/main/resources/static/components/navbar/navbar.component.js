@@ -56,4 +56,8 @@ module('navbar')
             $location.url('/visualizza_log');
         };
 
+        $scope.visAccount = function () {
+            $location.url('/dettagli-account');
+        };
+
     }]});
