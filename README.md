@@ -1,45 +1,171 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+# Logging Component
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+Questo componente permette al programmatore di tenere traccia dell’invocazione di metodi e classi.
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+Per utilizzare questo componente è sufficiente utilizzare le due annotazioni @LogClass e @LogOperation.
 
----
+Sono supportati database relazionali e non relazionali.
 
-## Edit a file
+NB. per tenere traccia dell’utente che compie le operazioni questo componente si appoggia a SpringSecurity. 
+Per permettere l'utilizzo del componente anche in assenza di SpringSecutiry, nella classe LogAspect il codice relativo al logging dell'autore è commentato. Se il tuo progetto utilizza SpringSecurity, puoi decommentarlo per ottenere il logging dell'autore.
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+## Dipendenze
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+* Lombok, JPA, Spring Security
 
----
+* Spring AOP:
 
-## Create a file
+```
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-aop</artifactId>
+</dependency>
+```
+* Apache Reflection:
+```
+<dependency>
+     <groupId>org.apache.commons</groupId>
+     <artifactId>commons-lang3</artifactId>
+     <version>3.4</version>
+</dependency>
+```
+* Mongo:
+```
+<dependency>
+     <groupId>org.springframework.boot</groupId>
+     <artifactId>spring-boot-starter-data-mongodb</artifactId>
+</dependency>
+```
 
-Next, you’ll add a new file to this repository.
+* JPA:
+```
+<dependency>
+     <groupId>org.springframework.data</groupId>
+     <artifactId>spring-data-jpa</artifactId>
+     <version>2.0.8.RELEASE</version>
+</dependency>
+```
 
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
+## Annotazioni
 
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
+Utilizzare questa annotazione per tutti i metodi di cui si vuole registrare l’invocazione. è possibile inoltre tener traccia degli oggetti di input e return. 
 
----
+*@LogOperation:*
 
-## Clone a repository
+* String[] inputArgs() : per specificare eventuali input da registrare. Se non si vuole registrare alcun input, non inserire l’attributo.
 
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
+* boolean returnObject() : true se si vuole registrare l’oggetto di ritorno, false (default) altrimenti.
 
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
+* String opName() : nome dell’operazione. se omesso, viene utilizzato il nome del metodo.
 
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+* String tag() : eventuale tag a discrezione del programmatore.
+
+Utilizzare questa classe per annotare le classi di cui si vuole tener traccia. Per il corretto funzionamento del componente è necessario specificare sempre i campi identificatori della classe.
+
+*@LogClass:*
+
+* String[] logAttrs() : specificare gli attributi d’interesse. se omesso, vengono registrati tutti i campi della classe.
+
+* String[] idAttrs() : specificare i campi identificatori della classe.
+
+
+## Properties
+
+Specificare nel file application.properties la tipologia di database. Se nel tuo progetto sono definite entrambe le tipologie, specifica in quale dei due vuoi le tabelle di logging.
+
+```
+
+spring.profiles.active=jpa
+
+```
+
+```
+
+spring.profiles.active=mongo
+
+```
+
+##Tabelle
+
+* JPA:
+Tramite Hibernate vengono instanziate due tabelle, Record e Payload.
+Nella tabella Record viene registrata l’invocazione dei metodi come segue:
+
+```
+
+||    id    ||    author    ||  operation name  ||    tag    ||    timestamp    ||
+
+```
+    
+
+Nella tabella Payload vengono registrati gli input e output dei metodi. Il campo type differenzia payload input da payload output.
+
+```
+||    id    ||    class_type    ||  json_text  ||    object_id    ||    type    ||    record_id    ||
+```
+
+* Mongo:
+In una unica Collection vengono registrati i Record contenenti i relativi payload. Gli attributi sono elencati nel punto precedente.
+
+## Interfaccia
+
+la classe RecordReader permette al programmatore di interfacciarsi con il componente ed interrogare il database. Per il momento, queste sono le seguenti query:
+
+JPA
+
+* deleteRecord
+* getAllRecords
+* getRecordsByTag
+* getRecordsByAuthors
+* getRecordsByObjectId
+* getRecordsByOperation
+* getNumberOfOpNameEvents
+* getNumberOfTaggedEvents
+* getNumberOfOpNameEventsBetween
+* getNumberOfTaggedEventsBetween
+
+Mongo
+
+* getAllRecords
+* getRecordsByTag
+* getRecordsByAuthor
+* getRecordsByOperationName
+
+
+## Esempio
+
+```
+@Entity
+@LogClass( logAttrs = {“attributeOne”,”attributeTwo”}, idAttrs = {“id”})
+public class ClasseProva {
+
+	private Integer id;
+	private String attributeOne;
+	private String attributeTwo;
+	private String attributeThree;
+}
+```
+```
+@LogOperation( inputArgs = {“classe”}, returnObject = true, tag = “mytag”, opName = “My Method”)
+public ClasseProva myMethod(String str, ClasseProva classe){
+
+	.....
+
+	return classe;
+
+}
+```
+dopo l’invocazione del metodo:
+
+Tabella Record
+```
+||    id    ||    author    ||  operation name  ||       tag       ||         timestamp         ||  
+      10           user            My Method            mytag           2018-06-21 23:06:00.37
+```
+
+Tabella Payload
+```
+||    id    ||       class_type       ||         json_text           ||    object_id    ||    type    ||    record_id    ||
+      11            ClasseProva              { attributeOne: ..            {id:”id”}          input              10
+      12            ClasseProva              { attributeOne: ..            {id:”id”}          return             10
+```
