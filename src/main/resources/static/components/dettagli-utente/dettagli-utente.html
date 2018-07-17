@@ -3,31 +3,53 @@
     <h2 class="header">Dettagli Utente</h2>
     <h5 class="header">{{$ctrl.errData}}</h5>
 
+    <!-- Modal Structure -->
+    <div id="demoModal" class="modal">
+        <div class="modal-content">
+            <h5 class="header">{{$ctrl.modalText}}</h5>
+        </div>
+        <div class="modal-footer">
+            <a href="index#/visualizza_utenti" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h5 class="header">Procedere con l'eliminazione?</h5>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="index#/visualizza_utenti" class=" modal-action modal-close waves-effect waves-green btn-flat" >Annulla</a>
+            <a ng-click="$ctrl.elimina($ctrl.utente.id)" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-xs-6">
             <form name="userForm" novalidate>
                 <div class="form-group">
                     <label>ID</label>
-                    <input type="text" name="name" ng-disabled="true" ng-model="$ctrl.utente.id">
+                    <input type="text" name="id" ng-disabled="true" ng-model="$ctrl.utente.id">
                 </div>
                 <div class="form-group">
                     <label>Ruolo</label>
-                    <input type="text" name="name" ng-disabled="true" ng-model="$ctrl.utente.ruolo.name">
+                    <input type="text" name="ruolo" ng-disabled="true" ng-model="$ctrl.utente.ruolo.name">
                 </div>
                 <div class="form-group">
                     <label>Nome*</label>
-                    <input type="text" name="name" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.nome">
                     <p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="header">Il campo nome è obbligatorio!</p>
+                    <input type="text" name="name" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.nome" required>
                 </div>
                 <div class="form-group">
                     <label>Cognome*</label>
-                    <input type="text" name="cognome" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.cognome">
                     <p ng-show="userForm.cognome.$invalid && !userForm.cognome.$pristine" class="header">Il campo cognome è obbligatorio!</p>
+                    <input type="text" name="cognome" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.cognome" required>
                 </div>
                 <div class="form-group">
                     <label>Username*</label>
-                    <input type="text" name="username" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.username">
                     <p ng-show="userForm.username.$invalid && !userForm.username.$pristine" class="header">Il campo username è obbligatorio!</p>
+
+                    <input type="text" name="username" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.utente.username" required>
                 </div>
                 <div class="form-group">
                     <label>Email*</label>
@@ -36,20 +58,17 @@
                 </div>
             </form>
         </div>
-        <!--
-        <div class="col-xs-6">
-            <button class="btn" type="button" ng-click="$ctrl.opLog()">Operazioni</button>
-        </div>
-        -->
     </div>
 
     <div class="row">
         <button class="btn" type="button" ng-click="$ctrl.opLog()">Operazioni</button>
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>
-        <button class="btn btn-danger" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.elimina($ctrl.utente.id)">Elimina</button>
+        <button class="btn btn-danger" data-target="deleteModal" type="button" ng-show="!$ctrl.modifyMode" ng-click="openModal" modal>Elimina</button>
+        <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.opLog()">Operazioni</button>
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
-        <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.conferma()">Conferma</button>
+        <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-disabled="userForm.$invalid" ng-click="$ctrl.conferma()">Conferma</button>
         <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>
+        <a class='btn' data-target='demoModal' modal open="openModal" ng-show="false"></a>
     </div>
 
 </div>

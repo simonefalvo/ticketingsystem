@@ -2,24 +2,14 @@ package it.uniroma2.ticketingsystem.rest;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import it.uniroma2.ticketingsystem.controller.RuoloController;
 import it.uniroma2.ticketingsystem.controller.UtenteController;
-import it.uniroma2.ticketingsystem.entity.Ruolo;
 import it.uniroma2.ticketingsystem.entity.Utente;
 import it.uniroma2.ticketingsystem.event.UtenteEvent;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
-import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
-import it.uniroma2.ticketingsystem.logger.entity.Record;
-import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
-import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.annotation.Bean;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.orm.hibernate5.HibernateJdbcException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,9 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 // @RestController e @Controller identificano uno Spring Bean che nell'architettura MVC è l'anello di congiunzione tra
@@ -75,9 +63,12 @@ import java.util.Map;
 
             Utente utenteCreato = utenteController.creaUtente(utente);
 
+            /*
             UtenteEvent utenteEvent =  new UtenteEvent(this,utente,0);
             applicationEventPublisher.publishEvent(utenteEvent);
+*/
             return new ResponseEntity<>(0, HttpStatus.OK);
+
 
         }
 
@@ -188,6 +179,27 @@ import java.util.Map;
             if (user.getRuolo().getName().equals("ADMIN"))
                 isAdmin = true;
             return new ResponseEntity<>(isAdmin, HttpStatus.OK);
+        }
+
+        @RequestMapping(path = "getRole", method = RequestMethod.GET)
+        public ResponseEntity<Integer> getRole() {
+            Integer role = -1;
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Utente user = utenteController.cercaPerUsername(auth.getName());
+            if (user.getRuolo().getName().equals("ADMIN"))
+                role = 0;
+            if (user.getRuolo().getName().equals("OPERATOR"))
+                role = 1;
+            if (user.getRuolo().getName().equals("USER"))
+                role = 2;
+            return new ResponseEntity<>(role, HttpStatus.OK);
+        }
+
+        @RequestMapping(path = "logged", method = RequestMethod.GET)
+        public ResponseEntity<Utente> getLogged() {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Utente user = utenteController.cercaPerUsername(auth.getName());
+            return new ResponseEntity<>(user, HttpStatus.OK);
         }
 
         /*

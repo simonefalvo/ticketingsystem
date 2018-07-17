@@ -1,6 +1,7 @@
 package it.uniroma2.ticketingsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import it.uniroma2.ticketingsystem.logger.aspect.LogClass;
 import lombok.Getter;
@@ -42,6 +43,7 @@ public class Utente {
     @ManyToOne
     private Ruolo ruolo;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "autore", cascade = CascadeType.ALL)
     private Set<Ticket> ticketAperti;
 

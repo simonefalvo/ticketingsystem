@@ -1,19 +1,15 @@
 package it.uniroma2.ticketingsystem.aud;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.uniroma2.ticketingsystem.controller.ReflectionController;
 import it.uniroma2.ticketingsystem.entity.Ruolo;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.lang.reflect.Field;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Set;
 import it.uniroma2.ticketingsystem.entity.Utente;
 
@@ -22,9 +18,11 @@ import it.uniroma2.ticketingsystem.entity.Utente;
 @NoArgsConstructor
 @Getter
 @Setter
+/*
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
+*/
 public class UtenteAudit {
     @Id
     @GeneratedValue
@@ -36,19 +34,20 @@ public class UtenteAudit {
     private String username;
     private String password;
     private String email;
+    private Timestamp timestamp;
+    private int operazione;
 
     @ManyToOne
     private Ruolo ruolo;
 
-    //@Column(name = "edit_time")
-    private Timestamp timestamp;
 
-    private int operazione;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "autore", cascade = CascadeType.ALL)
     private Set<TicketAudit> ticketAperti;
 
     @OneToMany(mappedBy = "teamMember", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<TicketAudit> ticketAssegnati;
 
 
@@ -101,7 +100,6 @@ public class UtenteAudit {
         this.ruolo = utente.getRuolo();
         this.timestamp = timestamp;
         this.operazione = operazione;
-
     }
 
 

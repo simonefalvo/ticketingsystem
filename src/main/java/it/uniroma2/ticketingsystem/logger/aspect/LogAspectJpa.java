@@ -1,18 +1,20 @@
 package it.uniroma2.ticketingsystem.logger.aspect;
 
-import it.uniroma2.ticketingsystem.logger.entity.Payload;
+import it.uniroma2.ticketingsystem.logger.controller.RecordControllerJpa;
+import it.uniroma2.ticketingsystem.logger.entity.jpa.Payload;
+import it.uniroma2.ticketingsystem.logger.entity.jpa.Record;
 import it.uniroma2.ticketingsystem.logger.exception.ObjNotFoundException;
 import it.uniroma2.ticketingsystem.logger.utils.AspectUtils;
 import it.uniroma2.ticketingsystem.logger.utils.ObjSer;
-import it.uniroma2.ticketingsystem.logger.entity.Record;
-import it.uniroma2.ticketingsystem.logger.RecordController;
 import it.uniroma2.ticketingsystem.logger.utils.ReflectUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -22,13 +24,17 @@ import java.util.HashSet;
 
 @Aspect
 @Component
-public class LogAspect {
+
+@Configuration
+@Profile("jpa")
+public class LogAspectJpa {
 
     @Autowired
-    private RecordController recordController;
+    private RecordControllerJpa recordController;
 
     @Around("@annotation(LogOperation)")
     public Object logOperationAdvice(ProceedingJoinPoint jp) throws Throwable {
+
 
         // run annotated method
         Object returnObject = jp.proceed();
@@ -45,7 +51,7 @@ public class LogAspect {
 
         //Get author name
         String author = null;
-        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth != null)
             author = auth.getName();
 
@@ -63,7 +69,7 @@ public class LogAspect {
 
         if (returnObjectName) {
             try {
-                serializedReturnObject = serializeObject(returnObject);
+                serializedReturnObject = ObjSer.serializeObject(returnObject);
                 String idJSON = ObjSer.buildIDJson(returnObject, ReflectUtils.getIDParameters(returnObject));
                 payloads[payloads.length-1] = new Payload(serializedReturnObject, idJSON,"output", returnObject.getClass().getSimpleName(),record);
             }
@@ -86,7 +92,7 @@ public class LogAspect {
                 try {
                     inputArgs[i] = ReflectUtils.getMethodParameter(inputArgsNames[i], signature, jp.getArgs());
                     //oggetto Serializzato
-                    serializedObject[i] = serializeObject(inputArgs[i]);
+                    serializedObject[i] = ObjSer.serializeObject(inputArgs[i]);
                     //id dell'oggetto serializzato
                     String idJSON = ObjSer.buildIDJson(inputArgs[i], ReflectUtils.getIDParameters(inputArgs[i]));
 
@@ -99,47 +105,11 @@ public class LogAspect {
             }
         }
 
-        record.setPayloads(new HashSet<>(Arrays.asList(payloads)));
+        record.bindPayloads(new HashSet<>(Arrays.asList(payloads)));
 
         recordController.createRecord(record);
         return returnObject;
 
     }
-
-
-
-
-
-    private static String serializeObject(Object object) throws Throwable {
-        String[] params = null;
-        String[] idParams = null;
-
-        params = ReflectUtils.getParameters(object);
-        idParams = ReflectUtils.getIDParameters(object);
-
-
-        //String objectId ="";
-
-        String serializedObject;
-
-        if(params == null){
-            // serializza tutti i parametri dell oggetto
-            if(idParams==null){
-                //objectId = "no id";
-                serializedObject = ObjSer.objToJson(object);
-            }else{
-                //objectId = ObjSer.buildIDJson(object, idParams);
-                serializedObject = ObjSer.objToJson(object);
-            }
-
-        }else{
-            // serializza solo alcuni attributi dell'oggetto
-            //objectId = ObjSer.buildIDJson(object, idParams);
-            serializedObject = ObjSer.buildJson(object, params);
-        }
-
-        return serializedObject;
-    }
-
 
 }

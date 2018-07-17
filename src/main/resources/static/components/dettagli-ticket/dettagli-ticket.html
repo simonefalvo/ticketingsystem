@@ -2,27 +2,68 @@
 <!--
     <h2 class="header">Dettagli Ticket</h2>
 
+    <!-- Modal Structure -->
+    <div id="demoModal" class="modal">
+        <div class="modal-content">
+            <h5 class="header">{{$ctrl.modalText}}</h5>
+        </div>
+        <div class="modal-footer">
+            <a href="index#/visualizza_ticket" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h5 class="header">Procedere con l'eliminazione?</h5>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="index#/visualizza_ticket" class=" modal-action modal-close waves-effect waves-green btn-flat" >Annulla</a>
+            <a ng-click="$ctrl.elimina($ctrl.ticket.id)" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+        </div>
+    </div>
+
     <div class="row">
 
         <div class="col-xs-6">
-            <p>ID : {{$ctrl.ticket.id}}</p>
-            <p ng-if="!$ctrl.audit">Oggetto : <a ng-href="#/dettagli-oggetto/{{$ctrl.ticket.oggetto.id}}">{{$ctrl.ticket.oggetto.nome + " " + $ctrl.ticket.oggetto.versione}}</a></p>
-            <p>Titolo :</p>
-            <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.titolo">
-            <p>Categoria :</p>
-            <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.categoria">
-            <p>Descrizione :</p>
-            <textarea ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.descrizione"></textarea>
-            <p>Stato :</p>
-            <div class="col-xs-6">
-                <select ng-disabled="!$ctrl.modifyMode" class="form-control" ng-model="$ctrl.ticket.stato" material-select>
+            <form name="ticketForm" novalidate>
+                <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" name="id" ng-disabled="true" ng-model="$ctrl.ticket.id">
+                </div>
+                <div class="form-group" ng-if="!$ctrl.audit">
+                    <label>Oggetto : </label>
+                    <a ng-href="#/dettagli-oggetto/{{$ctrl.ticket.oggetto.id}}"> {{$ctrl.ticket.oggetto.nome + ' ' + $ctrl.ticket.oggetto.versione}} </a>
+                </div>
+
+                <div class="form-group">
+                    <label>Titolo*</label>
+                    <p ng-show="ticketForm.name.$invalid && !ticketForm.name.$pristine" class="header">Il campo titolo è obbligatorio!</p>
+                    <input type="text" name="titolo" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.titolo" required>
+                </div>
+                <div class="form-group">
+                    <label>Categoria*</label>
+                    <p ng-show="ticketForm.name.$invalid && !ticketForm.name.$pristine" class="header">Il campo categoria è obbligatorio!</p>
+                    <input type="text" name="categoria" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.categoria" required>
+                </div>
+                <div class="form-group">
+                    <label>Descizione*</label>
+                    <input type="text" name="descrizione" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.ticket.descrizione" >
+                </div>
+                <div class="form-group">
+                    <label>Stato*</label>
+                    <p ng-show="ticketForm.name.$invalid && !ticketForm.name.$pristine" class="header">Il campo stato è obbligatorio!</p>
+                    <select ng-disabled="!$ctrl.modifyMode || $ctrl.role == 2" class="form-control" ng-model="$ctrl.ticket.stato" material-select>
                         <option value="pending"> Pending </option>
                         <option value="open"> Open </option>
                         <option value="released"> Released </option>
                         <option value="closed"> Closed </option>
                         <option value="rejected"> Rejected </option>
-                </select>
-            </div>
+                    </select>
+                </div>
+
+            </form>
+
         </div>
 
     </div>
@@ -31,10 +72,13 @@
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.history()">Storico</button>
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.log()">Log</button>
         <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.modifica()">Modifica</button>
-        <button class="btn btn-danger" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.elimina($ctrl.ticket.id)">Elimina</button>
-        <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
-        <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.conferma()">Conferma</button>
+        <button class="btn btn-danger" data-target="deleteModal" ng-if="$ctrl.role != 2" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="openModal" modal>Elimina</button>
+        <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-disabled="ticketForm.$invalid" ng-click="$ctrl.conferma()">Conferma</button>
         <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>
+        <button class="btn" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.history()">Storico</button>
+        <button class="btn" type="button" ng-show="!$ctrl.modifyMode && !$ctrl.audit" ng-click="$ctrl.log()">Log</button>
+        <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
+        <a class='btn' data-target='demoModal' modal open="openModal" ng-show="false"></a>
     </div>
 -->
     <h2 class="header">Dettagli Ticket</h2>

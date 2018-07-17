@@ -50,8 +50,9 @@ public class TicketAuditController {
     }
 
 
-    public Integer numberOfStatusTickets(String status){
-        return ticketAuditDao.numberOfStatusTickets(status);
+    public Integer numberOfTicketsActualyWithThisStatus(String status){
+
+        return ticketAuditDao.numberOfTicketsActualyWithThisStatus(status);
     }
 
     public Integer dailyTickets(String t, String stato) throws ParseException {

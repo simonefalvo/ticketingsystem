@@ -1,14 +1,12 @@
 package it.uniroma2.ticketingsystem.rest;
 
 import it.uniroma2.ticketingsystem.controller.UtenteController;
-import it.uniroma2.ticketingsystem.dao.UtenteDao;
 import it.uniroma2.ticketingsystem.entity.Ruolo;
 import it.uniroma2.ticketingsystem.entity.Utente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-import java.util.Set;
 
 
 @RestController
@@ -43,6 +39,8 @@ public class LoginRestController {
         if (ruolo.getName().equals("ADMIN")){
             return new ModelAndView("redirect:index");
         }else if (ruolo.getName().equals("USER")){
+            return new ModelAndView("redirect:index");
+        }else if (ruolo.getName().equals("OPERATOR")){
             return new ModelAndView("redirect:index");
         }
         return null;

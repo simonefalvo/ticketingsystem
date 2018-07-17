@@ -1,4 +1,4 @@
-package it.uniroma2.ticketingsystem.logger.entity;
+package it.uniroma2.ticketingsystem.logger.entity.jpa;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -43,11 +43,17 @@ public class Record {
 
     }
 
-    public Record(String operationName, String author, String tag, Set<Payload> payloads, Timestamp recordTimeStamp) {
+
+    public Record(@NotNull String operationName, String author, String tag, Set<Payload> payloads) {
         this.operationName = operationName;
         this.author = author;
         this.tag = tag;
         this.payloads = payloads;
-        this.timestamp = recordTimeStamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
+
+    public void bindPayloads(Set<Payload> payloads) {
+        this.payloads = payloads;
+    }
+
 }

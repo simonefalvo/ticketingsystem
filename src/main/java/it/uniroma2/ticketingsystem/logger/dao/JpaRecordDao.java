@@ -1,8 +1,9 @@
-package it.uniroma2.ticketingsystem.logger;
+package it.uniroma2.ticketingsystem.logger.dao;
 
-import it.uniroma2.ticketingsystem.logger.entity.Record;
+import it.uniroma2.ticketingsystem.logger.entity.jpa.Record;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,10 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
-public interface RecordDao extends JpaRepository<Record,Integer> {
+
+@Configuration
+@Profile("jpa")
+public interface JpaRecordDao extends JpaRepository<Record,Integer> {
 
     @Query("select r from Record r where r.tag = ?1")
     List<Record> getRecordsByTag(@NotNull String tag);

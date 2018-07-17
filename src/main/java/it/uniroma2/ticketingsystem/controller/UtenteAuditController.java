@@ -22,7 +22,7 @@ public class UtenteAuditController {
         return utenteAuditSalvato;
 
     }
-
+    @Transactional
     public boolean eliminaUtenteAudit(@NotNull Integer id){
         if(!utenteAuditDao.existsById(id)){
             return false;
@@ -35,5 +35,17 @@ public class UtenteAuditController {
     @Transactional
     public void registraUtente(UtenteAudit utenteAudit){
         utenteAuditDao.save(utenteAudit);
+    }
+
+    @Transactional
+    public @NotNull UtenteAudit getMostRecentUtenteAudit(@NotNull Utente utente){
+        System.out.println("\n\n\n\n getMostRecentUtenteAudit utente ID = "+utente.getId());
+        Integer audit_id = utenteAuditDao.getIdOfMostRecentUtenteAuditByUtente(utente.getId());
+        System.out.println("\n audit_id = "+audit_id);
+        UtenteAudit utenteAuditMostRecent = utenteAuditDao.getOne(audit_id.intValue());
+        if(utenteAuditMostRecent == null)
+            System.out.println("\n\n\n\n\n\n\n oggettoAuditMostRecent is null \n\n\n\n");
+        //OggettoAudit oggettoAuditMostRecent = oggettoAuditDao.getMostRecentOggettoAudit(oggetto.getId());
+        return utenteAuditMostRecent;
     }
 }

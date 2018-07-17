@@ -2,10 +2,11 @@ package it.uniroma2.ticketingsystem.controller;
 
 import it.uniroma2.ticketingsystem.dao.TicketDao;
 import it.uniroma2.ticketingsystem.entity.Ticket;
+import it.uniroma2.ticketingsystem.entity.Utente;
 import it.uniroma2.ticketingsystem.exception.EntitaNonTrovataException;
-import it.uniroma2.ticketingsystem.logger.RecordReader;
+import it.uniroma2.ticketingsystem.logger.reader.RecordReaderJpa;
 import it.uniroma2.ticketingsystem.logger.aspect.LogOperation;
-import it.uniroma2.ticketingsystem.logger.entity.Record;
+import it.uniroma2.ticketingsystem.logger.entity.jpa.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class TicketController {
     @Autowired
     private TicketDao ticketDao;
     @Autowired
-    private RecordReader recordReader;
+    private RecordReaderJpa recordReader;
 
     @Transactional
     @LogOperation(inputArgs = "ticket")
@@ -28,7 +29,7 @@ public class TicketController {
     }
 
     @Transactional
-    @LogOperation(returnObject = true)
+    @LogOperation(inputArgs = {"id","datiAggiornati"}, returnObject = true, tag = "myTag")
     public @NotNull Ticket aggiornaTicket(@NotNull Integer id, @NotNull Ticket datiAggiornati) throws EntitaNonTrovataException {
         Ticket ticketDaAggiornare = ticketDao.getOne(id);
         if (ticketDaAggiornare == null)
@@ -40,6 +41,7 @@ public class TicketController {
     }
 
     @LogOperation(inputArgs = "id")
+    @Transactional
     public boolean eliminaTicket(@NotNull Integer id){
         if(!ticketDao.existsById(id)){
             return false;
@@ -47,13 +49,17 @@ public class TicketController {
         ticketDao.deleteById(id);
         return true;
     }
-
+    @LogOperation(inputArgs = "id",opName = "Ricerca di un Ticket")
     public Ticket cercaTicketById(@NotNull Integer id){
         return ticketDao.getOne(id);
     }
 
     public List<Ticket> prelevaTickets() {
         return ticketDao.findAll();
+    }
+
+    public List<Ticket> prelevaTicketsByUser(Utente user){
+        return ticketDao.getTicketsByUserID(user);
     }
 
     public Integer numberOfStatusTickets(String status) {

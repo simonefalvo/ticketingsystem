@@ -22,8 +22,6 @@ public class StatoTicketAudit {
     private Integer id;
 
     private Integer idTicket;
-
-    //@Column(name = "edit_time")
     private Timestamp timestamp;
     private String stato;
 

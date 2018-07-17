@@ -56,13 +56,8 @@ app.controller('GraphCtrl', function($scope, $http, $q){
         series : [
             {
                 values : [],
-                backgroundColor : "#616cb0",
-                text: "Others ",
-                detached: true
-            }, {
-                values : [],
-                backgroundColor : "#07b006",
-                text: "Closed ",
+                backgroundColor : "#b0a513",
+                text: "Accepted ",
                 detached: true
             }, {
                 values : [],
@@ -187,20 +182,15 @@ app.controller('GraphCtrl', function($scope, $http, $q){
 
 
 
-        getNumber("ticketaudit/status/", "closed").then(function (value) {
-            $scope.myPie.series[1].values[0]= value;
+        getNumber("ticketaudit/status/", "other").then(function (value) {
+            $scope.myPie.series[0].values[0]= value;
         }, function (reason) {
             alert(reason);
         });
+
 
         getNumber("ticketaudit/status/", "rejected").then(function (value) {
-            $scope.myPie.series[2].values[0]= value;
-        }, function (reason) {
-            alert(reason);
-        });
-
-        getNumber("ticketaudit/status/", "others").then(function (value) {
-            $scope.myPie.series[0].values[0] = value;
+            $scope.myPie.series[1].values[0] = value;
         }, function (reason) {
             alert(reason);
         });
@@ -230,6 +220,10 @@ app.controller('GraphCtrl', function($scope, $http, $q){
             alert("Non hai inserito una data di fine!");
             return;
         }
+        if(start.getTime() > end.getTime()){
+            alert("Controlla le date da te inserite!");
+            return;
+        }
         getLogTickets("log/", start.getTime().toString(), end.getTime().toString()).then(function (value) {
             buildSeries(value);
         }, function (reason) {
@@ -243,6 +237,8 @@ app.controller('GraphCtrl', function($scope, $http, $q){
         var total = 0;
         var sum = 0;
         console.log("BUILDING");
+
+
         for (key in map) {
             console.log(new Date(parseInt(key, 10)));
             console.log(map[key]);

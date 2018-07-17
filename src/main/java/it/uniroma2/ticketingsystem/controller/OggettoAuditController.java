@@ -38,9 +38,8 @@ public class OggettoAuditController {
             System.out.println("\n\n\n\n\n\n\n oggettoAuditMostRecent is null \n\n\n\n");
         //OggettoAudit oggettoAuditMostRecent = oggettoAuditDao.getMostRecentOggettoAudit(oggetto.getId());
         return oggettoAuditMostRecent;
-
     }
-
+    @Transactional
     public boolean eliminaOggettoAudit(@NotNull Integer id){
         if(!oggettoAuditDao.existsById(id)){
             return false;

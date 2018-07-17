@@ -1,18 +1,49 @@
 package it.uniroma2.ticketingsystem.logger.utils;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.lang3.reflect.FieldUtils;
+
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 
 import static it.uniroma2.ticketingsystem.logger.utils.PersistenceUtils.initializeAndUnproxy;
 import static org.hibernate.proxy.HibernateProxyHelper.getClassWithoutInitializingProxy;
 
 public abstract class ObjSer {
 
+
+    public static String serializeObject(Object object) throws Throwable {
+        String[] params = null;
+        String[] idParams = null;
+
+        params = ReflectUtils.getParameters(object);
+        idParams = ReflectUtils.getIDParameters(object);
+
+
+        //String objectId ="";
+
+        String serializedObject;
+
+        if(params == null){
+            // serializza tutti i parametri dell oggetto
+            if(idParams==null){
+                //objectId = "no id";
+                serializedObject = ObjSer.objToJson(object);
+            }else{
+                //objectId = ObjSer.buildIDJson(object, idParams);
+                serializedObject = ObjSer.objToJson(object);
+            }
+
+        }else{
+            // serializza solo alcuni attributi dell'oggetto
+            //objectId = ObjSer.buildIDJson(object, idParams);
+            serializedObject = ObjSer.buildJson(object, params);
+        }
+
+        return serializedObject;
+    }
 
     public static String objToJson(Object object){
 

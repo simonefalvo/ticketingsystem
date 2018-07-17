@@ -2,12 +2,12 @@
 <html lang="en">
 
 <header>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
-
-<script type="text/javascript" src="../../src/angular-materialize.js"></script>
+    <script type="text/javascript" src="../../src/angular-materialize.js"></script>
 </header>
 
 
@@ -17,15 +17,26 @@
     <!--Maybe a logo?-->
     <!--<li class="logo" style="margin-left: -15px;"><a id="logo-container" href="http://materializecss.com/"class="brand-logo"><h3></h3></a></li>-->
 
-    <li class="bold" ng-if="$ctrl.isAdmin"><a>Benvenuto Admin</a></li>
-    <li class="bold" ng-if="! $ctrl.isAdmin"><a>Benvenuto Utente</a></li>
+
+    <li>
+        <div class="user-view">
+            <p href=""><span class="name">Username : {{logged.username}}</span></p>
+            <p href=""><span class="email">Email : {{logged.email}}</span></p>
+            <p href=""><span class="email">Ruolo : {{logged.ruolo.name}}</span></p>
+        </div>
+    </li>
+
+    <!--<li class="bold" ng-if="$ctrl.isAdmin"><a>Benvenuto Admin</a></li>
+    <li class="bold" ng-if="! $ctrl.isAdmin"><a>Benvenuto Utente</a></li>-->
+
+    <li><div class="divider"></div></li>
 
 
     <li class="bold"><a href="#" class="waves-effect waves-teal">Dashboard</a></li>
 
     <li class="no-padding">
         <ul class="collapsible collapsible-accordion">
-            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Ticket</a>
+            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Ticket<i class="material-icons left">style</i></a>
                 <div class="collapsible-body">
                     <ul>
                         <li><a href="" ng-click="insertTicket()">Inserisci Ticket</a></li>
@@ -36,10 +47,10 @@
         </ul>
     </li>
 
-    <li class="no-padding" ng-if="$ctrl.isAdmin">
+    <li class="no-padding" ng-if="$ctrl.role == 0">
         <ul class="collapsible collapsible-accordion">
-            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Utenti</a>
-                <div class="collapsible-body">
+            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Utenti <i class="material-icons left">people</i></a>
+                <div class="collapsible-body" >
                     <ul>
                         <li><a href="" ng-click="insertUser()">Inserisci Utente</a></li>
                         <li><a href="" ng-click="visUsers()">Visualizza Utenti</a></li>
@@ -51,10 +62,10 @@
 
     <li class="no-padding">
         <ul class="collapsible collapsible-accordion">
-            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Oggetti</a>
+            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Oggetti <i class="material-icons left">extension</i></a>
                 <div class="collapsible-body">
                     <ul>
-                        <li><a href="" ng-if="$ctrl.isAdmin" ng-click="insertObject()">Inserisci Oggetto</a></li>
+                        <li><a href="" ng-if="$ctrl.role != 2" ng-click="insertObject()">Inserisci Oggetto</a></li>
                         <li><a href="" ng-click="visObjects()">Visualizza Oggetti</a></li>
                     </ul>
                 </div>
@@ -62,9 +73,9 @@
         </ul>
     </li>
 
-    <li class="no-padding" ng-if="$ctrl.isAdmin">
+    <li class="no-padding" ng-if="$ctrl.role == 0">
         <ul class="collapsible collapsible-accordion">
-            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Log</a>
+            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Log<i class="material-icons left">find_in_page</i></a>
                 <div class="collapsible-body">
                     <ul>
                         <li><a href="" ng-click="visLog()">Visualizza Log</a></li>
@@ -74,18 +85,20 @@
         </ul>
     </li>
 
-    <li class="no-padding" ng-if="$ctrl.isAdmin">
+    <li class="no-padding" ng-if="$ctrl.role == 0">
         <ul class="collapsible collapsible-accordion">
-            <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Grafici</a>
+            <li class="bold"><a class="collapsible-header waves-effect waves-teal active ">Grafici <i class="material-icons left">multiline_chart</i></a>
                 <div class="collapsible-body">
                     <ul>
-                        <li><a href="" ng-click="visGraphs()">Visualizza Grafici</a></li>
+                        <li><a href="" ng-click="visGraphs()">Visualizza Grafici </a></li>
                     </ul>
                 </div>
             </li>
         </ul>
     </li>
 
+    <li class="bold"><a href="logout" class="waves-effect waves-teal">Logout <i class="material-icons left">power_settings_new</i></a></li>
+<!--
     <li class="no-padding">
         <ul class="collapsible collapsible-accordion">
             <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Account</a>
@@ -100,6 +113,7 @@
 
 
     <li class="bold"><a href="logout" class="waves-effect waves-teal">Logout</a></li>
+-->
 
 </ul>
 

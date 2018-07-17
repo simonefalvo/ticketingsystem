@@ -1,18 +1,51 @@
 <div class="container">
-<!--
+
     <div class="row">
 
         <h2 class="header">Dettagli Oggetto</h2>
 
-    <p>ID : {{$ctrl.oggetto.id}}</p>
-    <p>Nome :</p>
-    <input ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.oggetto.nome">
-    <p>Versione :</p>
-    <input ng-disabled="true" ng-model="$ctrl.oggetto.versione">
--->
 
-    <h2 class="header">Dettagli Oggetto</h2>
-    <h5 class="header">{{$ctrl.errData}}</h5>
+        <!-- Modal Structure -->
+        <div id="demoModal" class="modal">
+            <div class="modal-content">
+                <h5 class="header">{{$ctrl.modalText}}</h5>
+            </div>
+            <div class="modal-footer">
+                <a href="index#/visualizza_oggetti" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+            </div>
+        </div>
+
+        <!-- Modal Structure -->
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <h5 class="header">Procedere con l'eliminazione?</h5>
+            </div>
+            <div class="modal-footer">
+                <a ng-click="index#/visualizza_oggetti" class=" modal-action modal-close waves-effect waves-green btn-flat" >Annulla</a>
+                <a ng-click="$ctrl.elimina($ctrl.oggetto.id)" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+            </div>
+        </div>
+
+        <form name="objForm" novalidate>
+
+            <div class="form-group">
+                <label>ID*</label>
+                <input type="text" name="id" ng-disabled="true" ng-model="$ctrl.oggetto.id">
+            </div>
+
+            <div class="form-group">
+                <label>Nome*</label>
+                <p ng-show="objForm.name.$invalid && !objForm.name.$pristine" class="header">Il campo nome è obbligatorio!</p>
+                <input type="text" name="name" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.oggetto.nome" required>
+            </div>
+
+            <div class="form-group">
+                <label>Versione*</label>
+                <p ng-show="objForm.versione.$invalid && !objForm.versione.$pristine" class="header">Il campo Versione è obbligatorio!</p>
+                <input type="text" name="versione" ng-disabled="!$ctrl.modifyMode" ng-model="$ctrl.oggetto.versione" required>
+            </div>
+
+        </form>
 
     <div class="row">
         <div class="col-xs-6">
@@ -32,11 +65,12 @@
             </form>
         </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>
-        <button class="btn btn-danger" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.elimina($ctrl.oggetto.id)">Elimina</button>
+        <button class="btn btn-primary" type="button" ng-if="$ctrl.role !=2" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.modifica()">Modifica</button>
+        <button class="btn btn-danger" type="button" ng-if="$ctrl.role !=2" ng-show="!$ctrl.modifyMode" data-target="deleteModal" ng-click="openModal" modal>Elimina</button>
         <button class="btn" type="button" ng-show="!$ctrl.modifyMode" ng-click="$ctrl.indietro()">Indietro</button>
-        <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.conferma()">Conferma</button>
+        <button class="btn btn-primary" type="button" ng-show="$ctrl.modifyMode" ng-disabled="objForm.$invalid" ng-click="$ctrl.conferma()">Conferma</button>
         <button class="btn btn-danger" type="button" ng-show="$ctrl.modifyMode" ng-click="$ctrl.annulla()">Annulla</button>
+        <a class='btn' data-target='demoModal' modal open="openModal" ng-show="false"></a>
     </div>
 
     </div>

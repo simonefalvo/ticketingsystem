@@ -5,7 +5,7 @@ angular.
 module('dettagliUtente').
 component('dettagliUtente', {
     templateUrl: 'components/dettagli-utente/dettagli-utente.html',
-    controller: ['$http', '$routeParams', '$location', function dettagliUtenteController($http, $routeParams, $location) {
+    controller: ['$http', '$routeParams', '$location','$scope', function dettagliUtenteController($http, $routeParams, $location,scope) {
 
         var self = this;
         var modifyMode = false;
@@ -27,14 +27,14 @@ component('dettagliUtente', {
 
         self.elimina = function (utenteId) {
 
-            if (confirm("Procedere con l'eliminazione?")) {
                 $http.delete('utente/' + utenteId.toString()).then(function () {
-                    $location.path('/visualizza_utenti');
-                    alert("Utente eliminato con successo!");
+                    self.modalText = "Utente eliminato con successo!";
+                    scope.openModal = true;
                 }, function (reason) {
-                    alert(reason.toLocaleString());
+                    //alert(reason.toLocaleString());
+                    self.modalText = "Si è verificato un Errore!";
+                    scope.openModal = true;
                 });
-            }
         };
 
         self.modifica = function () {
@@ -48,7 +48,8 @@ component('dettagliUtente', {
         self.conferma = function () {
             $http.put('utente/' + self.utente.id.toString(), self.utente).
             then(function () {
-                alert("Utente modificato con successo!");
+                self.modalText = "Utente modificato con successo!";
+                scope.openModal = true;
                 self.modifyMode = false;
             }, function (reason) {
                 if (reason.data == -1){
@@ -59,6 +60,9 @@ component('dettagliUtente', {
                 }
                 if (reason.data == 2){
                     self.errData = "Email già presente!";
+                }else{
+                    self.modalText = "Si è verificato un Errore!";
+                    scope.openModal = true;
                 }
             });
         };

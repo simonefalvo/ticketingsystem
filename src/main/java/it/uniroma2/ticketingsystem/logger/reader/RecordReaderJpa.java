@@ -1,21 +1,24 @@
-package it.uniroma2.ticketingsystem.logger;
+package it.uniroma2.ticketingsystem.logger.reader;
 
-import it.uniroma2.ticketingsystem.logger.entity.Record;
+import it.uniroma2.ticketingsystem.logger.controller.RecordControllerJpa;
+import it.uniroma2.ticketingsystem.logger.entity.jpa.Record;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.sql.Time;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.validation.constraints.NotNull;
 
 @Component
-public class RecordReader {
+
+@Configuration
+@Profile("jpa")
+public class RecordReaderJpa {
 
     @Autowired
-    private RecordController recordController;
+    private RecordControllerJpa recordController;
 
     public void deleteRecord(@NotNull Integer id){
         recordController.deleteRecord(id);

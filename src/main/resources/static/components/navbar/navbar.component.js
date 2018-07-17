@@ -10,12 +10,19 @@ module('navbar')
         var self = this;
 
         function get_role() {
-            $http.get('utente/isAdmin').then(function (response) {
-                self.isAdmin = response.data;
+            $http.get('utente/getRole').then(function (response) {
+                self.role = response.data;
+            });
+        }
+
+        function get_logged() {
+            $http.get('utente/logged').then(function (response) {
+                $scope.logged = response.data;
             });
         }
 
         get_role();
+        get_logged();
 
         $scope.insertUser = function () {
             $location.url('/nuovo_utente');

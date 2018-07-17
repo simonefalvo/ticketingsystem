@@ -1,11 +1,22 @@
 'use strict';
 
+angular.
+module('ticketHistory').filter('operationFilter', function() {
+    return function(operazione){
+        if(operazione==0)
+            return 'Inserimento';
+        if (operazione==1)
+            return 'Modifica';
+
+    }
+});
+
 // Register `ticketHistory` component, along with its associated controller and template
 angular.
 module('ticketHistory').
 component('ticketHistory', {
     templateUrl: 'components/ticket-history/ticket-history.html',
-    controller: ['$http', '$routeParams', '$location', function ticketHistoryController($http, $routeParams, $location) {
+    controller: ['$http', '$routeParams', '$location','$scope', function ticketHistoryController($http, $routeParams, $location,$scope) {
 
         var self = this;
 

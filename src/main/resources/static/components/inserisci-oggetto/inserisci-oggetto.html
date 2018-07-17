@@ -4,6 +4,16 @@
 
         <h2 class="header">Inserisci Nuovo Oggetto</h2>
 
+        <!-- Modal Structure -->
+        <div id="demoModal" class="modal">
+            <div class="modal-content">
+                <h5 class="header">{{$ctrl.modalText}}</h5>
+            </div>
+            <div class="modal-footer">
+                <a href="index#/visualizza_oggetti" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+            </div>
+        </div>
+
         <form name="objForm" novalidate>
 
             <div class="form-group">
@@ -22,6 +32,7 @@
 
             <button type="submit" ng-click="$ctrl.inserisci()" class="btn btn-primary" ng-disabled="objForm.$invalid"> Inserisci </button>
             <button type="reset" ng-click="$ctrl.annulla()" class="btn btn-primary"> Annulla </button>
+            <a class='btn' data-target='demoModal' modal open="openModal" ng-show="false"></a>
 
         </form>
 
